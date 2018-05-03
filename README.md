@@ -1,6 +1,46 @@
-## Spork
+# Spork
+
+A recipe website that gives you a handsfree recipe view when cooking and the easy ability to copy (we call it sporking) a recipe to save in your own recipe box.
 
 [Spork](http://)
+
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Install yarn by running the following command lines
+
+* curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+* echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee
+* /etc/apt/sources.list.d/yarn.list
+* sudo apt-get update && sudo apt-get install --no-install-recommends yarn
+
+### Install Ruby, rails, and foreman by running the following command lines
+
+* rvm install 2.4.1 
+* rvm use 2.4.1 --default
+* rvm list
+* gem install rails
+* gem install foreman
+
+### Fork and Clone this repo
+
+### Get dependencies for ruby and react by running the following command lines
+
+* bundle
+* yarn
+
+### Start server with the following command line
+
+### Database Creation
+
+### Database Initialization
+
+* foreman start -f Procfile.dev
+
+travel to http://localhost:3000 to view the development page
+
+## Running the Tests
+
 
 ## Versions
 
@@ -16,40 +56,13 @@
 * react-dom   ^16.3.2",
 * react-on-rails   ^11.0.3"
 
-## System Dependencies
+## Authors
 
-## Configuration
+* Andrew Barclay
+* Phil Werner
+* Elyott Ryan
+* Craig Rice
 
-## Database Creation
+## License
 
-## Database Initialization
-
-## How to run the development suite
-
-# Install yarn by running the following command lines
-
-* curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-* echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee
-* /etc/apt/sources.list.d/yarn.list
-* sudo apt-get update && sudo apt-get install --no-install-recommends yarn
-
-# Install Ruby, rails, and foreman by running the following command lines
-
-* rvm install 2.4.1 
-* rvm use 2.4.1 --default
-* rvm list
-* gem install rails
-* gem install foreman
-
-# Fork and Clone this repo
-
-# Get dependencies for ruby and react by running the following command lines
-
-* bundle
-* yarn
-
-# Start server with the following command line
-
-* foreman start -f Procfile.dev
-
-travel to http://localhost:3000 to view the development page
+This project is licensed under the MIT License
