@@ -1,5 +1,9 @@
 {
   "name": "new-test-react-on-rails",
+  "version": "1.0.0",
+  "engines": {
+    "node": "8.9.4"
+  },
   "private": true,
   "dependencies": {
     "@rails/webpacker": "3.5",
