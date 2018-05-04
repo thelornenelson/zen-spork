@@ -2,7 +2,7 @@
 
 A recipe website that gives you a handsfree recipe view when cooking and the easy ability to copy (we call it sporking) a recipe to save in your own recipe box.
 
-[Spork](http://)
+[Spork](https://damp-cove-57304.herokuapp.com/hello_world)
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -31,15 +31,27 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Start server with the following command line
 
-### Database Creation
-
-### Database Initialization
-
 * foreman start -f Procfile.dev
+
+### Database Creation & Setup
+
+* bin/rake db:setup
 
 travel to http://localhost:3000 to view the development page
 
-## Running the Tests
+## Run Various Versions of Our Code Tests
+
+Run all tests with this command
+* bundle exec rspec
+
+Run only model specs with this command
+* bundle exec rspec spec/models
+
+Run only specs for AccountsController with this command
+* bundle exec rspec spec/controllers/accounts_controller_spec.rb
+
+Run only spec on line 8 of AccountsController
+* bundle exec rspec spec/controllers/accounts_controller_spec.rb:8
 
 
 ## Versions
