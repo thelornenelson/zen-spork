@@ -39,7 +39,19 @@ These instructions will get you a copy of the project up and running on your loc
 
 travel to http://localhost:3000 to view the development page
 
-## Running the Tests
+## Run Various Versions of Our Code Tests
+
+Run all tests with this command
+* bundle exec rspec
+
+Run only model specs with this command
+* bundle exec rspec spec/models
+
+Run only specs for AccountsController with this command
+* bundle exec rspec spec/controllers/accounts_controller_spec.rb
+
+Run only spec on line 8 of AccountsController
+* bundle exec rspec spec/controllers/accounts_controller_spec.rb:8
 
 
 ## Versions
