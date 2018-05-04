@@ -84,3 +84,19 @@ body {
   padding: 15px;
 }
 
+.learn-more {
+  position: absolute;
+  bottom: 0;
+  left:   0;
+  width: 100%;
+  height: 40px;
+  font-weight: 700;
+  border: none;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.learn-more:hover {
+  background: #AFAFAF;
+}
+
