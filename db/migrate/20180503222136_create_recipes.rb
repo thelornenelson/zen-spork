@@ -5,7 +5,7 @@ class CreateRecipes < ActiveRecord::Migration[5.2]
       t.string :title
       t.json :content
       t.text :note
-      t.text :photo_url
+      t.text :proto_url
 
       t.timestamps
     end
