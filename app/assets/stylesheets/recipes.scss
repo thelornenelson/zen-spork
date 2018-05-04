@@ -67,11 +67,20 @@ body {
       border:        2px solid #ccc;
       border-radius: 5px;
       padding:       0px;
-      padding-bottom: 80px;
+      padding-bottom: 20px;
       margin-top:    20px;
       // margin:        10px;
   }
 
 
+}
+
+.new-recipe {
+  background: $bg-color;
+  width: 100%;
+  height: 600px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
 }
 
