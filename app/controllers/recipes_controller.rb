@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
 
   def index
     respond_to do |format|
-        format.html { render plain: "HTML Browse" }
+        format.html { render :index }
         format.json do
           render json: Recipe.all
         end
@@ -42,4 +42,5 @@ class RecipesController < ApplicationController
     def recipe_params
       params.require(:recipe).permit(:title, :content, :note, :photo_url)
     end
+
 end

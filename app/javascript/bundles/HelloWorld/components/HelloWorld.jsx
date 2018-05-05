@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Navbar from "../../Recipes/components/Navbar.jsx"
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -24,6 +25,7 @@ export default class HelloWorld extends React.Component {
   render() {
     return (
       <div>
+      <Navbar />
         <h3>
           Hello, {this.state.name}!
         </h3>
