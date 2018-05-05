@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comment
 class HelloWorldController < ApplicationController
   layout "hello_world"
 
