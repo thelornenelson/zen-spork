@@ -1,4 +1,5 @@
 require 'faker'
+require_relative '../helpers/factory_bot'
 
 FactoryBot.define do
   factory :recipe do
