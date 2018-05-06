@@ -13,7 +13,7 @@ export default class Navbar extends React.Component {
           Login
         </div>
         <div className="my-recipes">
-          New Recipe
+          <button onClick={this.props.toggleCreateRecipe} > New Recipe</button>
         </div>
       </nav>
     )

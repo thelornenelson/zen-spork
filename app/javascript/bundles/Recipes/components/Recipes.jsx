@@ -18,6 +18,7 @@ export default class Recipes extends React.Component {
       navbar: true,
       createRecipe: false,
     }
+    this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this)
   }
 
   // Called whenever we want to go to full screen
@@ -34,7 +35,7 @@ export default class Recipes extends React.Component {
 
   // called to toggle the create recipe componenet
   toggleCreateRecipe = () => {
-    this.state.createRecipe ? console.log ("TRUE") : console.log("FALSE")
+    this.state.createRecipe ? this.setState({ createRecipe: false }) : this.setState({ createRecipe : true })
   }
 
   // monitors virtural DOM for changes and runs on every change
@@ -46,8 +47,9 @@ export default class Recipes extends React.Component {
     return (
       <div>
         {/* Ternary statements hide/reveal recipes based on boolean state */}
-        { this.state.cookingView ? <SingleRecipe /> : null }       
-        { this.state.navbar ? <Navbar /> : null }
+        { this.state.cookingView ? <SingleRecipe /> : null } 
+        {/*Passing down function to toggle recipe to navbar child  */}
+        { this.state.navbar ? <Navbar toggleCreateRecipe = { this.toggleCreateRecipe } /> : null }
 
         <div className="container">
 
