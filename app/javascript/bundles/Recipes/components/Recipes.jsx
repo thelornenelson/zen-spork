@@ -21,35 +21,17 @@ export default class Recipes extends React.Component {
     this.setState({ isFull: true })
   }
 
-  mirrorGoFullFalse = () => {
-    if (this.state.isFull && this.state.cookingView) {
-      console.log("FULL SCREEN")
-    } 
+  // if statement prevents infinite loop. Only updates state if isFull is false and cookingView is true
+  exitCookingView = () => {
     if (!this.state.isFull && this.state.cookingView) {
-      this.setState({ cookingView: false }) && console.log("FALSE")
-      console.log("FALSE")
+      this.setState({ cookingView: false })
     }  
   }
 
-  // // method for pressing escape and logging how handsome I am
-  // escFunction(event) {
-  //   if (event.keyCode === 27) {
-  //     this.setState({ cookingView: false })
-  //     console.log("hi handsome")
-  //   }
-  // }
-
-  // mounting and unmounting escape method after DOM rendered
-  // componentDidMount() {
-  //   document.addEventListener("keydown", this.escFunction, false)
-  // }
-  // componentWillUnmount() {
-  //   document.removeEventListener("keydown", this.escFunction, false)
-  // }
+  // monitors virtural DOM for changes and runs on every change
   componentDidUpdate() {
-    this.mirrorGoFullFalse()
+    this.exitCookingView()
   }
-
 
   render() {
     return (
@@ -84,10 +66,13 @@ export default class Recipes extends React.Component {
                   Some quick example text to build on the card title and make up the bulk of the card's content.
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={this.goFull}>Spork</button>
-                  {/*  magically necessary to make the browser fullscreen */}
+                  {/* button for going to cooking view */}
+                  <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={this.goFull}>Cook Me</button>
+                  <button type="button" className={"btn btn-secondary"} data-dismiss="modal">Spork</button>
+                  {/*  magically necessary to make the browser fullscreen from yarn package react-full-screen */}
                   <Fullscreen 
                     enabled={this.state.isFull} 
+                    // sets state of isFull and cookingView to true
                     onChange={isFull => this.setState({ isFull, cookingView : true })} >
                   </Fullscreen>
                 </div>
