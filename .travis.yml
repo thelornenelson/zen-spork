@@ -9,4 +9,5 @@ rvm:
   - 2.4.1
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rails webpacker:compile RAILS_ENV=test 
   - bundle exec rspec
