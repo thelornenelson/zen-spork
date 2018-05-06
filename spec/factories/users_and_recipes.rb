@@ -1,9 +1,11 @@
+require 'faker'
+
 FactoryBot.define do
   factory :recipe do
-    # default to first user
     user
-    title "Test Title"
-    content '{"blahkey":"blahvalue"}'
+    title { Faker::Food.dish }
+    # see ../helper/factory_bot.rb
+    content { generate_recipe_content(title) }
   end
 
   factory :user do
