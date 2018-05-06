@@ -1,10 +1,12 @@
 import React from "react"
+// importing components to render
 import Navbar from "./Navbar.jsx"
 import CreateRecipe from "./CreateRecipe.jsx"
-// Full screen module
-import Fullscreen from "react-full-screen"
-// Single recipe component, for cooking view
 import SingleRecipe from "./SingleRecipe.jsx"
+// import RecipeIndex from "./RecipeIndex.jsx"
+// importing full screen module
+import Fullscreen from "react-full-screen"
+
 
 export default class Recipes extends React.Component {
   constructor(props) {
@@ -14,6 +16,7 @@ export default class Recipes extends React.Component {
       isFull: false,
       cookingView: false,
       navbar: true,
+      createRecipe: false,
     }
   }
 
@@ -29,6 +32,11 @@ export default class Recipes extends React.Component {
     }  
   }
 
+  // called to toggle the create recipe componenet
+  toggleCreateRecipe = () => {
+    this.state.createRecipe ? console.log ("TRUE") : console.log("FALSE")
+  }
+
   // monitors virtural DOM for changes and runs on every change
   componentDidUpdate() {
     this.exitCookingView()
@@ -42,7 +50,9 @@ export default class Recipes extends React.Component {
         { this.state.navbar ? <Navbar /> : null }
 
         <div className="container">
-          <CreateRecipe />
+
+          { this.state.createRecipe ? <CreateRecipe /> : null }
+          
           <div className="recipe-card card border-dark">
             <img className="card-img-top" src="/recipe/salmon.jpg" alt="Card image cap"/>
             <div className="card-body">

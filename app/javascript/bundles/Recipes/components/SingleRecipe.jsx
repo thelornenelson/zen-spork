@@ -1,12 +1,9 @@
 import React from "react"
 
-export default class MyComponent extends React.Component {
+export default class SingleRecipe extends React.Component {
   render() {
     return (
-      <div>
-        testing single recipe
-
-      </div>
+      <h1>cooking view of single recipe goes here</h1>
     )
   }
 }
