@@ -27,8 +27,8 @@ class RecipesController < ApplicationController
 
   def create
     # for now, we only have 1 user who creates all recipes. Eventually this will be changed to reflect the current user
-    @user = User.first
-    @recipe = @user.recipes.new(recipe_params)
+    @user = create(:user)
+    @recipe = create(:recipe, user: @user.id)
     puts "In RecipesController create"
     if @recipe.save
       redirect_to root_path
