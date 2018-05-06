@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require 'json'
+require 'faker'
 
 puts "Seeding Data ..."
 
@@ -31,87 +32,47 @@ user1 = User.create first_name: 'Testfirst', last_name: 'Testlast', email: 'test
 
 puts "Creating Recipes ..."
 
+def generate_recipe_content
 
-recipe1_content = { intro: 'Summary, description, overview, that kind of thing.',
-  gear: ['Special', 'Tools', 'As Required'],
-  warnings: 'important information that user should be aware of',
-  prep_time: '30 minutes',
-  cook_time: '1-2 hours',
-  servings: 'serves 3',
-  steps:[
-    {
-      instructions: 'Text instructions associated with the first step',
-      ingredients: [
-        {
-          qty: 5,
-          unit: 'cups',
-          name: 'name of ingredient'
-        },
-        {
-          qty: 3,
-          unit: 'tablespoons',
-          name: 'name of second ingredient'
-        }
-      ]
-    },
-    {
-      instructions: 'Text instructions associated with the second step',
-      ingredients: [
-        {
-          qty: 5,
-          unit: 'pounds',
-          name: 'name of third ingredient'
-        }
-      ]
-    },
-    {
-      instructions: 'Instructions for a step without any ingredients',
-      ingredients: []
-    }
-  ]
-}
+  steps = []
 
-recipe2_content = { intro: 'A sporked recipe, great for entertaining, or romantic nights alone',
-  gear: ['Hammer', 'Nail', 'Fillet Knife'],
-  warnings: 'Not for human consumption. Consult your lawyer before reading.',
-  prep_time: '25 to life',
-  cook_time: '1-2 hours',
-  servings: 'serves 3',
-  steps:[
-    {
-      instructions: 'Text instructions associated with the first step',
-      ingredients: [
-        {
-          qty: 5,
-          unit: 'cups',
-          name: 'name of ingredient'
-        },
-        {
-          qty: 3,
-          unit: 'tablespoons',
-          name: 'name of second ingredient'
-        }
-      ]
-    },
-    {
-      instructions: 'Text instructions associated with the second step',
-      ingredients: [
-        {
-          qty: 5,
-          unit: 'pounds',
-          name: 'name of third ingredient'
-        }
-      ]
-    },
-    {
-      instructions: 'Instructions for a step without any ingredients',
-      ingredients: []
-    }
-  ]
-}
+  Random.rand(1..6).times do
+    step = {}
+    # add 1-4 sentences of instructions.
+    step[:instructions] = Faker::Hipster.paragraph(1,false,3)
+    step[:ingredients] = []
 
-recipe1 = user1.recipes.create(title: 'Excellent Example Eggs', content: JSON.generate(recipe1_content), note: 'An optional note for this recipe', photo_url: 'https://www.fillmurray.com/175/175.png')
-recipe2 = user1.recipes.create(title: 'Sporked Example Eggs', content: JSON.generate(recipe2_content), photo_url: 'https://www.fillmurray.com/175/175.png')
+    # add 0-6 ingredients
+    Random.rand(0..6).times do
+      measurement = Faker::Food.measurement.split(' ')
+      ingredient = {
+        qty: measurement[0],
+        unit: measurement[1],
+        name: Faker::Food.ingredient
+      }
+      step[:ingredients].push ingredient
+    end
+
+    steps.push step
+  end
+
+  recipe = { intro: Faker::Food.dish + " " + Faker::Hipster.sentence,
+    gear: Faker::Hipster.words(3, true, true),
+    warnings: Faker::Hipster.sentence,
+    prep_time: "#{Faker::Number.between(10, 45)} minutes",
+    cook_time: "#{Faker::Number.between(10, 45)} minutes",
+    servings: "serves #{Faker::Number.between(1, 6)}",
+    steps: steps
+  }
+
+end
+
+recipe1_content = generate_recipe_content
+
+recipe2_content = generate_recipe_content
+
+recipe1 = user1.recipes.create(title: Faker::Food.dish, content: JSON.generate(recipe1_content), note: 'An optional note for this recipe', photo_url: 'https://www.fillmurray.com/175/175.png')
+recipe2 = user1.recipes.create(title: Faker::Food.dish, content: JSON.generate(recipe2_content), photo_url: 'https://www.fillmurray.com/175/175.png')
 
 puts "Generating sporks"
 
