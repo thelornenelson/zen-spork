@@ -69,20 +69,20 @@ RSpec.describe RecipesController, type: :controller do
     end
     context "with valid recipe data" do
 
-      it "should return 302 status" do
+      it "should return 201 status" do
 
-        post :create, format: :json, params: {recipe: { title: "Title", content: '{"servings":"serves 5","prep_time":"5 minutes","cook_time":"5 minutes","steps":["step1", "step2"]}' } }
+        post :create, format: :json, params: {recipe: { title: "Title", content: FactoryBot.generate_recipe_content } }
         expect(response).to have_http_status(201)
       end
 
       it "should create a new recipe" do
         expected_count = Recipe.all.count + 1
-        post :create, format: :json, params: {recipe: { title: "Title", content: '{"servings":"serves 5","prep_time":"5 minutes","cook_time":"5 minutes","steps":["step1", "step2"]}' } }
+        post :create, format: :json, params: {recipe: { title: "Title", content: FactoryBot.generate_recipe_content } }
         expect(Recipe.all.count).to eq expected_count
       end
 
       it "should assign new recipe to current user" do
-        post :create, format: :json, params: {recipe: { title: "Title", content: '{"servings":"serves 5","prep_time":"5 minutes","cook_time":"5 minutes","steps":["step1", "step2"]}' } }
+        post :create, format: :json, params: {recipe: { title: "Title", content: FactoryBot.generate_recipe_content } }
         # This should be updated when we implement sessions - for now we only have 1
         expect(Recipe.last.user.id).to eq User.first.id
       end
