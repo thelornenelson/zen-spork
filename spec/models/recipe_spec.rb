@@ -3,7 +3,7 @@ require 'database_cleaner'
 
 RSpec.describe Recipe, type: :model do
   subject(:user) {User.new()}
-  subject(:recipe) {user.recipes.new(title: "recipeTitle", content: '{"steps":["step1", "step2"]}')}
+  subject(:recipe) {user.recipes.new(title: "recipeTitle", content: '{"servings":"serves 5","prep_time":"5 minutes","cook_time":"5 minutes","steps":["step1", "step2"]}')}
 
   describe 'validations' do
 
@@ -23,6 +23,21 @@ RSpec.describe Recipe, type: :model do
 
     it 'should not be valid with 0 steps' do
       recipe.content = '{"steps":[]}'
+      expect(recipe).to_not be_valid
+    end
+
+    it 'should not be valid if servings are missing' do
+      recipe.content = '{"prep_time":"5 minutes","cook_time":"5 minutes","steps":["step1", "step2"]}'
+      expect(recipe).to_not be_valid
+    end
+
+    it 'should not be valid if prep time is missing' do
+      recipe.content = '{"servings":"serves 5","cook_time":"5 minutes","steps":["step1", "step2"]}'
+      expect(recipe).to_not be_valid
+    end
+
+    it 'should not be valid if cook time is missing' do
+      recipe.content = '{"servings":"serves 5","prep_time":"5 minutes","steps":["step1", "step2"]}'
       expect(recipe).to_not be_valid
     end
 
