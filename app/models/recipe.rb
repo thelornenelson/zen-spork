@@ -17,7 +17,7 @@ class Recipe < ApplicationRecord
         errors.add(:content, "must include cook_time") if parsed_content[:cook_time].blank?
         errors.add(:content, "must include servings") if parsed_content[:servings].blank?
     rescue
-      errors.add(:content, "must be parsable JSON")
+      # errors.add(:content, "must be parsable JSON")
     end
   end
 
