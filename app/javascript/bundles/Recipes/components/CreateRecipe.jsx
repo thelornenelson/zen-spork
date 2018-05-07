@@ -1,5 +1,5 @@
 import React from "react"
-
+import Step from "./Step.jsx"
 export default class CreateRecipe extends React.Component {
 
 
@@ -15,7 +15,8 @@ export default class CreateRecipe extends React.Component {
       prepTime: 0,
       cookTime: 0,
       servings: 0,
-      steps: 1,
+      numberOfSteps: 1,
+      steps: [{ id: 1, directions: "", ingredients: [{id: 1, qty: "", unit: "", name: ""}]}],
       stepDirections: "",
       ingredientName: "",
       unit: "",
@@ -37,7 +38,7 @@ export default class CreateRecipe extends React.Component {
     this.onUnitInput = this.onUnitInput.bind(this);
     this.onQuantityInput = this.onQuantityInput.bind(this);
     this.onAddStep = this.onAddStep.bind(this);
-    this.onRemoveStep = this.onRemoveStep.bind(this);
+    this.onDeleteStep = this.onDeleteStep.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -116,18 +117,30 @@ export default class CreateRecipe extends React.Component {
 
   onAddStep(e) {
     e.preventDefault();
-    this.setState({
-      steps: this.state.steps + 1
-    });
+    this.setState(prevState => ({
+      numberOfSteps: prevState.numberOfSteps + 1,
+    }))
+    this.setState(prevState => ({
+      steps: prevState.steps.concat([{ id: prevState.numberOfSteps, directions: "" }])
+    }))
     //create a new area to add ingredients
   }
 
-  onRemoveStep(e) {
+  onDeleteStep(id, e) {
     e.preventDefault();
-    if(this.state.steps > 1){
-      this.setState({
-        steps: this.state.steps - 1
-      });
+    const stepIndex = this.state.steps.findIndex(function findStepIndex(step){
+      return step.id = id
+    });
+    //makes a copy of the steps array so we can change it
+    let newarray = this.state.steps.slice();
+    //removes the step we don't want
+    newarray.splice(stepIndex, 1);
+    console.log(newarray)
+    if(this.state.numberOfSteps > 1){
+      this.setState(prevState => ({
+        numberOfSteps: prevState.numberOfSteps - 1,
+        steps: newarray
+      }))
     };
   }
 
@@ -139,12 +152,13 @@ export default class CreateRecipe extends React.Component {
 
 
   render() {
+
     return (
       <div className="new-recipe">
         <button type="button" className="close" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 id="create-recipe-title">Create A New Recipe</h4>
+        <div className="create-title">Create A New Recipe</div>
 
         <form onSubmit={this.onSubmit}>
 
@@ -208,42 +222,8 @@ export default class CreateRecipe extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-lg-10">
-                <div className="form-group">
-                  <label htmlFor="InputStepInstructions">Step {this.state.steps}</label>
-                  <textarea type="text" className="form-control" id="InputStepInstruciton" placeholder="Step Directions" onInput={this.onStepDirectionsInput}/>
-                </div>
-              </div>
-              <div className="col-lg-2 float-right">
-                <button className="btn btn-secondary" onClick={this.onAddStep}>Add Step</button>
-              </div>
-            </div>
-              <div className="row">
-              <div className="col-lg">
-                <div className="form-group">
-                  <label htmlFor="InputIngredient">Ingredient</label>
-                  <input type="text" className="form-control" id="InputIngredient" placeholder="Ingredient's Name" onInput={this.onIngredientNameInput}/>
-                </div>
-              </div>
-              <div className="col-lg">
-                <div className="form-group">
-                  <label htmlFor="InputUnit">Unit</label>
-                  <input type="text" className="form-control" id="InputUnit" placeholder="Unit" onInput={this.onUnitInput}/>
-                </div>
-              </div>
-              <div className="col-lg">
-                <div className="form-group">
-                  <label htmlFor="InputQuantity">Quantity</label>
-                  <input type="text" className="form-control" id="InputQuantity" placeholder="Quantity" onInput={this.onQuantityInput}/>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg">
-                <button className="btn btn-secondary">Add Ingredient</button>
-              </div>
-            </div>
+
+            <Step steps={this.state.steps} onAddStep={this.onAddStep} onDeleteStep={this.onDeleteStep}/>
 
             <div className="row">
               <div className="col-lg">

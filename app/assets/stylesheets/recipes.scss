@@ -84,9 +84,10 @@ body {
   border-radius: 5px;
   padding: 15px;
 
-  #create-recipe-title {
+  .create-title {
     text-align: center;
     font-weight: 700;
+    font-size: 24px;
   }
 
   label {
@@ -98,7 +99,14 @@ body {
     float: right;
     margin-left: 15px;
     margin-bottom: 10px;
-    font-weight: 700;
+
+  }
+
+  .btn-danger {
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 10px;
+
   }
 
   input {
@@ -123,4 +131,9 @@ body {
   background: #AFAFAF;
 }
 
-
+.steps-area {
+  border: 1px solid #AFAFAF;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
