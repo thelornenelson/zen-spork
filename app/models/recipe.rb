@@ -10,12 +10,13 @@ class Recipe < ApplicationRecord
   validate :photo_url_resembles_a_url
 
   def content_is_acceptable
-    if content.present? && ( parsed_content = JSON.parse(content, symbolize_names: true) )
+    begin
+        parsed_content = JSON.parse(content, symbolize_names: true)
         errors.add(:content, "must have at least one step") if parsed_content[:steps].blank? || parsed_content[:steps].length.zero?
         errors.add(:content, "must include prep_time") if parsed_content[:prep_time].blank?
         errors.add(:content, "must include cook_time") if parsed_content[:cook_time].blank?
         errors.add(:content, "must include servings") if parsed_content[:servings].blank?
-    else
+    rescue
       errors.add(:content, "must be parsable JSON")
     end
   end
