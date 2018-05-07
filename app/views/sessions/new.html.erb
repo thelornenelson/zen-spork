@@ -1,0 +1,9 @@
+<h1>Sessions#new</h1>
+<p>Find me in app/views/sessions/new.html.erb</p>
+
+
+<% if current_user %>
+<%= react_component("Sessions", props: { current_user: current_user.email }, prerender: false) %>
+<% else %>
+<%= react_component("Sessions", props: { current_user: nil }, prerender: false) %>
+<% end %>

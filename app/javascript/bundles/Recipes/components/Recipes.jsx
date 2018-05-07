@@ -7,7 +7,7 @@ export default class Recipes extends React.Component {
     render() {
     return (
       <div>
-        <Navbar />
+        <Navbar current_user={this.props.current_user} />
         <div className="container">
         <CreateRecipe />
           <div className="recipe-card card border-dark">

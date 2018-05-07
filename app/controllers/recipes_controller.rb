@@ -1,11 +1,10 @@
 class RecipesController < ApplicationController
-
   # We'll need to use the cross-site forgery token with our form and submit with our post requests
   skip_before_action :verify_authenticity_token
-  
+
   def index
   end
-  
+
   def new
     render plain: "NEW RECIPE FORM GOES HERE"
   end
