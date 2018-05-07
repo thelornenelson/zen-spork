@@ -53,6 +53,7 @@ body {
 }
 
 .container {
+
   margin-top: 40;
   display: flex;
   flex-direction:  row;
@@ -78,11 +79,32 @@ body {
 
 .new-recipe {
   background: $bg-color;
-  width: 100%;
-  height: 600px;
+  width: 85%;
   border: 2px solid #ccc;
   border-radius: 5px;
   padding: 15px;
+
+  #create-recipe-title {
+    text-align: center;
+    font-weight: 700;
+  }
+
+  label {
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .btn-secondary {
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  input {
+    border-color: #AFAFAF;
+  }
+
 }
 
 .learn-more {
@@ -100,4 +122,5 @@ body {
 .learn-more:hover {
   background: #AFAFAF;
 }
+
 
