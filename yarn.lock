@@ -5336,10 +5336,6 @@ react-full-screen@^0.2.2:
     prop-types "^15.5.10"
     react "^15.6.1"
 
-react-fullscreen@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/react-fullscreen/-/react-fullscreen-0.1.0.tgz#aab68d6d34aadb261975959697ad240c8fae1e50"
-
 react-on-rails@^11.0.3:
   version "11.0.3"
   resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-11.0.3.tgz#0aa15eea0a3b4db1e85e75473afee06cb8a75981"
