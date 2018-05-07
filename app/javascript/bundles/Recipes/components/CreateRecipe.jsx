@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react"
 
 export default class CreateRecipe extends React.Component {
+
 
   constructor(){
     super()
@@ -136,6 +137,7 @@ export default class CreateRecipe extends React.Component {
   }
 
 
+
   render() {
     return (
       <div className="new-recipe">
@@ -252,6 +254,6 @@ export default class CreateRecipe extends React.Component {
           </div>
         </form>
       </div>
-    );
+    )
   }
 }
