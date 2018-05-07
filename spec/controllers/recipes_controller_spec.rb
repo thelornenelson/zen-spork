@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe RecipesController, type: :controller do
 
   describe "GET #index" do
-    it "returns http code 200 (ok) when format is default" do
+    it "should return http code 200 (ok) when format is default" do
       get :index
       expect(response).to have_http_status(200)
     end
@@ -13,17 +13,17 @@ RSpec.describe RecipesController, type: :controller do
     subject(:json) { JSON.parse(response.body, symbolize_names: true) }
     context "format is json" do
 
-      it "returns http code 200 (ok)" do
+      it "should return http code 200 (ok)" do
         get :index, format: :json
         expect(response).to have_http_status(200)
       end
 
-      it "returns json content type" do
+      it "should return json content type" do
         get :index, format: :json
         expect(response.content_type).to eq "application/json"
       end
 
-      it "returns json array with all recipes" do
+      it "should return json array with all recipes" do
         recipe_count = 10
         create(:user_with_recipes, recipes_count: recipe_count)
         get :index, format: :json
@@ -44,24 +44,51 @@ RSpec.describe RecipesController, type: :controller do
       get :show, params: { id: @id_to_test, format: :json  }
     end
 
-    it "returns http 200 (ok)" do
+    it "should return http 200 (ok)" do
       expect(response).to have_http_status(200)
     end
 
-    it "returns correct title" do
+    it "should return correct title" do
       expect(json[:title]).to include Recipe.find(@id_to_test).title
     end
 
-    it "returns correct number of recipe steps" do
+    it "should return correct number of recipe steps" do
       expected_length = Recipe.find(@id_to_test).content["steps"].length
       expect(json[:content][:steps].length).to eq expected_length
     end
   end
 
-  #test create
-  #response code is ok
+  describe "POST #create" do
+    before :all do
+      user = create(:user)
+    end
+
+    it "should return 400 status when given invalid data" do
+      post :create, format: :json, params: {recipe: { title: "", content: '' } }
+      expect(response).to have_http_status(400)
+    end
+    context "with valid recipe data" do
+
+      it "should return 302 status" do
+        post :create, format: :json, params: {recipe: { title: "Title", content: '{"testkey":"testvalue"}' } }
+        expect(response).to have_http_status(201)
+      end
+
+      it "should create a new recipe" do
+        expected_count = Recipe.all.count + 1
+        post :create, format: :json, params: {recipe: { title: "Title", content: '{"testkey":"testvalue"}' } }
+        expect(Recipe.all.count).to eq expected_count
+      end
+
+      it "should assign new recipe to current user" do
+        post :create, format: :json, params: {recipe: { title: "Title", content: '{"testkey":"testvalue"}' } }
+        # This should be updated when we implement sessions - for now we only have 1
+        expect(Recipe.last.user.id).to eq User.first.id
+      end
+    end
+  end
+
   #created recipe can be retreived with id
   #created recipe matches creation request
-
 
 end

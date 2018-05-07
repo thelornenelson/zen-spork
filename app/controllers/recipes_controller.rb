@@ -27,13 +27,13 @@ class RecipesController < ApplicationController
 
   def create
     # for now, we only have 1 user who creates all recipes. Eventually this will be changed to reflect the current user
-    @user = create(:user)
-    @recipe = create(:recipe, user: @user.id)
-    puts "In RecipesController create"
+    @user = User.first
+    @recipe = @user.recipes.new(recipe_params)
+
     if @recipe.save
-      redirect_to root_path
+      head :created, location: recipe_path(@recipe, format: :json)
     else
-      render plain: 'ERROR: FAILED TO SAVE'
+      render plain: 'ERROR: FAILED TO SAVE', status: 400
     end
   end
 
