@@ -1,7 +1,7 @@
-import React from "react"
+import React from "react";
+import FullScreenButton from "./FullScreenButton.jsx";
 
 export default class RecipeIndex extends React.Component {
-
   render() {
     return (
       <section>
@@ -30,14 +30,13 @@ export default class RecipeIndex extends React.Component {
               </div>
               <div className="modal-footer">
                 {/* button for going to cooking view */}
-                <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={this.props.toggleCookingView}>Cook Me</button>
+                <FullScreenButton />
                 <button type="button" className={"btn btn-secondary"} data-dismiss="modal">Spork</button>
-
               </div>
             </div>
           </div>
         </div>
       </section>
-    )
+    );
   }
 }

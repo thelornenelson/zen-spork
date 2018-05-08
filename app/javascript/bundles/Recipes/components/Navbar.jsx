@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export default class Navbar extends React.Component {
 
@@ -13,9 +13,9 @@ export default class Navbar extends React.Component {
           Login
         </div>
         <div className="my-recipes">
-          <button onClick={this.props.toggleCreateRecipe} > New Recipe</button>
+          <button type="button" className={"btn btn-secondary"} onClick={this.props.toggleCreateRecipe} > New Recipe</button>
         </div>
       </nav>
-    )
+    );
   }
 }

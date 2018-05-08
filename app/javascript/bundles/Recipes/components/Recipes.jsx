@@ -1,33 +1,32 @@
-import React from "react"
+import React from "react";
 // importing components to render
-import Navbar from "./Navbar.jsx"
-import CreateRecipe from "./CreateRecipe.jsx"
-import SingleRecipe from "./SingleRecipe.jsx"
-import RecipeIndex from "./RecipeIndex.jsx"
+import Navbar from "./Navbar.jsx";
+import CreateRecipe from "./CreateRecipe.jsx";
+import SingleRecipe from "./SingleRecipe.jsx";
+import RecipeIndex from "./RecipeIndex.jsx";
 
 export default class Recipes extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     // Boolean state for hiding components on clicks
     this.state = {
       CookingView: false,
       navbar: true,
       createRecipe: false,
       recipeIndex: true,
-    }
-    this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this)
-    this.toggleCookingView = this.toggleCookingView.bind(this)
+    };
+    this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this);
+    this.toggleCookingView = this.toggleCookingView.bind(this);
   }
 
   // called to toggle cooking view of recipe with full screen
   toggleCookingView = () => {
-    this.state.CookingView ? this.setState({ CookingView: false, recipeIndex: true }) : this.setState({CookingView : true, recipeIndex : false})
-
+    this.state.CookingView ? this.setState({ CookingView: false, recipeIndex: true }) : this.setState({CookingView : true, recipeIndex : false});
   }
 
   // called to toggle the create recipe componenet
   toggleCreateRecipe = () => {
-    this.state.createRecipe ? this.setState({ createRecipe: false }) : this.setState({ createRecipe : true })
+    this.state.createRecipe ? this.setState({ createRecipe: false, recipeIndex: true }) : this.setState({ createRecipe: true, recipeIndex: false });
   }
 
   render() {
@@ -48,6 +47,6 @@ export default class Recipes extends React.Component {
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
         </div>
       </div>        
-    )
+    );
   }
 }
