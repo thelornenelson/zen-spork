@@ -1,1 +1,5 @@
-<%= react_component("Recipes", prerender: false) %>
+<% if current_user %>
+<%= react_component("Recipes", props: { current_user: current_user.email }, prerender: false) %>
+<% else %>
+<%= react_component("Recipes", props: { current_user: nil }, prerender: false) %>
+<% end %>

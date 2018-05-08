@@ -10,7 +10,7 @@ export default class Recipes extends React.Component {
     super(props);
     // Boolean state for hiding components on clicks
     this.state = {
-      CookingView: false,
+      cookingView: false,
       navbar: true,
       createRecipe: false,
       recipeIndex: true,
@@ -21,7 +21,7 @@ export default class Recipes extends React.Component {
 
   // called to toggle cooking view of recipe with full screen
   toggleCookingView = () => {
-    this.state.CookingView ? this.setState({ CookingView: false, recipeIndex: true }) : this.setState({CookingView : true, recipeIndex : false});
+    this.state.cookingView ? this.setState({ cookingView: false, recipeIndex: true }) : this.setState({cookingView : true, recipeIndex : false});
   }
 
   // called to toggle the create recipe componenet
@@ -35,16 +35,17 @@ export default class Recipes extends React.Component {
         {/* components are visible when their state boolean is true */}
         {this.state.CookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> } 
         {/*Passing down function to toggle recipe to navbar child  */}
-        { this.state.navbar && <Navbar toggleCreateRecipe = { this.toggleCreateRecipe } /> }
+        {this.state.navbar && <Navbar toggleCreateRecipe = {this.toggleCreateRecipe} />}
 
         <div className="container">
-          { this.state.createRecipe && <CreateRecipe /> }
+          {this.state.createRecipe && <CreateRecipe />}
 
-          { this.state.recipeIndex && <RecipeIndex toggleCookingView = {this.toggleCookingView} /> }
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
+          {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
+
         </div>
       </div>        
     );

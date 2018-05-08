@@ -4,7 +4,7 @@ import FullScreenButton from "./FullScreenButton.jsx";
 export default class RecipeIndex extends React.Component {
   render() {
     return (
-      <section>
+      <article>
         <div className="recipe-card card border-dark">
           <img className="card-img-top" src="/recipe/salmon.jpg" alt="salmon" />
           <div className="card-body">
@@ -24,7 +24,7 @@ export default class RecipeIndex extends React.Component {
                 </button>
 
               </div>
-              <img className="modal-img-top" src="/recipe/salmon.jpg" style={{ width: "90%" }} alt="Card image cap" />
+              <img className="modal-img-top" src="/recipe/salmon.jpg" style={{ width: "90%" }} alt="Delicious Food" />
               <div className="modal-body">
               Some quick example text to build on the card title and make up the bulk of the card's content.
               </div>
@@ -36,7 +36,7 @@ export default class RecipeIndex extends React.Component {
             </div>
           </div>
         </div>
-      </section>
+      </article>
     );
   }
 }
