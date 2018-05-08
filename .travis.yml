@@ -1,5 +1,8 @@
 addons:
   postgresql: 9.5
+branches:
+  only:
+  - master
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
