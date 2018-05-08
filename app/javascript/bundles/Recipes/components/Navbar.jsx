@@ -1,7 +1,6 @@
 import React from "react";
 
 export default class Navbar extends React.Component {
-
   render() {
     const loginToggle = ((this.props.current_user) ? (<div>{this.props.current_user} <a href='/logout'>Logout</a></div>) : (<div><a href='/login'>Login</a></div>));
 

@@ -33,7 +33,7 @@ export default class Recipes extends React.Component {
     return (
       <div>
         {/* components are visible when their state boolean is true */}
-        {this.state.CookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> } 
+        {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> } 
         {/*Passing down function to toggle recipe to navbar child  */}
         {this.state.navbar && <Navbar toggleCreateRecipe = {this.toggleCreateRecipe} />}
 
@@ -45,7 +45,6 @@ export default class Recipes extends React.Component {
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
-
         </div>
       </div>        
     );
