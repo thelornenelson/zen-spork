@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 
 export default class Navbar extends React.Component {
 
@@ -16,10 +16,11 @@ export default class Navbar extends React.Component {
           <div className="my-recipes">
             {loginToggle}
           </div>
-          <div className="my-recipes">
-            New Recipe
-          </div>
-        </nav>
-    );
+
+        <div className="my-recipes">
+          <button onClick={this.props.toggleCreateRecipe} > New Recipe</button>
+        </div>
+      </nav>
+    )
   }
 }
