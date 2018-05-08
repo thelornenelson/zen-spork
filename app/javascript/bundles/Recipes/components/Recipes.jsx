@@ -15,6 +15,7 @@ export default class Recipes extends React.Component {
       navbar: true,
       createRecipe: false,
       recipeIndex: true,
+      recipes: []
     };
     this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this);
     this.toggleCookingView = this.toggleCookingView.bind(this);
@@ -51,7 +52,13 @@ export default class Recipes extends React.Component {
     this.state.createRecipe ? this.setState({ createRecipe: false, recipeIndex: true }) : this.setState({ createRecipe: true, recipeIndex: false });
   }
 
+
   render() {
+    const recipes = this.state.recipes.map((recipe) => {
+      return(
+        <RecipeIndex key={recipe.id} recipe={ recipe } toggleCookingView={this.toggleCookingView} />
+      );
+    });
     return (
       <div>
         {/* components are visible when their state boolean is true */}
@@ -62,11 +69,7 @@ export default class Recipes extends React.Component {
         <div className="container">
           {this.state.createRecipe && <CreateRecipe />}
 
-          {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
-          {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
-          {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
-          {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
-          {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
+          { this.state.recipeIndex && recipes }
         </div>
       </div>
     );
