@@ -17,11 +17,11 @@ export default class Sessions extends React.Component {
             <form method="post" action="/users">
               <div className="form-group">
                 <label for="formGroupExampleInput">First Name</label>
-                <input type="text" name="firstName" className="form-control" id="formGroupExampleInput" placeholder="Enter First Name" />
+                <input type="text" name="first_name" className="form-control" id="formGroupExampleInput" placeholder="Enter First Name" />
               </div>
               <div className="form-group">
                 <label for="formGroupExampleInput2">Last Name</label>
-                <input type="text" name="lastName" className="form-control" id="formGroupExampleInput2" placeholder="Enter Last Name" />
+                <input type="text" name="last_name" className="form-control" id="formGroupExampleInput2" placeholder="Enter Last Name" />
               </div>
               <div className="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -30,7 +30,7 @@ export default class Sessions extends React.Component {
 
               <div className="form-group">
                 <label for="formGroupExampleInput">Password</label>
-                <input type="text" name="firstName" className="form-control" id="formGroupExampleInput" placeholder="Enter Password" />
+                <input type="text" name="password" className="form-control" id="formGroupExampleInput" placeholder="Enter Password" />
               </div>
 
               <button type="submit" className="btn btn-primary">Submit</button>
