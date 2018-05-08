@@ -8,7 +8,7 @@ export default class Navbar extends React.Component {
       <nav className="navbar">
         <a href="/" className="navbar-brand">Spork</a>
         <div className="my-recipes">
-            My Recipes
+          My Recipes
         </div>
         <div className="my-recipes">
           {loginToggle}
