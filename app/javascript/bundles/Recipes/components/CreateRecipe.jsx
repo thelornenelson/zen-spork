@@ -1,5 +1,7 @@
+
 import React from "react"
 import NewRecipeSteps from "./NewRecipeSteps.jsx"
+
 export default class CreateRecipe extends React.Component {
 
 
@@ -210,6 +212,6 @@ export default class CreateRecipe extends React.Component {
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
