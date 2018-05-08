@@ -35,7 +35,7 @@ export default class Recipes extends React.Component {
         {/* components are visible when their state boolean is true */}
         {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> } 
         {/*Passing down function to toggle recipe to navbar child  */}
-        {this.state.navbar && <Navbar toggleCreateRecipe = {this.toggleCreateRecipe} />}
+        {this.state.navbar && <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} />}
 
         <div className="container">
           {this.state.createRecipe && <CreateRecipe />}
