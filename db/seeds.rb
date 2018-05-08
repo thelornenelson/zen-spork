@@ -25,7 +25,7 @@ User.destroy_all
 
 puts "Creating Users ..."
 
-user1 = User.create first_name: 'Testfirst', last_name: 'Testlast', email: 'test@test.test'
+user1 = User.create first_name: 'Testfirst', last_name: 'Testlast', email: 'test@test.test', password: 'testing'
 
 ## Recipes
 

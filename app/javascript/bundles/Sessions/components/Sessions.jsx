@@ -19,8 +19,8 @@ export default class Sessions extends React.Component {
 
                 <form method="post" action="/login">
 
-                  Email:  <input type="text" name="email" />
-                  Password: <input type="text" name="password" />
+                  Email:  <input type="email" name="email" />
+                  Password: <input type="password" name="password" />
                   <input type = "submit" />
 
                 </form>
