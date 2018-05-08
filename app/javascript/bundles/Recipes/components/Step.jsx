@@ -2,7 +2,6 @@ import React from "react";
 import Ingredient from "./Ingredient.jsx";
 
 export default class Step extends React.Component {
-
   render() {
     const ingredients = this.props.step.ingredients.map((ingredient, index) => {
       return (<Ingredient
