@@ -25,10 +25,20 @@ export default class Recipes extends React.Component {
     this.getRecipes();
   }
 
-  async getRecipes() {
+  getRecipes() {
     console.log(`Inside getRecipes`);
-    const response = await fetch("/recipes.json");
-    console.dir(response.json);
+
+    fetch("/recipes.json")
+    .then((response) => {
+      return response.json()
+    })
+    .then((recipes) => {
+      console.log("Setting state with recipes");
+      this.setState({ recipes: recipes });
+    })
+    .catch((ex) => {
+      console.log('parsing failed', ex)
+    });
   }
 
   // called to toggle cooking view of recipe with full screen
