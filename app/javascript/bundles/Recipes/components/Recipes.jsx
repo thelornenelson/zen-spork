@@ -4,6 +4,7 @@ import Navbar from "./Navbar.jsx";
 import CreateRecipe from "./CreateRecipe.jsx";
 import SingleRecipe from "./SingleRecipe.jsx";
 import RecipeIndex from "./RecipeIndex.jsx";
+import "whatwg-fetch";
 
 export default class Recipes extends React.Component {
   constructor(props) {
@@ -17,6 +18,27 @@ export default class Recipes extends React.Component {
     };
     this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this);
     this.toggleCookingView = this.toggleCookingView.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(`Inside componentDidMount`);
+    this.getRecipes();
+  }
+
+  getRecipes() {
+    console.log(`Inside getRecipes`);
+
+    fetch("/recipes.json")
+    .then((response) => {
+      return response.json()
+    })
+    .then((recipes) => {
+      console.log("Setting state with recipes");
+      this.setState({ recipes: recipes });
+    })
+    .catch((ex) => {
+      console.log('parsing failed', ex)
+    });
   }
 
   // called to toggle cooking view of recipe with full screen
@@ -33,7 +55,7 @@ export default class Recipes extends React.Component {
     return (
       <div>
         {/* components are visible when their state boolean is true */}
-        {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> } 
+        {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> }
         {/*Passing down function to toggle recipe to navbar child  */}
         {this.state.navbar && <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} />}
 
@@ -46,7 +68,7 @@ export default class Recipes extends React.Component {
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
           {this.state.recipeIndex && <RecipeIndex toggleCookingView={this.toggleCookingView} />}
         </div>
-      </div>        
+      </div>
     );
   }
 }
