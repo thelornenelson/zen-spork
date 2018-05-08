@@ -1,12 +1,11 @@
-
-import React from "react"
-import NewRecipeSteps from "./NewRecipeSteps.jsx"
+import React from "react";
+import NewRecipeSteps from "./NewRecipeSteps.jsx";
 
 export default class CreateRecipe extends React.Component {
 
 
   constructor(){
-    super()
+    super();
 
     this.state = {
       title: "",
@@ -23,7 +22,7 @@ export default class CreateRecipe extends React.Component {
           ingredients: ["ingredient 1", "ingredient 2"]
         }
       ]
-    }
+    };
 
     this.onTitleInput = this.onTitleInput.bind(this);
     this.onPhotoInput = this.onPhotoInput.bind(this);
@@ -94,11 +93,11 @@ export default class CreateRecipe extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('Hello State: ' + this.state)
+    console.log("Hello State: " + this.state);
   }
 
   addStep() {
-    const newSteps = this.state.steps.concat([{ description: "new step", ingredients: [""] }])
+    const newSteps = this.state.steps.concat([{ description: "new step", ingredients: [""] }]);
     this.setState({ steps: newSteps });
   }
 
@@ -111,7 +110,7 @@ export default class CreateRecipe extends React.Component {
   }
 
   addIngredient(stepIndex) {
-    console.log(`stepIndex = ${stepIndex}`)
+    console.log(`stepIndex = ${stepIndex}`);
     const newSteps = this.state.steps.slice(0);
 
     newSteps[stepIndex].ingredients.push("New Ingredient");
@@ -134,10 +133,10 @@ export default class CreateRecipe extends React.Component {
   render() {
     const steps = this.state.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
-        return(<li>{ ingredient }</li>)
+        return(<li>{ ingredient }</li>);
       });
       return (<article><p>{ step.description }</p>
-        <ul>{ ingredients }</ul></article>)
+        <ul>{ ingredients }</ul></article>);
     });
 
 
