@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export default class CreateRecipe extends React.Component {
 
@@ -6,8 +6,7 @@ export default class CreateRecipe extends React.Component {
     return (
       <div className="new-recipe">
         <h1>CREATE A NEW RECIPE!</h1>
-
       </div>
-    )
+    );
   }
 }
