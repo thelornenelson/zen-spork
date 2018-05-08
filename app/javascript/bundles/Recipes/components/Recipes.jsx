@@ -30,7 +30,7 @@ export default class Recipes extends React.Component {
   exitCookingView = () => {
     if (!this.state.isFull && this.state.cookingView) {
       this.setState({ cookingView : false, navbar : true })
-    }  
+    }
   }
 
   // called to toggle the create recipe componenet
@@ -46,15 +46,16 @@ export default class Recipes extends React.Component {
   render() {
     return (
       <div>
+
         {/* Ternary statements hide/reveal recipes based on boolean state */}
-        { this.state.cookingView ? <SingleRecipe /> : null } 
+        { this.state.cookingView ? <SingleRecipe /> : null }
         {/*Passing down function to toggle recipe to navbar child  */}
-        { this.state.navbar ? <Navbar toggleCreateRecipe = { this.toggleCreateRecipe } /> : null }
+        { this.state.navbar ? <Navbar current_user={this.props.current_user} toggleCreateRecipe = { this.toggleCreateRecipe } /> : null }
 
         <div className="container">
 
           { this.state.createRecipe ? <CreateRecipe /> : null }
-          
+
           <div className="recipe-card card border-dark">
             <img className="card-img-top" src="/recipe/salmon.jpg" alt="Card image cap"/>
             <div className="card-body">
@@ -83,8 +84,8 @@ export default class Recipes extends React.Component {
                   <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={this.goFull}>Cook Me</button>
                   <button type="button" className={"btn btn-secondary"} data-dismiss="modal">Spork</button>
                   {/*  magically necessary to make the browser fullscreen from yarn package react-full-screen */}
-                  <Fullscreen 
-                    enabled={this.state.isFull} 
+                  <Fullscreen
+                    enabled={this.state.isFull}
                     // sets boolean states to full screen mode
                     onChange={isFull => this.setState({ isFull, cookingView : true, navbar : false })} >
                   </Fullscreen>

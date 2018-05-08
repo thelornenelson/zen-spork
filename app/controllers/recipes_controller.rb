@@ -1,5 +1,4 @@
 class RecipesController < ApplicationController
-
   # We'll need to use the cross-site forgery token with our form and submit with our post requests
   skip_before_action :verify_authenticity_token
 
@@ -40,7 +39,27 @@ class RecipesController < ApplicationController
   private
 
     def recipe_params
-      params.require(:recipe).permit(:title, :content, :note, :photo_url)
+      params.require(:recipe).permit(
+        :title,
+        :note,
+        :photo_url,
+        content: [
+          :intro,
+          { gear: [] },
+          :warnings,
+          :prep_time,
+          :cook_time,
+          :servings,
+          { steps: [
+            :instructions,
+            ingredients: [
+              :qty,
+              :unit,
+              :name
+              ]
+            ] }
+        ]
+      )
     end
 
 end
