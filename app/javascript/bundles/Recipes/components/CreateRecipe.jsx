@@ -19,8 +19,8 @@ export default class CreateRecipe extends React.Component {
       servings: 0,
       steps: [
         {
-          description: "hello",
-          ingredients: ["ingredient 1", "ingredient 2"]
+          description: "",
+          ingredients: [""]
         }
       ]
     }
@@ -34,12 +34,11 @@ export default class CreateRecipe extends React.Component {
     this.onCookTimeInput = this.onCookTimeInput.bind(this);
     this.onServingsInput = this.onServingsInput.bind(this);
 
-
-    this.deleteStep = this.deleteStep.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
     this.addStep = this.addStep.bind(this);
+    this.deleteStep = this.deleteStep.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
+    this.deleteIngredient = this.deleteIngredient.bind(this);
     this.changeDescription = this.changeDescription.bind(this);
     this.changeIngredient = this.changeIngredient.bind(this);
   }
@@ -94,11 +93,11 @@ export default class CreateRecipe extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('Hello State: ' + this.state)
+    console.log("Hello State: " + this.state);
   }
 
   addStep() {
-    const newSteps = this.state.steps.concat([{ description: "new step", ingredients: [""] }])
+    const newSteps = this.state.steps.concat([{ description: "", ingredients: [""] }]);
     this.setState({ steps: newSteps });
   }
 
@@ -111,10 +110,15 @@ export default class CreateRecipe extends React.Component {
   }
 
   addIngredient(stepIndex) {
-    console.log(`stepIndex = ${stepIndex}`)
+    console.log(`stepIndex = ${stepIndex}`);
     const newSteps = this.state.steps.slice(0);
+    newSteps[stepIndex].ingredients.push("");
+    this.setState({ steps: newSteps });
+  }
 
-    newSteps[stepIndex].ingredients.push("New Ingredient");
+  deleteIngredient(stepIndex, ingredientIndex) {
+    const newSteps = this.state.steps.slice(0);
+    newSteps[stepIndex].ingredients.splice(ingredientIndex, 1);
     this.setState({ steps: newSteps });
   }
 
@@ -134,10 +138,10 @@ export default class CreateRecipe extends React.Component {
   render() {
     const steps = this.state.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
-        return(<li>{ ingredient }</li>)
+        return(<li>{ ingredient }</li>);
       });
       return (<article><p>{ step.description }</p>
-        <ul>{ ingredients }</ul></article>)
+        <ul>{ ingredients }</ul></article>);
     });
 
 
@@ -197,11 +201,13 @@ export default class CreateRecipe extends React.Component {
             </div>
 
             <NewRecipeSteps addStep={this.addStep}
+              deleteStep={this.deleteStep}
               addIngredient={this.addIngredient}
+              deleteIngredient={this.deleteIngredient}
               steps={this.state.steps}
               changeDescription={this.changeDescription}
               changeIngredient={this.changeIngredient}
-              deleteStep={this.deleteStep}/>
+              />
             {steps}
             <div className="row">
               <div className="col-lg">
