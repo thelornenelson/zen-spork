@@ -5,8 +5,6 @@ export default class Sessions extends React.Component {
 
     render() {
 
-
-
     return (
         <div>
 
