@@ -1,20 +1,6 @@
 import React from "react"
-// importing full screen module
-import Fullscreen from "react-full-screen"
 
 export default class RecipeIndex extends React.Component {
-  constructor(props) {
-    super(props)
-    // Boolean state for hiding components on clicks
-    this.state = {
-      isFull: false,
-    }
-  }
-
-  // Called whenever we want to go to full screen
-  goFull = () => {
-    this.setState({ isFull: true })
-  }
 
   render() {
     return (
@@ -44,16 +30,9 @@ export default class RecipeIndex extends React.Component {
               </div>
               <div className="modal-footer">
                 {/* button for going to cooking view */}
-                <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={this.goFull}>Cook Me</button>
+                <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={this.props.toggleCookingView}>Cook Me</button>
                 <button type="button" className={"btn btn-secondary"} data-dismiss="modal">Spork</button>
-                {/*  magically necessary to make the browser fullscreen from yarn package react-full-screen */}
-                <Fullscreen
-                  children=""
-                  enabled={this.state.isFull}
-                  // callback is called when going to and coming from fullscreen
-                  onChange={isFull => this.props.toggleCookingView()}
-                >
-                </Fullscreen>
+
               </div>
             </div>
           </div>

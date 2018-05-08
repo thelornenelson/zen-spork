@@ -5,6 +5,7 @@ export default class SingleRecipe extends React.Component {
     return (
       <div className="cooking-view">
         <h1>cooking view of single recipe goes here</h1>
+        <button onClick={this.props.toggleCookingView}>Exit</button>
       </div>
     )
   }
