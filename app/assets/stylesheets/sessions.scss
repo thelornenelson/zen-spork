@@ -1,0 +1,16 @@
+// Place all the styles related to the Sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$bg-color: #FBFBF7;
+
+.login-box {
+  background: $bg-color;
+  width: 80%;
+  height: 400px;
+  border: 2px;
+  border-radius: 5px;
+  padding: 15px;
+  position: relative;
+  left: 40px;
+}

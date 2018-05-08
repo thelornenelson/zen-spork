@@ -27,6 +27,7 @@ User.destroy_all
 
 puts "Creating Users and Recipes..."
 
+
 user1 = FactoryBot.create(:user_with_recipes, recipes_count: 10)
 
 puts "DONE!"

@@ -13,6 +13,7 @@ FactoryBot.define do
     first_name "Testfirst"
     last_name "Test_last"
     email "test@test.test"
+    password "testing"
 
     # user_with_recipes will create recipe data after the user has been created
     factory :user_with_recipes do
