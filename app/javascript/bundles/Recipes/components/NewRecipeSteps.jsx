@@ -8,6 +8,7 @@ export default class NewRecipeSteps extends React.Component {
 
     const steps = this.props.steps.map((step, index) => {
       return (<Step
+        key={index}
         step={step}
         addIngredient={this.props.addIngredient}
         deleteIngredient={this.props.deleteIngredient}
@@ -22,10 +23,14 @@ export default class NewRecipeSteps extends React.Component {
         <div className="row">
           <div className="col">
             <div className="create-title">Directions And Ingredients</div>
-            <button className="btn btn-secondary" onClick={this.props.addStep}>Add Step</button>
           </div>
         </div>
         {steps}
+        <div className="row">
+          <div className="col">
+            <button className="btn btn-secondary btn-block add-step-button" onClick={this.props.addStep}>Add Step</button>
+          </div>
+        </div>
       </div>
     );
   }
