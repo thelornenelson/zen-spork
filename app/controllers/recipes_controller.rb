@@ -37,6 +37,16 @@ class RecipesController < ApplicationController
     end
   end
 
+  def update
+    @recipe = Recipe.find(params[:id])
+
+    if @recipe.update(recipe_params)
+      head :ok, location: recipe_path(@recipe, format: :json)
+    else
+      render plain: 'ERROR: FAILED TO SAVE', status: 400
+    end
+  end
+
   private
 
     def recipe_params
@@ -90,7 +100,7 @@ class RecipesController < ApplicationController
             recipe_step[:ingredients].map! do |ingredient|
               # Assume the input is in the format '1 cup extra pure water' where qty = '1', unit = 'cup', name = 'extra pure water'
               qty, unit, *name = ingredient.split(' ')
-              { qty: qty, unit: unit, name: name.join(' ') }
+              { qty: (qty || "") , unit: ( unit || "") , name: name.join(' ') }
             end
             # instructions just get repeated unchanged,
             puts "inside recipe_step:ingredients ingredient"
