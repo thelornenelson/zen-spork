@@ -27,6 +27,13 @@ export default class Sessions extends React.Component {
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         </div>
+
+        <div className="register-link-box">
+          <h1>Or register here!</h1>
+          <div>
+            <a href="/signup" className="btn btn-primary"> Register </a>
+          </div>
+        </div>
       </div>
     );
   }
