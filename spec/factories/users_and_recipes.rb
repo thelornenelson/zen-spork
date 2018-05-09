@@ -5,6 +5,7 @@ FactoryBot.define do
   factory :recipe do
     user
     title { Faker::Food.dish }
+    photo_url { ([Faker::LoremPixel.image("300x300", false, 'food'), ""].sample) }
     # see ../helper/factory_bot.rb
     content { generate_recipe_content(title) }
   end

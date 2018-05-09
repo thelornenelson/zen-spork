@@ -8,7 +8,7 @@ export default class DetailedPopup extends React.Component {
     return (
       <section>
         <h5 className="modal-title" id="exampleModalCenterTitle">{title}</h5>
-        <img className="modal-img-top" src="/recipe/salmon.jpg" style={{ width: "90%" }} alt="Delicious Food" />
+        <img className="modal-img-top" src="/recipe/salmon.jpg" style={{ width: "20%" }} alt="Delicious Food" />
         <div className="modal-body">
           {intro}
         </div>
