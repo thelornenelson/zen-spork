@@ -27,7 +27,7 @@ export default class RecipeIndex extends React.Component {
               </div>
               <img className="modal-img-top" src="/recipe/salmon.jpg" style={{ width: "90%" }} alt="Delicious Food" />
               <div className="modal-body">
-              { intro }
+                { intro }
               </div>
               <div className="modal-footer">
                 {/* button for going to cooking view */}
