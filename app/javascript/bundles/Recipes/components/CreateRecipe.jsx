@@ -191,7 +191,7 @@ export default class CreateRecipe extends React.Component {
   }
 
   render() {
-    const title = (this.state.statusEdit === false) ? (<div className="create-title">Create A New Recipe</div>) : (<div className="create-title">Edit Recipe</div>)
+    const title = (this.state.statusEdit === false) ? (<div className="create-title">Create A New Recipe</div>) : (<div className="create-title">Edit Recipe</div>);
     return (
 
       <div className="new-recipe">
