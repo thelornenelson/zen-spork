@@ -20,7 +20,7 @@ export default class Step extends React.Component {
               <label htmlFor="InputStepInstructions">Step {this.props.stepIndex + 1}
                 {this.props.stepIndex > 0 && <button className="btn btn-danger" onClick={() => this.props.deleteStep(this.props.stepIndex)}>Delete Step</button>}
               </label>
-              <textarea type="text" className="form-control" id="InputStepInstruciton" placeholder="Step Directions" onInput={(event) => { this.props.changeDescription(this.props.stepIndex, event.target.value) }} />
+              <textarea type="text" className="form-control" id="InputStepInstruciton" placeholder="Step Directions" onInput={(event) => { this.props.changeInstructions(this.props.stepIndex, event.target.value) }} />
             </div>
           </div>
         </div>
