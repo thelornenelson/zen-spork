@@ -1,5 +1,7 @@
 import React from "react";
 import NewRecipeSteps from "./NewRecipeSteps.jsx";
+import "whatwg-fetch";
+
 
 export default class CreateRecipe extends React.Component {
 
@@ -17,7 +19,7 @@ export default class CreateRecipe extends React.Component {
       servings: 0,
       steps: [
         {
-          description: "",
+          instructions: "",
           ingredients: [""]
         }
       ]
@@ -37,7 +39,7 @@ export default class CreateRecipe extends React.Component {
     this.deleteStep = this.deleteStep.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.deleteIngredient = this.deleteIngredient.bind(this);
-    this.changeDescription = this.changeDescription.bind(this);
+    this.changeInstructions = this.changeInstructions.bind(this);
     this.changeIngredient = this.changeIngredient.bind(this);
   }
 
@@ -90,14 +92,41 @@ export default class CreateRecipe extends React.Component {
   }
 
   onSubmit(e) {
+
     e.preventDefault();
-    console.log("Hello State: " + this.state);
+    console.log("this.state:")
+    console.dir(this.state);
+
+    // this seems a bit clumsy, but I want to avoid just posting this.state without whitelisting the keys.
+    const { title, photo, description, prepTime, cookTime, servings, steps } = this.state;
+
+    // Also allows renaming the camel case keys to snake case, to match expectations on back end.
+    const recipeData = { recipe: { title, photo_url: photo, content: { intro: description, prep_time: prepTime, cook_time: cookTime, servings, steps }}};
+
+    fetch("/recipes", {
+    method: "POST",
+    body: JSON.stringify(recipeData),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin"
+    }).then(function(response) {
+      console.dir(response);
+      response.status     //=> number 100–599
+      response.statusText //=> String
+      response.headers    //=> Headers
+      response.url        //=> String
+
+      return response.text()
+    }, function(error) {
+      error.message //=> String
+    });
+
   }
 
   addStep() {
 
-    const newSteps = this.state.steps.concat([{ description: "", ingredients: [""] }]);
-
+    const newSteps = this.state.steps.concat([{ instructions: "", ingredients: [""] }]);
     this.setState({ steps: newSteps });
   }
 
@@ -122,9 +151,9 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  changeDescription(stepIndex, newDescription) {
+  changeInstructions(stepIndex, newInstructions) {
     const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].description = newDescription;
+    newSteps[stepIndex].instructions = newInstructions;
     this.setState({ steps: newSteps });
   }
 
@@ -134,13 +163,12 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-
   render() {
     const steps = this.state.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
         return(<li>{ ingredient }</li>);
       });
-      return (<article><p>{ step.description }</p>
+      return (<article><p>{ step.instructions }</p>
         <ul>{ ingredients }</ul></article>);
     });
 
@@ -205,7 +233,7 @@ export default class CreateRecipe extends React.Component {
               addIngredient={this.addIngredient}
               deleteIngredient={this.deleteIngredient}
               steps={this.state.steps}
-              changeDescription={this.changeDescription}
+              changeInstructions={this.changeInstructions}
               changeIngredient={this.changeIngredient}
             />
             {steps}
