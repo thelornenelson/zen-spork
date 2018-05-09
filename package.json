@@ -14,7 +14,6 @@
     "react-full-screen": "^0.2.2",
     "react-on-rails": "^11.0.3",
     "react-responsive-modal": "^3.0.1",
-    "reactjs-popup": "^1.1.1",
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
