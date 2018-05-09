@@ -121,13 +121,14 @@ export default class CreateRecipe extends React.Component {
 
   }
 
-  addStep() {
-
+  addStep(e) {
+    e.preventDefault();
     const newSteps = this.state.steps.concat([{ instructions: "", ingredients: [""] }]);
     this.setState({ steps: newSteps });
   }
 
-  deleteStep(stepIndex) {
+  deleteStep(stepIndex, e) {
+    e.preventDefault();
     //makes a copy of the steps array so we can change it
     const newSteps = this.state.steps.slice();
     //removes the step we don't want
@@ -135,14 +136,16 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  addIngredient(stepIndex) {
+  addIngredient(stepIndex, e) {
+    e.preventDefault();
     console.log(`stepIndex = ${stepIndex}`);
     const newSteps = this.state.steps.slice(0);
     newSteps[stepIndex].ingredients.push("");
     this.setState({ steps: newSteps });
   }
 
-  deleteIngredient(stepIndex, ingredientIndex) {
+  deleteIngredient(stepIndex, ingredientIndex, e) {
+    e.preventDefault();
     const newSteps = this.state.steps.slice(0);
     newSteps[stepIndex].ingredients.splice(ingredientIndex, 1);
     this.setState({ steps: newSteps });
@@ -161,15 +164,6 @@ export default class CreateRecipe extends React.Component {
   }
 
   render() {
-    const steps = this.state.steps.map((step) => {
-      const ingredients = step.ingredients.map((ingredient) => {
-        return(<li>{ ingredient }</li>);
-      });
-      return (<article><p>{ step.instructions }</p>
-        <ul>{ ingredients }</ul></article>);
-    });
-
-
     return (
       <div className="new-recipe">
         <button type="button" className="close" aria-label="Close">
@@ -224,7 +218,6 @@ export default class CreateRecipe extends React.Component {
                 </div>
               </div>
             </div>
-
             <NewRecipeSteps addStep={this.addStep}
               deleteStep={this.deleteStep}
               addIngredient={this.addIngredient}
@@ -233,7 +226,6 @@ export default class CreateRecipe extends React.Component {
               changeInstructions={this.changeInstructions}
               changeIngredient={this.changeIngredient}
             />
-            {steps}
             <div className="row">
               <div className="col-lg">
                 <button className="btn btn-secondary">Cancel</button>
