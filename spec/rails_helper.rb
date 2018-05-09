@@ -13,7 +13,21 @@ require "capybara/poltergeist"
 
 # Specs flagged with `js: true` will use Capybara's JS driver. Set
 # that JS driver to :poltergeist
+# Capybara.javascript_driver = :poltergeist
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {
+    js_errors: false,
+    phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any'],
+    debug: false,
+    timeout: 500
+    # phantomjs: File.absolute_path(Phantomjs.path)
+  })
+end
 Capybara.javascript_driver = :poltergeist
+Capybara.server_port = 3001
+
+Capybara.default_max_wait_time = 100
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

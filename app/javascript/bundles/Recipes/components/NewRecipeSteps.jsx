@@ -1,5 +1,6 @@
-import React from "react"
-import Step from './Step.jsx'
+import React from "react";
+import Step from "./Step.jsx";
+
 
 export default class NewRecipeSteps extends React.Component {
 
@@ -9,8 +10,9 @@ export default class NewRecipeSteps extends React.Component {
       return (<Step
         step={step}
         addIngredient={this.props.addIngredient}
+        deleteIngredient={this.props.deleteIngredient}
         stepIndex={index}
-        changeDescription={this.props.changeDescription}
+        changeInstructions={this.props.changeInstructions}
         changeIngredient={this.props.changeIngredient}
         deleteStep={this.props.deleteStep}
       />);
@@ -25,6 +27,6 @@ export default class NewRecipeSteps extends React.Component {
         </div>
         {steps}
       </div>
-    )
+    );
   }
 }

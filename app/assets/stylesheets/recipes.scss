@@ -4,6 +4,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $bg-color: #FBFBF7;
+$navbar-color: rgba(133, 199, 242, 0.8);
 
 a{
   color: inherit;
@@ -23,35 +24,56 @@ body {
 
 .navbar {
   display: block;
-  background-color: rgba(133, 199, 242, 0.8);
+  background-color: $navbar-color;
   z-index: 2;
   height: 60px;
   left: 0;
-  padding: 0 10px;
+  padding: 0;
+  padding-left: 10px;
   position: fixed;
   right: 0;
   top: 0;
   margin-bottom: 20px;
-}
 
-.navbar-brand {
-  display: block;
-  float: left;
-  font-weight: 900;
-  font-size: 42px;
-  line-height: 60px;
-  padding: 0 10px;
-  text-decoration: none;
-}
 
-.my-recipes {
-  float: right;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 60px;
-  padding: 0 10px;
-}
+  .navbar-brand {
+    display: block;
+    float: left;
+    font-weight: 900;
+    font-size: 42px;
+    line-height: 60px;
+    padding: 0 10px;
+    text-decoration: none;
+  }
 
+  .nav-button {
+    background-color: rgba(133, 199, 242, 0.0);
+    float: right;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 60px;
+    padding: 0 10px;
+    border: none;
+    border-radius: 0;
+  }
+
+  .nav-button:hover {
+    text-decoration: none;
+    color: inherit;
+    background-color: $navbar-color;
+    border: none;
+    border-bottom: 2px solid #1c5f8c;
+  }
+
+  .nav-user {
+    background-color: rgba(133, 199, 242, 0.0);
+    float: right;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 60px;
+    padding: 0 10px;
+  }
+}
 .container {
 
   margin-top: 40;
@@ -140,8 +162,6 @@ body {
 }
 
 .cooking-view {
-  // height: 500px;
-  // // width: 100%;
   background-color: #FBFBF7;
   z-index: 3;
   position: absolute;
@@ -149,5 +169,24 @@ body {
   bottom: 0;
   right: 0;
   left: 0;
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-top: 30px;
 
+  h1 {
+    font-weight: 700;
+  }
+
+  h3 {
+    font-weight: 700;
+  }
+
+  .step-row {
+    padding: 15px;
+    border-bottom: 1px solid #AFAFAF;
+  }
+
+  .step-col {
+    border-right: 1px solid #AFAFAF;
+  }
 }

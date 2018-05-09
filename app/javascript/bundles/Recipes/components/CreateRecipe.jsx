@@ -1,12 +1,11 @@
-
-import React from "react"
-import NewRecipeSteps from "./NewRecipeSteps.jsx"
+import React from "react";
+import NewRecipeSteps from "./NewRecipeSteps.jsx";
+import "whatwg-fetch";
 
 export default class CreateRecipe extends React.Component {
 
-
   constructor(){
-    super()
+    super();
 
     this.state = {
       title: "",
@@ -19,11 +18,11 @@ export default class CreateRecipe extends React.Component {
       servings: 0,
       steps: [
         {
-          description: "hello",
-          ingredients: ["ingredient 1", "ingredient 2"]
+          instructions: "",
+          ingredients: [""]
         }
       ]
-    }
+    };
 
     this.onTitleInput = this.onTitleInput.bind(this);
     this.onPhotoInput = this.onPhotoInput.bind(this);
@@ -34,13 +33,12 @@ export default class CreateRecipe extends React.Component {
     this.onCookTimeInput = this.onCookTimeInput.bind(this);
     this.onServingsInput = this.onServingsInput.bind(this);
 
-
-    this.deleteStep = this.deleteStep.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
     this.addStep = this.addStep.bind(this);
+    this.deleteStep = this.deleteStep.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
-    this.changeDescription = this.changeDescription.bind(this);
+    this.deleteIngredient = this.deleteIngredient.bind(this);
+    this.changeInstructions = this.changeInstructions.bind(this);
     this.changeIngredient = this.changeIngredient.bind(this);
   }
 
@@ -93,12 +91,39 @@ export default class CreateRecipe extends React.Component {
   }
 
   onSubmit(e) {
+
     e.preventDefault();
-    console.log('Hello State: ' + this.state)
+    console.dir(this.state);
+
+    // this seems a bit clumsy, but I want to avoid just posting this.state without whitelisting the keys.
+    const { title, photo, description, prepTime, cookTime, servings, steps } = this.state;
+
+    // Also allows renaming the camel case keys to snake case, to match expectations on back end.
+    const recipeData = { recipe: { title, photo_url: photo, content: { intro: description, prep_time: prepTime, cook_time: cookTime, servings, steps }}};
+
+    fetch("/recipes", {
+      method: "POST",
+      body: JSON.stringify(recipeData),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
+    }).then(function(response) {
+      response.status;     //=> number 100–599
+      response.statusText; //=> String
+      response.headers;    //=> Headers
+      response.url;        //=> String
+
+      return response.text();
+    }, function(error) {
+      error.message; //=> String
+    });
+
   }
 
   addStep() {
-    const newSteps = this.state.steps.concat([{ description: "new step", ingredients: [""] }])
+
+    const newSteps = this.state.steps.concat([{ instructions: "", ingredients: [""] }]);
     this.setState({ steps: newSteps });
   }
 
@@ -111,16 +136,21 @@ export default class CreateRecipe extends React.Component {
   }
 
   addIngredient(stepIndex) {
-    console.log(`stepIndex = ${stepIndex}`)
+    console.log(`stepIndex = ${stepIndex}`);
     const newSteps = this.state.steps.slice(0);
-
-    newSteps[stepIndex].ingredients.push("New Ingredient");
+    newSteps[stepIndex].ingredients.push("");
     this.setState({ steps: newSteps });
   }
 
-  changeDescription(stepIndex, newDescription) {
+  deleteIngredient(stepIndex, ingredientIndex) {
     const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].description = newDescription;
+    newSteps[stepIndex].ingredients.splice(ingredientIndex, 1);
+    this.setState({ steps: newSteps });
+  }
+
+  changeInstructions(stepIndex, newInstructions) {
+    const newSteps = this.state.steps.slice(0);
+    newSteps[stepIndex].instructions = newInstructions;
     this.setState({ steps: newSteps });
   }
 
@@ -130,14 +160,13 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-
   render() {
     const steps = this.state.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
-        return(<li>{ ingredient }</li>)
+        return(<li>{ ingredient }</li>);
       });
-      return (<article><p>{ step.description }</p>
-        <ul>{ ingredients }</ul></article>)
+      return (<article><p>{ step.instructions }</p>
+        <ul>{ ingredients }</ul></article>);
     });
 
 
@@ -197,11 +226,13 @@ export default class CreateRecipe extends React.Component {
             </div>
 
             <NewRecipeSteps addStep={this.addStep}
+              deleteStep={this.deleteStep}
               addIngredient={this.addIngredient}
+              deleteIngredient={this.deleteIngredient}
               steps={this.state.steps}
-              changeDescription={this.changeDescription}
+              changeInstructions={this.changeInstructions}
               changeIngredient={this.changeIngredient}
-              deleteStep={this.deleteStep}/>
+            />
             {steps}
             <div className="row">
               <div className="col-lg">

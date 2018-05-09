@@ -25,4 +25,5 @@ install:
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rails webpacker:compile RAILS_ENV=test
+  - yarn run eslint app/**/*.jsx
   - bundle exec rspec
