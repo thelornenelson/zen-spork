@@ -6,7 +6,7 @@ export default class SingleRecipe extends React.Component {
     const steps = recipe.content.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
         return (
-          <div className="row">
+          <div className="row" key={ingredient.name}>
             <div className="col-2">{ingredient.qty}</div>
             <div className="col-4">{ingredient.unit}</div>
             <div className="col-6">{ingredient.name}</div>
@@ -14,7 +14,7 @@ export default class SingleRecipe extends React.Component {
       });
 
       return (
-        <div className="row step-row">
+        <div className="row step-row" key={Math.random()}>
           <div className="col-xl-4 step-col" style={{paddingLeft: 60}}>{ingredients}</div>
           <div className="col-xl-8" style={{paddingLeft: 40}}>{step.instructions}</div>
         </div>);
