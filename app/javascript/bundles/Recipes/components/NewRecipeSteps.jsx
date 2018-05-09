@@ -1,5 +1,6 @@
-import React from "react"
-import Step from "./Step.jsx"
+import React from "react";
+import Step from "./Step.jsx";
+
 
 export default class NewRecipeSteps extends React.Component {
 
@@ -26,6 +27,6 @@ export default class NewRecipeSteps extends React.Component {
         </div>
         {steps}
       </div>
-    )
+    );
   }
 }

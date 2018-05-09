@@ -1,11 +1,12 @@
-import React from "react"
-import NewRecipeSteps from "./NewRecipeSteps.jsx"
+import React from "react";
+import NewRecipeSteps from "./NewRecipeSteps.jsx";
 import "whatwg-fetch";
+
 
 export default class CreateRecipe extends React.Component {
 
   constructor(){
-    super()
+    super();
 
     this.state = {
       title: "",
@@ -22,7 +23,7 @@ export default class CreateRecipe extends React.Component {
           ingredients: [""]
         }
       ]
-    }
+    };
 
     this.onTitleInput = this.onTitleInput.bind(this);
     this.onPhotoInput = this.onPhotoInput.bind(this);
@@ -95,24 +96,7 @@ export default class CreateRecipe extends React.Component {
     e.preventDefault();
     console.log("this.state:")
     console.dir(this.state);
-    // :title,
-    // :note,
-    // :photo_url,
-    // content: [
-    //   :intro,
-    //   { gear: [] },
-    //   :warnings,
-    //   :prep_time,
-    //   :cook_time,
-    //   :servings,
-    //   { steps: [
-    //     :instructions,
-    //     ingredients: [
-    //       :qty,
-    //       :unit,
-    //       :name
-    //       ]
-    //     ] }
+
     // this seems a bit clumsy, but I want to avoid just posting this.state without whitelisting the keys.
     const { title, photo, description, prepTime, cookTime, servings, steps } = this.state;
 
@@ -141,6 +125,7 @@ export default class CreateRecipe extends React.Component {
   }
 
   addStep() {
+
     const newSteps = this.state.steps.concat([{ instructions: "", ingredients: [""] }]);
     this.setState({ steps: newSteps });
   }
@@ -250,7 +235,8 @@ export default class CreateRecipe extends React.Component {
               steps={this.state.steps}
               changeInstructions={this.changeInstructions}
               changeIngredient={this.changeIngredient}
-              />
+            />
+
             {steps}
             <div className="row">
               <div className="col-lg">
