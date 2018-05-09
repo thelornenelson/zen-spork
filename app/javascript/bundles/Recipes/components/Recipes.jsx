@@ -4,6 +4,7 @@ import Navbar from "./Navbar.jsx";
 import CreateRecipe from "./CreateRecipe.jsx";
 import SingleRecipe from "./SingleRecipe.jsx";
 import RecipeIndex from "./RecipeIndex.jsx";
+import DetailedPopUp from "./DetailedPopup.jsx";
 import "whatwg-fetch";
 
 export default class Recipes extends React.Component {
@@ -11,6 +12,7 @@ export default class Recipes extends React.Component {
     super(props);
     // Boolean state for hiding components on clicks
     this.state = {
+      detailView: false,
       cookingView: false,
       navbar: true,
       createRecipe: false,
@@ -19,27 +21,32 @@ export default class Recipes extends React.Component {
     };
     this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this);
     this.toggleCookingView = this.toggleCookingView.bind(this);
+    this.toggleDetailView = this.toggleDetailView.bind(this);
   }
 
   componentDidMount() {
-    console.log(`Inside componentDidMount`);
+    console.log("Inside componentDidMount");
     this.getRecipes();
   }
 
   getRecipes() {
-    console.log(`Inside getRecipes`);
+    console.log("Inside getRecipes");
 
     fetch("/recipes.json")
-    .then((response) => {
-      return response.json()
-    })
-    .then((recipes) => {
-      console.log("Setting state with recipes");
-      this.setState({ recipes: recipes });
-    })
-    .catch((ex) => {
-      console.log('parsing failed', ex)
-    });
+      .then((response) => {
+        return response.json();
+      })
+      .then((recipes) => {
+        console.log("Setting state with recipes");
+        this.setState({ recipes: recipes });
+      })
+      .catch((ex) => {
+        console.log("parsing failed", ex);
+      });
+  }
+
+  toggleDetailView = () => {
+    this.state.detailView ? this.setState({ detailView: false }) : this.setState({ detailView: true });
   }
 
   // called to toggle cooking view of recipe with full screen
@@ -52,11 +59,11 @@ export default class Recipes extends React.Component {
     this.state.createRecipe ? this.setState({ createRecipe: false, recipeIndex: true }) : this.setState({ createRecipe: true, recipeIndex: false });
   }
 
-
   render() {
     const recipes = this.state.recipes.map((recipe) => {
+      // console.log("RECIPE FROM MAP IN PARENT", recipe);
       return(
-        <RecipeIndex key={recipe.id} recipe={ recipe } toggleCookingView={this.toggleCookingView} />
+        <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} toggleDetailView={this.toggleDetailView} />
       );
     });
     return (
@@ -68,6 +75,7 @@ export default class Recipes extends React.Component {
 
         <div className="container">
           {this.state.createRecipe && <CreateRecipe />}
+          {/* <DetailedPopUp recipe={this.props.recipe} /> */}
 
           { this.state.recipeIndex && recipes }
         </div>

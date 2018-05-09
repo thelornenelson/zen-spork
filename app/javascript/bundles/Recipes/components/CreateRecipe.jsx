@@ -1,12 +1,12 @@
 
-import React from "react"
-import NewRecipeSteps from "./NewRecipeSteps.jsx"
+import React from "react";
+import NewRecipeSteps from "./NewRecipeSteps.jsx";
 
 export default class CreateRecipe extends React.Component {
 
 
   constructor(){
-    super()
+    super();
 
     this.state = {
       title: "",
@@ -23,7 +23,7 @@ export default class CreateRecipe extends React.Component {
           ingredients: [""]
         }
       ]
-    }
+    };
 
     this.onTitleInput = this.onTitleInput.bind(this);
     this.onPhotoInput = this.onPhotoInput.bind(this);
@@ -207,7 +207,7 @@ export default class CreateRecipe extends React.Component {
               steps={this.state.steps}
               changeDescription={this.changeDescription}
               changeIngredient={this.changeIngredient}
-              />
+            />
             {steps}
             <div className="row">
               <div className="col-lg">

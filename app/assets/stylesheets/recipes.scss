@@ -153,8 +153,6 @@ body {
 }
 
 .cooking-view {
-  // height: 500px;
-  // // width: 100%;
   background-color: #FBFBF7;
   z-index: 3;
   position: absolute;
@@ -162,5 +160,26 @@ body {
   bottom: 0;
   right: 0;
   left: 0;
+  margin: 5px;
 
 }
+
+
+
+
+.popup-content {
+    // position: absolute !important;
+    z-index: 2 !important;
+    width: 500px !important;
+    background: rgb(255, 255, 255) !important;
+    border: 1px solid rgb(187, 187, 187) !important;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px !important;
+    padding: 5px !important;
+    // top: 0px !important;
+    // left: 0px !important;
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      margin-top: -50px !important;
+      margin-left: -100px !important;
+    }
