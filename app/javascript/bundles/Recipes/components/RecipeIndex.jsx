@@ -5,13 +5,15 @@ import LearnMore from "./LearnMore.jsx";
 export default class RecipeIndex extends React.Component {
   render() {
     const title = this.props.recipe.title;
+    // declares the photo_url that is linked to recipe
     const photo = this.props.recipe.photo_url;
-    console.log("RECIPE", this.props.recipe);
-    console.log("PHOTO CONST", photo);
+    // declares our placeholder photo
+    const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     return (
       <article>
         <div className="recipe-card card border-dark">
-          <img className="card-img-top" src={photo} alt="food porn of cooked dish" />
+          {/* renders either photo_url, or if that is a blank string, the placeholder */}
+          <img className="card-img-top" src={photo || photoPlaceholder} alt="food porn of cooked dish" />
           <div className="card-body">
             <p className={"card-title h3 text-center"}>{ title }</p>
             <LearnMore recipe={this.props.recipe} toggleDetailView={this.props.toggleDetailView}/>     
