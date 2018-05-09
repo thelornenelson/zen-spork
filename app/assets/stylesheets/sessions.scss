@@ -7,11 +7,23 @@ $bg-color: #FBFBF7;
 .login-box {
   background: $bg-color;
   width: 80%;
-  height: 320px;
+  height: 310px;
   border: 2px;
   border-radius: 5px;
   padding: 15px;
   position: relative;
   left: 115px;
   top: 20px;
+}
+
+.register-link-box {
+  background: $bg-color;
+  width: 80%;
+  height: 140px;
+  border: 2px;
+  border-radius: 5px;
+  padding: 15px;
+  position: relative;
+  left: 115px;
+  top: 50px;
 }

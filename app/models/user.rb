@@ -2,6 +2,13 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  validates :email, presence: true
+  validates :email, uniqueness: true
+  validates :password, presence: true
+  validates_length_of :password, minimum: 3
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   has_many :recipes
   has_many :sporks
 
