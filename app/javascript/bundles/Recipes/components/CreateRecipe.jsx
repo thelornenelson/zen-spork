@@ -93,7 +93,6 @@ export default class CreateRecipe extends React.Component {
   onSubmit(e) {
 
     e.preventDefault();
-    console.log("this.state:")
     console.dir(this.state);
 
     // this seems a bit clumsy, but I want to avoid just posting this.state without whitelisting the keys.
@@ -103,22 +102,21 @@ export default class CreateRecipe extends React.Component {
     const recipeData = { recipe: { title, photo_url: photo, content: { intro: description, prep_time: prepTime, cook_time: cookTime, servings, steps }}};
 
     fetch("/recipes", {
-    method: "POST",
-    body: JSON.stringify(recipeData),
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: "same-origin"
+      method: "POST",
+      body: JSON.stringify(recipeData),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
     }).then(function(response) {
-      console.dir(response);
-      response.status     //=> number 100–599
-      response.statusText //=> String
-      response.headers    //=> Headers
-      response.url        //=> String
+      response.status;     //=> number 100–599
+      response.statusText; //=> String
+      response.headers;    //=> Headers
+      response.url;        //=> String
 
-      return response.text()
+      return response.text();
     }, function(error) {
-      error.message //=> String
+      error.message; //=> String
     });
 
   }
