@@ -2,7 +2,6 @@ import React from "react";
 import NewRecipeSteps from "./NewRecipeSteps.jsx";
 import "whatwg-fetch";
 
-
 export default class CreateRecipe extends React.Component {
 
   constructor(){

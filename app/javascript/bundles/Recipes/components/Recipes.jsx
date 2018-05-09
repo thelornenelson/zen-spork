@@ -10,9 +10,9 @@ export default class Recipes extends React.Component {
   constructor(props) {
     super(props);
     // Boolean state for hiding components on clicks
+    // And recipes array from database
     this.state = {
       cookingView: false,
-      navbar: true,
       createRecipe: false,
       recipeIndex: true,
       recipes: []
@@ -21,20 +21,18 @@ export default class Recipes extends React.Component {
     this.toggleCookingView = this.toggleCookingView.bind(this);
   }
 
+  // calls get recipe after virtual DOM is loaded
   componentDidMount() {
-    console.log("Inside componentDidMount");
     this.getRecipes();
   }
 
+  // gets recipes, sets to state and returns a console error on problem
   getRecipes() {
-    console.log("Inside getRecipes");
-
     fetch("/recipes.json")
       .then((response) => {
         return response.json();
       })
       .then((recipes) => {
-        console.log("Setting state with recipes");
         this.setState({ recipes: recipes });
       })
       .catch((ex) => {
@@ -52,23 +50,20 @@ export default class Recipes extends React.Component {
     this.state.createRecipe ? this.setState({ createRecipe: false, recipeIndex: true }) : this.setState({ createRecipe: true, recipeIndex: false });
   }
 
-
   render() {
+    // maps recipe index cards
     const recipes = this.state.recipes.map((recipe) => {
       return(
-        <RecipeIndex key={recipe.id} recipe={ recipe } toggleCookingView={this.toggleCookingView} />
+        <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} />
       );
     });
     return (
       <div>
         {/* components are visible when their state boolean is true */}
         {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> }
-        {/*Passing down function to toggle recipe to navbar child  */}
-        {this.state.navbar && <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} />}
-
+        <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} />
         <div className="container">
           {this.state.createRecipe && <CreateRecipe />}
-
           { this.state.recipeIndex && recipes }
         </div>
       </div>
