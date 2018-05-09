@@ -1,5 +1,5 @@
-import React from "react"
-import Navbar from "../../Recipes/components/Navbar.jsx"
+import React from "react";
+import Navbar from "../../Recipes/components/Navbar.jsx";
 
 export default class Sessions extends React.Component {
 
@@ -35,6 +35,6 @@ export default class Sessions extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
