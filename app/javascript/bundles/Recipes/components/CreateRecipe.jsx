@@ -236,7 +236,6 @@ export default class CreateRecipe extends React.Component {
               changeInstructions={this.changeInstructions}
               changeIngredient={this.changeIngredient}
             />
-
             {steps}
             <div className="row">
               <div className="col-lg">
