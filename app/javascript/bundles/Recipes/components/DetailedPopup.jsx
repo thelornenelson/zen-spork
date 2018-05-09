@@ -10,6 +10,7 @@ export default class DetailedPopup extends React.Component {
     return (
       <section>
         <h5 className="modal-title" id="exampleModalCenterTitle">{title}</h5>
+        {/* either renders photo from db is it exists or placeholder photo */}
         <img className="modal-img-top" src={photo_url || photoPlaceholder} style={{ width: "20%" }} alt="Delicious Food" />
         <div className="modal-body">
           {intro}
