@@ -27,6 +27,19 @@ class RecipesController < ApplicationController
   def create
     # for now, we only have 1 user who creates all recipes. Eventually this will be changed to reflect the current user
     @user = User.first
+    # recipe_data = nil
+    # if recipe_params[:content][:steps][0][:ingredients][:qty].blank?
+    #   recipe_data = recipe_params
+    #
+    #   recipe_data[:content][:steps].map! do |step|
+    #     step[:ingredients].map! do |ingredient|
+    #       split_ingredients = ingredient.split(' ')
+    #       { qty: split_ingredients[0], unit: split_ingredients[1], name: split_ingredients[2] }
+    #     end
+    #     { instructions: step[:instructions], ingredients: step[:ingredients]}
+    #   end
+    # end
+
     @recipe = @user.recipes.new(recipe_params)
 
     if @recipe.save
@@ -52,12 +65,14 @@ class RecipesController < ApplicationController
           :servings,
           { steps: [
             :instructions,
+            { ingredients: [] }
+            ],
             ingredients: [
-              :qty,
-              :unit,
-              :name
-              ]
-            ] }
+             :qty,
+             :unit,
+             :name
+             ]
+            }
         ]
       )
     end
