@@ -14,7 +14,7 @@ export default class SingleRecipe extends React.Component {
       });
 
       return (
-        <div key={stepIndex} className="row step-row">
+        <div className="row step-row" key={Math.random()}>
           <div className="col-xl-4 step-col" style={{paddingLeft: 60}}>{ingredients}</div>
           <div className="col-xl-8" style={{paddingLeft: 40}}>{step.instructions}</div>
         </div>);
