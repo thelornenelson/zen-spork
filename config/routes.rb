@@ -11,6 +11,6 @@ Rails.application.routes.draw do
 
   root to: 'recipes#index'
 
-  resources :recipes, only: [:index, :show, :create, :new]
+  resources :recipes, only: [:index, :show, :create, :new, :update]
 
 end
