@@ -52,7 +52,7 @@ RSpec.describe SporksController, type: :controller do
       expect(response).to have_http_status(400)
     end
 
-    context "with valid recipe data" do
+    context "with valid recipe id" do
 
       it "should return 201 status" do
         post :create, format: :json, params: {recipe_id: @user.recipes.first.id }
