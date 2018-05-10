@@ -11,6 +11,7 @@ export default class Navbar extends React.Component {
       ? (<button type="button" className="btn nav-button" onClick={this.props.toggleMyRecipesView}>All Recipes</button>)
       : (<button type="button" className="btn nav-button" onClick={this.props.toggleMyRecipesView}>My Recipes</button>));
 
+    // return the correct nav bar depending on whether user is logged in
     if (this.props.current_user) {
 
       return (
