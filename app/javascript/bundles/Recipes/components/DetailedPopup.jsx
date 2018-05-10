@@ -35,17 +35,18 @@ export default class DetailedPopup extends React.Component {
     return (
       <article className="DPU-main-container">
         <div className="container">
-          <div className="row">   
+          <div className="row">
             <div className="DPU-left col-5">
               <h1 className="DPU-title">{title}</h1><br />
               {/* either renders photo from db is it exists or placeholder photo */}
-              <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" />        
+              <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" />
               Prep-time | Cook-Time | Servings <br />
               {prep_time} | {cook_time} | {servings} <br />
               <div className="modal-footer DPU-buttons">
                 <FullScreenButton recipe={this.props.recipe} />
                 <button type="button" className={"btn btn-secondary"} data-dismiss="modal">Spork</button>
-              </div>      
+                <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}>Edit</button>
+              </div>
             </div>
             <div className="DPU-right col-7">
               <strong>Intro:</strong> {intro}<br/><br/>
