@@ -20,7 +20,7 @@ Capybara.register_driver :poltergeist do |app|
     js_errors: false,
     phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any'],
     debug: false,
-    timeout: 500
+    timeout: 500,
     # phantomjs: File.absolute_path(Phantomjs.path)
   })
 end
