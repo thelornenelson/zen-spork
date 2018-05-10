@@ -34,12 +34,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    puts "Starting!"
     DatabaseCleaner.start
   end
 
   config.append_after(:each) do
-    puts "Cleaning!"
     DatabaseCleaner.clean
   end
 
