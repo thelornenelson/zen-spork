@@ -192,7 +192,7 @@ body {
 }
 
 .DPU-main-container {
-  background-color:white;
+  background-color:#FBFBF7;
 }
 
 .DPU-title {
@@ -210,8 +210,17 @@ body {
 
 .DPU-image {
   width: 90%;
+
 }
 
 .DPU-buttons {
   justify-content: center;
+}
+
+// constrains large images to a max-height & width for visual appeal
+.card-img-top {
+  max-height: 200px;
+  max-width: 300px;
+  width: 100%;
+  height: auto;
 }
