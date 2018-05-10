@@ -59,7 +59,7 @@ RSpec.describe RecipesController, type: :controller do
   end
 
   describe "POST #create" do
-    before :all do
+    before :each do
       user = create(:user)
     end
 
