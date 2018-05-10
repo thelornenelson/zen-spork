@@ -27,7 +27,7 @@ end
 Capybara.javascript_driver = :poltergeist
 Capybara.server_port = 3001
 
-Capybara.default_max_wait_time = 100
+# Capybara.default_max_wait_time = 100
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
