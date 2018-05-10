@@ -74,21 +74,6 @@ class RecipesController < ApplicationController
         ]
       )
 
-      # params.require(:recipe).permit(
-      #     { steps: [
-      #       :instructions,
-      #       { ingredients: [] },
-      #       { ingredients: [
-      #        :qty,
-      #        :unit,
-      #        :name
-      #        ] }
-      #      ],
-      #       }
-      #   ]
-      # )
-
-      # params3 = ActionController::Parameters.new({recipe: {content: {steps: [{ingredients: [{qty:"5",unit:"cups",name:"blah"}]}]}}})
     end
 
     def parse_ingredients_strings
@@ -109,8 +94,6 @@ class RecipesController < ApplicationController
           end
 
         end
-        puts "Params[:content] is"
-        p params[:content]
       rescue => error
         puts 'Error parsing ingredient strings'
         p error

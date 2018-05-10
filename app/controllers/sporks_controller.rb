@@ -12,25 +12,30 @@ class SporksController < ApplicationController
   def create
     # POST /recipes/:recipe_id/sporks
     # for now, we only have 1 user who creates all recipes. Eventually this will be changed to reflect the current user
-    @user = current_user
 
-    @original_recipe = Recipe.find(params[:recipe_id])
-    @recipe = @original_recipe.dup
-    @recipe.user = @user
+    begin
+      @user = current_user
+      @original_recipe = Recipe.find(params[:recipe_id])
 
-    @spork = @original_recipe.sporks.new
-    @spork.recipe = @recipe
-    @spork.user = @user
+      @recipe = @original_recipe.dup
+      @recipe.user = @user
 
-    if @recipe.save
-      if @spork.save
-        head :created, location: recipe_path(@recipe, format: :json)
+      @spork = @original_recipe.sporks.new
+      @spork.recipe = @recipe
+      @spork.user = @user
+
+      if @recipe.save
+        if @spork.save
+          head :created, location: recipe_path(@recipe, format: :json)
+        else
+          @recipe.destroy
+          render plain: 'ERROR: FAILED TO SPORK', status: 400
+        end
       else
-        @recipe.destroy
-        render plain: 'ERROR: FAILED TO SPORK', status: 400
+        render plain: 'ERROR: FAILED TO DUPLICATE RECIPE', status: 400
       end
-    else
-      render plain: 'ERROR: FAILED TO DUPLICATE RECIPE', status: 400
+    rescue
+      render plain: "ERROR: CANNOT FIND RECIPE WITH ID #{params[:recipe_id]}" , status: 400
     end
 
   end
