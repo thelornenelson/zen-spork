@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class SingleRecipe extends React.Component {
+export default class FullScreenView extends React.Component {
   render() {
     const recipe = this.props.recipe;
     const steps = recipe.content.steps.map((step, stepIndex) => {

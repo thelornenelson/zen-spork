@@ -2,7 +2,7 @@ import React from "react";
 // importing components to render
 import Navbar from "./Navbar.jsx";
 import CreateRecipe from "./CreateRecipe.jsx";
-import SingleRecipe from "./SingleRecipe.jsx";
+import FullScreenView from "./FullScreenView";
 import RecipeIndex from "./RecipeIndex.jsx";
 import "whatwg-fetch";
 
@@ -20,9 +20,6 @@ export default class Recipes extends React.Component {
       myRecipesView: false,
       recipes: []
     };
-    this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this);
-    this.toggleCookingView = this.toggleCookingView.bind(this);
-    this.toggleMyRecipesView = this.toggleMyRecipesView.bind(this);
   }
 
   // calls get recipe after virtual DOM is loaded
@@ -67,6 +64,15 @@ export default class Recipes extends React.Component {
     });
   }
 
+  returnToIndexView = (e) => {
+    if(e){
+      e.preventDefault();
+    }else{
+      this.getRecipes();
+    }
+    this.setState({ editRecipe: false, recipeIndex: true, createRecipe: false });
+  }
+
   render() {
     let recipes = [];
 
@@ -96,13 +102,13 @@ export default class Recipes extends React.Component {
 
     return (
       <div>
+        <Navbar current_user={this.props.current_user} toggleCreateRecipe={this.toggleCreateRecipe} toggleMyRecipesView={this.toggleMyRecipesView} isMyRecipesView={this.state.myRecipesView} />
         {/* components are visible when their state boolean is true */}
-        {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> }
-        <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} toggleMyRecipesView={this.toggleMyRecipesView} isMyRecipesView={this.state.myRecipesView} />
+        {this.state.cookingView && <FullScreenView toggleCookingView={this.toggleCookingView} /> }
         <div className="container">
-          {this.state.createRecipe && <CreateRecipe />}
-          {this.state.editRecipe && <CreateRecipe currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
-          { this.state.recipeIndex && recipes }
+          {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView}/>}
+          {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
+          {this.state.recipeIndex && recipes}
         </div>
       </div>
     );
