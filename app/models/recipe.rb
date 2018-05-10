@@ -8,6 +8,7 @@ class Recipe < ApplicationRecord
 
   validate :content_is_acceptable
   validate :photo_url_resembles_a_url
+  validate :reference_url_resembles_a_url
 
   def content_is_acceptable
       begin
@@ -25,6 +26,12 @@ class Recipe < ApplicationRecord
     if photo_url.present?
       # not checking for ending in .jpg, .png, etc, because many images are served from routes without valid image file extensions.
       errors.add(:photo_url, "must be valid http or https url") unless /^https?:\/\// =~ photo_url
+    end
+  end
+
+  def reference_url_resembles_a_url
+    if reference_url.present?
+      errors.add(:reference_url, "must be valid http or https url") unless /^https?:\/\// =~ reference_url
     end
   end
 end

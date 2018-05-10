@@ -12,7 +12,7 @@ a{
 
 body {
   background: $bg-color;
-  background-image: url('/bg_image.jpg');
+  background-image: url('https://drive.google.com/uc?export=view&id=196_2K6QhZPVZTBGOYmuMuSevv9XPrOYU');
   background-position: top;
   background-size: cover;
   background-attachment: fixed;
@@ -87,7 +87,6 @@ body {
       max-width: 320px;
       // so that footer within can be positioned absolutely
       position:  relative;
-
       border:        2px solid #ccc;
       border-radius: 5px;
       padding:       0px;
@@ -96,10 +95,26 @@ body {
       // margin:        10px;
   }
 
+  .learn-more {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    font-weight: 700;
+    border: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+
+  .learn-more:hover {
+    background: #AFAFAF;
+  }
 
 }
 
 .new-recipe {
+  position : relative;
   background: $bg-color;
   width: 85%;
   border: 2px solid #ccc;
@@ -121,38 +136,24 @@ body {
     float: right;
     margin-left: 15px;
     margin-bottom: 10px;
-
   }
 
   .btn-danger {
     float: right;
     margin-left: 15px;
     margin-bottom: 10px;
+  }
 
+  .add-step-button {
+    margin: auto;
+    margin-bottom: 0;
+    margin-top: 10px;
   }
 
   input {
     border-color: #AFAFAF;
   }
-
 }
-
-.learn-more {
-  position: absolute;
-  bottom: 0;
-  left:   0;
-  width: 100%;
-  height: 40px;
-  font-weight: 700;
-  border: none;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-}
-
-.learn-more:hover {
-  background: #AFAFAF;
-}
-
 
 .steps-area {
   border: 1px solid #AFAFAF;
@@ -169,20 +170,19 @@ body {
   bottom: 0;
   right: 0;
   left: 0;
-  font-size: 1.3em;
+  font-size: 120%;
   font-weight: 700;
-  margin-top: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-height: 700px;
 
-  h1 {
-    font-weight: 700;
-  }
-
-  h3 {
+  h4 {
+    font-size: 1.2em;
     font-weight: 700;
   }
 
   .step-row {
-    padding: 15px;
+    padding: 10px;
     border-bottom: 1px solid #AFAFAF;
   }
 
@@ -191,15 +191,36 @@ body {
   }
 }
 
-.myRecipesBox {
-  background: $bg-color;
-  font-size: 25px;
-  width: 180px;
-  height: 60px;
-  border: 2px;
-  border-radius: 5px;
-  padding: 15px;
-  position: relative;
-  left: 600px;
-  top: 10px;
+.DPU-main-container {
+  background-color:#FBFBF7;
+}
+
+.DPU-title {
+  font-size: 1.8em;
+}
+
+.DPU-left {
+  float: left;
+  text-align: center;
+}
+
+.DPU-right {
+  float: right;
+}
+
+.DPU-image {
+  width: 90%;
+
+}
+
+.DPU-buttons {
+  justify-content: center;
+}
+
+// constrains large images to a max-height & width for visual appeal
+.card-img-top {
+  max-height: 200px;
+  max-width: 300px;
+  width: 100%;
+  height: auto;
 }

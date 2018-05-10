@@ -14,6 +14,8 @@ export default class Recipes extends React.Component {
     this.state = {
       cookingView: false,
       createRecipe: false,
+      editRecipe: false,
+      currentEditRecipe: {},
       recipeIndex: true,
       myRecipesView: false,
       recipes: []
@@ -54,7 +56,15 @@ export default class Recipes extends React.Component {
 
   // called to toggle the create recipe componenet
   toggleCreateRecipe = () => {
-    this.state.createRecipe ? this.setState({ createRecipe: false, recipeIndex: true }) : this.setState({ createRecipe: true, recipeIndex: false });
+    this.state.createRecipe ? this.setState({ createRecipe: false, recipeIndex: true, editRecipe: false }) : this.setState({ createRecipe: true, recipeIndex: false, editRecipe: false});
+  }
+
+  editRecipe = (currentRecipe, e) => {
+    e.preventDefault();
+    this.state.editRecipe ? this.setState({ editRecipe: false, recipeIndex: true, createRecipe: false }) : this.setState({ editRecipe: true, recipeIndex: false, createRecipe: false });
+    this.setState({
+      currentEditRecipe: currentRecipe
+    });
   }
 
   render() {
@@ -83,6 +93,7 @@ export default class Recipes extends React.Component {
         );
       });
     }
+
     return (
       <div>
         {/* components are visible when their state boolean is true */}
@@ -90,6 +101,7 @@ export default class Recipes extends React.Component {
         <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} toggleMyRecipesView={this.toggleMyRecipesView} isMyRecipesView={this.state.myRecipesView} />
         <div className="container">
           {this.state.createRecipe && <CreateRecipe />}
+          {this.state.editRecipe && <CreateRecipe currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
           { this.state.recipeIndex && recipes }
         </div>
       </div>

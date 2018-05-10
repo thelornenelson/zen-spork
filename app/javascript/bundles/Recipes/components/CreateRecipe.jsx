@@ -8,14 +8,16 @@ export default class CreateRecipe extends React.Component {
     super();
 
     this.state = {
+      statusEdit: false,
+      editRecipe: {},
       title: "",
       photo: "",
       description: "",
       // gear: "",
       // warnings: "",
-      prepTime: 0,
-      cookTime: 0,
-      servings: 0,
+      prepTime: "",
+      cookTime: "",
+      servings: "",
       steps: [
         {
           instructions: "",
@@ -40,6 +42,7 @@ export default class CreateRecipe extends React.Component {
     this.deleteIngredient = this.deleteIngredient.bind(this);
     this.changeInstructions = this.changeInstructions.bind(this);
     this.changeIngredient = this.changeIngredient.bind(this);
+    this.resetCreateRecipeForm = this.resetCreateRecipeForm.bind(this);
   }
 
   onTitleInput (e) {
@@ -91,7 +94,6 @@ export default class CreateRecipe extends React.Component {
   }
 
   onSubmit(e) {
-
     e.preventDefault();
     console.dir(this.state);
 
@@ -101,19 +103,21 @@ export default class CreateRecipe extends React.Component {
     // Also allows renaming the camel case keys to snake case, to match expectations on back end.
     const recipeData = { recipe: { title, photo_url: photo, content: { intro: description, prep_time: prepTime, cook_time: cookTime, servings, steps }}};
 
-    fetch("/recipes", {
-      method: "POST",
+    fetch((this.state.statusEdit)?("/recipes/" + this.props.currentEditRecipe.id):("/recipes"),{
+      method: ((this.state.statusEdit)?("PUT"):("POST")),
       body: JSON.stringify(recipeData),
       headers: {
         "Content-Type": "application/json"
       },
       credentials: "same-origin"
-    }).then(function(response) {
+    }).then((response) => {
       response.status;     //=> number 100–599
       response.statusText; //=> String
       response.headers;    //=> Headers
       response.url;        //=> String
-
+      if(response.status === 201){
+        this.resetCreateRecipeForm();
+      }
       return response.text();
     }, function(error) {
       error.message; //=> String
@@ -121,13 +125,33 @@ export default class CreateRecipe extends React.Component {
 
   }
 
-  addStep() {
+  resetCreateRecipeForm(){
+    this.setState({
+      title: "",
+      photo: "",
+      description: "",
+      // gear: "",
+      // warnings: "",
+      prepTime: "",
+      cookTime: "",
+      servings: "",
+      steps: [
+        {
+          instructions: "",
+          ingredients: [""]
+        }
+      ]
+    });
+  }
 
+  addStep(e) {
+    e.preventDefault();
     const newSteps = this.state.steps.concat([{ instructions: "", ingredients: [""] }]);
     this.setState({ steps: newSteps });
   }
 
-  deleteStep(stepIndex) {
+  deleteStep(stepIndex, e) {
+    e.preventDefault();
     //makes a copy of the steps array so we can change it
     const newSteps = this.state.steps.slice();
     //removes the step we don't want
@@ -135,14 +159,16 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  addIngredient(stepIndex) {
+  addIngredient(stepIndex, e) {
+    e.preventDefault();
     console.log(`stepIndex = ${stepIndex}`);
     const newSteps = this.state.steps.slice(0);
     newSteps[stepIndex].ingredients.push("");
     this.setState({ steps: newSteps });
   }
 
-  deleteIngredient(stepIndex, ingredientIndex) {
+  deleteIngredient(stepIndex, ingredientIndex, e) {
+    e.preventDefault();
     const newSteps = this.state.steps.slice(0);
     newSteps[stepIndex].ingredients.splice(ingredientIndex, 1);
     this.setState({ steps: newSteps });
@@ -160,37 +186,64 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  render() {
-    const steps = this.state.steps.map((step) => {
-      const ingredients = step.ingredients.map((ingredient) => {
-        return(<li>{ ingredient }</li>);
+  fillEditRecipeForm(recipe){
+    const recipeSteps = [];
+    recipe.content.steps.forEach((step) =>{
+      const ingredientsForStep = [];
+      step.ingredients.forEach((ingredient) => {
+        const currentIngredient = (ingredient.qty + "  " + ingredient.unit + "  " + ingredient.name);
+        ingredientsForStep.push(currentIngredient);
       });
-      return (<article><p>{ step.instructions }</p>
-        <ul>{ ingredients }</ul></article>);
+      const currentStep = {
+        instructions: step.instructions,
+        ingredients: ingredientsForStep,
+      };
+      recipeSteps.push(currentStep);
     });
+    this.setState({
+      title: recipe.title,
+      photo: recipe.photo_url,
+      description: recipe.content.intro,
+      // gear: "",
+      // warnings: "",
+      prepTime: recipe.content.prep_time,
+      cookTime: recipe.content.cook_time,
+      servings: recipe.content.servings,
+      steps: recipeSteps,
+    });
+  }
 
+  componentDidMount() {
+    if(this.props.editRecipeView){
+      this.setState({
+        statusEdit: true
+      });
+      this.fillEditRecipeForm(this.props.currentEditRecipe);
+    }
+  }
 
+  render() {
+    const title = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     return (
+
       <div className="new-recipe">
         <button type="button" className="close" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <div className="create-title">Create A New Recipe</div>
-
+        {title}
         <form onSubmit={this.onSubmit}>
-
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg">
                 <div className="form-group">
                   <label htmlFor="InputRecipeTitle">Recipe Title</label>
-                  <input type="text" className="form-control" id="InputRecipeTitle" placeholder="Enter Title" onInput={this.onTitleInput}/>
+                  <input type="text" className="form-control" id="InputRecipeTitle" placeholder="Enter Title" value={this.state.title} onInput={this.onTitleInput}/>
                 </div>
               </div>
               <div className="col-lg">
                 <div className="form-group">
                   <label htmlFor="InputPhoto">Photo</label>
-                  <input type="text" className="form-control" id="InputPhoto" placeholder="Add A Photo Url" onInput={this.onPhotoInput}/>
+                  <input type="text" className="form-control" id="InputPhoto" placeholder="Add A Photo Url" value={this.state.photo} onInput={this.onPhotoInput}/>
                 </div>
               </div>
             </div>
@@ -199,7 +252,7 @@ export default class CreateRecipe extends React.Component {
               <div className="col-lg">
                 <div className="form-group">
                   <label htmlFor="InputDescription">Description</label>
-                  <textarea type="text" className="form-control" id="InputDescription" placeholder="Description" onInput={this.onDescriptionInput}/>
+                  <textarea type="text" className="form-control" id="InputDescription" placeholder="Description" value={this.state.description} onInput={this.onDescriptionInput}/>
                 </div>
               </div>
             </div>
@@ -208,23 +261,22 @@ export default class CreateRecipe extends React.Component {
               <div className="col-lg">
                 <div className="form-group">
                   <label htmlFor="InputPrepTime">Prep Time</label>
-                  <input type="text" className="form-control" id="InputPrepTime" placeholder="Prep Time" onInput={this.onPrepTimeInput}/>
+                  <input type="text" className="form-control" id="InputPrepTime" placeholder="Prep Time" value={this.state.prepTime} onInput={this.onPrepTimeInput}/>
                 </div>
               </div>
               <div className="col-lg">
                 <div className="form-group">
                   <label htmlFor="InputCookTime">Cook Time</label>
-                  <input type="text" className="form-control" id="InputCookTime" placeholder="Cook Time" onInput={this.onCookTimeInput}/>
+                  <input type="text" className="form-control" id="InputCookTime" placeholder="Cook Time" value={this.state.cookTime} onInput={this.onCookTimeInput}/>
                 </div>
               </div>
               <div className="col-lg">
                 <div className="form-group">
                   <label htmlFor="InputServings">Servings</label>
-                  <input type="text" className="form-control" id="InputServings" placeholder="Servings" onInput={this.onServingsInput}/>
+                  <input type="text" className="form-control" id="InputServings" placeholder="Servings" value={this.state.servings} onInput={this.onServingsInput}/>
                 </div>
               </div>
             </div>
-
             <NewRecipeSteps addStep={this.addStep}
               deleteStep={this.deleteStep}
               addIngredient={this.addIngredient}
@@ -233,10 +285,10 @@ export default class CreateRecipe extends React.Component {
               changeInstructions={this.changeInstructions}
               changeIngredient={this.changeIngredient}
             />
-            {steps}
             <div className="row">
               <div className="col-lg">
                 <button className="btn btn-secondary">Cancel</button>
+                {this.state.statusEdit && <button className="btn btn-secondary">Reset</button>}
                 <button type="submit" className="btn btn-secondary">Save</button>
               </div>
             </div>
