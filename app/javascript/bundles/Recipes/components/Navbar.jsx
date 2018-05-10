@@ -6,6 +6,7 @@ export default class Navbar extends React.Component {
       ? (<div><a href='/logout' className="btn nav-button">Logout</a><div className="nav-user">{this.props.current_user}</div></div>)
       : (<div><a href='/login' className="btn nav-button">Login</a></div>));
 
+    // Makes the button display either My Recipes or All recipes depending on the state
     const myRecipesToggle = ((this.props.isMyRecipesView)
       ? (<button type="button" className="btn nav-button" onClick={this.props.toggleMyRecipesView}>All Recipes</button>)
       : (<button type="button" className="btn nav-button" onClick={this.props.toggleMyRecipesView}>My Recipes</button>));
