@@ -17,10 +17,12 @@ export default class Recipes extends React.Component {
       editRecipe: false,
       currentEditRecipe: {},
       recipeIndex: true,
+      myRecipesView: false,
       recipes: []
     };
     this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this);
     this.toggleCookingView = this.toggleCookingView.bind(this);
+    this.toggleMyRecipesView = this.toggleMyRecipesView.bind(this);
   }
 
   // calls get recipe after virtual DOM is loaded
@@ -42,6 +44,11 @@ export default class Recipes extends React.Component {
       });
   }
 
+  // called to toggle between the myRecipes view and all recipes view
+  toggleMyRecipesView = () => {
+    this.state.myRecipesView ? this.setState({ myRecipesView: false}) : this.setState({ myRecipesView: true});
+  }
+
   // called to toggle cooking view of recipe with full screen
   toggleCookingView = () => {
     this.state.cookingView ? this.setState({ cookingView: false, recipeIndex: true }) : this.setState({cookingView : true, recipeIndex : false});
@@ -61,17 +68,37 @@ export default class Recipes extends React.Component {
   }
 
   render() {
-    // maps recipe index cards
-    const recipes = this.state.recipes.map((recipe) => {
-      return(
-        <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe}/>
-      );
-    });
+    let recipes = [];
+
+    if (this.state.myRecipesView === false) {
+
+      // maps recipe index cards
+      recipes = this.state.recipes.map((recipe) => {
+        return(
+          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} />
+        );
+      });
+    } else {
+      let myRecipesArray = [];
+      for (let i = 0; i < this.state.recipes.length; i++) {
+        if (this.state.recipes[i].user_id === this.props.current_user_id) {
+          myRecipesArray.push(this.state.recipes[i]);
+        }
+      }
+
+      //maps recipe index cards for just the logged in users recipes
+      recipes = myRecipesArray.map((recipe) => {
+        return(
+          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} />
+        );
+      });
+    }
+
     return (
       <div>
         {/* components are visible when their state boolean is true */}
         {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> }
-        <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} />
+        <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} toggleMyRecipesView={this.toggleMyRecipesView} isMyRecipesView={this.state.myRecipesView} />
         <div className="container">
           {this.state.createRecipe && <CreateRecipe />}
           {this.state.editRecipe && <CreateRecipe currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
