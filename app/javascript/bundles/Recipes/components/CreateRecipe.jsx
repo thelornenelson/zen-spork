@@ -94,7 +94,6 @@ export default class CreateRecipe extends React.Component {
   }
 
   onSubmit(e) {
-
     e.preventDefault();
     console.dir(this.state);
 
@@ -104,8 +103,8 @@ export default class CreateRecipe extends React.Component {
     // Also allows renaming the camel case keys to snake case, to match expectations on back end.
     const recipeData = { recipe: { title, photo_url: photo, content: { intro: description, prep_time: prepTime, cook_time: cookTime, servings, steps }}};
 
-    fetch("/recipes", {
-      method: "POST",
+    fetch((this.state.statusEdit)?("/recipes/" + this.props.currentEditRecipe.id):("/recipes"),{
+      method: ((this.state.statusEdit)?("PUT"):("POST")),
       body: JSON.stringify(recipeData),
       headers: {
         "Content-Type": "application/json"
@@ -289,6 +288,7 @@ export default class CreateRecipe extends React.Component {
             <div className="row">
               <div className="col-lg">
                 <button className="btn btn-secondary">Cancel</button>
+                {this.state.statusEdit && <button className="btn btn-secondary">Reset</button>}
                 <button type="submit" className="btn btn-secondary">Save</button>
               </div>
             </div>
