@@ -6,7 +6,7 @@ RSpec.describe SporksController, type: :controller do
   render_views
   subject(:json) { JSON.parse(response.body, symbolize_names: true) }
   describe "GET /recipes/:recipe_id/sporks/#index and format is json" do
-    before :all do
+    before :each do
       @user = create(:user_with_recipes, recipes_count: 1)
       @original_recipe = @user.recipes.first
       user2 = create(:user, first_name: 'TestSecond', last_name: 'TestLast', email: 'test2@test.test', password: 'testing')
@@ -40,10 +40,10 @@ RSpec.describe SporksController, type: :controller do
     end
   end
 
-
   describe "POST #create" do
-    before :all do
-      @user = create(:user_with_recipes, email: 'test4@test.test', recipes_count: 1)
+
+    before :each do
+      @user = create(:user_with_recipes, recipes_count: 1)
       @original_recipe = @user.recipes.first
     end
 
@@ -51,10 +51,10 @@ RSpec.describe SporksController, type: :controller do
       post :create, format: :json, params: {recipe_id: 'invalid' }
       expect(response).to have_http_status(400)
     end
+
     context "with valid recipe data" do
 
       it "should return 201 status" do
-
         post :create, format: :json, params: {recipe_id: @user.recipes.first.id }
         expect(response).to have_http_status(201)
       end
