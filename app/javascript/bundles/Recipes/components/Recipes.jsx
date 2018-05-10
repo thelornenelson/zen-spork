@@ -14,6 +14,8 @@ export default class Recipes extends React.Component {
     this.state = {
       cookingView: false,
       createRecipe: false,
+      editRecipe: false,
+      currentEditRecipe: {},
       recipeIndex: true,
       recipes: []
     };
@@ -47,14 +49,22 @@ export default class Recipes extends React.Component {
 
   // called to toggle the create recipe componenet
   toggleCreateRecipe = () => {
-    this.state.createRecipe ? this.setState({ createRecipe: false, recipeIndex: true }) : this.setState({ createRecipe: true, recipeIndex: false });
+    this.state.createRecipe ? this.setState({ createRecipe: false, recipeIndex: true, editRecipe: false }) : this.setState({ createRecipe: true, recipeIndex: false, editRecipe: false});
+  }
+
+  editRecipe = (currentRecipe, e) => {
+    e.preventDefault();
+    this.state.editRecipe ? this.setState({ editRecipe: false, recipeIndex: true, createRecipe: false }) : this.setState({ editRecipe: true, recipeIndex: false, createRecipe: false });
+    this.setState({
+      currentEditRecipe: currentRecipe
+    });
   }
 
   render() {
     // maps recipe index cards
     const recipes = this.state.recipes.map((recipe) => {
       return(
-        <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} />
+        <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe}/>
       );
     });
     return (
@@ -64,6 +74,7 @@ export default class Recipes extends React.Component {
         <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} />
         <div className="container">
           {this.state.createRecipe && <CreateRecipe />}
+          {this.state.editRecipe && <CreateRecipe currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
           { this.state.recipeIndex && recipes }
         </div>
       </div>

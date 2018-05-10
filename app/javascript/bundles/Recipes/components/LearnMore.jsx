@@ -23,7 +23,7 @@ export default class LearnMore extends React.Component {
         <button type="button" className={"btn learn-more"} onClick={this.onOpenModal}>Learn More</button>
         <Modal open={open} onClose={this.onCloseModal} center>
           {/* on open, it renders DetailedPopup component in the modal window */}
-          <div><DetailedPopup recipe={this.props.recipe} /></div>
+          <div><DetailedPopup recipe={this.props.recipe} editRecipe={this.props.editRecipe}/></div>
         </Modal>
       </div>
     );
