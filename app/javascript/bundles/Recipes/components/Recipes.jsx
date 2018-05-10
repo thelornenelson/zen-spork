@@ -2,7 +2,7 @@ import React from "react";
 // importing components to render
 import Navbar from "./Navbar.jsx";
 import CreateRecipe from "./CreateRecipe.jsx";
-import SingleRecipe from "./SingleRecipe.jsx";
+import FullScreenView from "./FullScreenView";
 import RecipeIndex from "./RecipeIndex.jsx";
 import "whatwg-fetch";
 
@@ -19,8 +19,6 @@ export default class Recipes extends React.Component {
       recipeIndex: true,
       recipes: []
     };
-    this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this);
-    this.toggleCookingView = this.toggleCookingView.bind(this);
   }
 
   // calls get recipe after virtual DOM is loaded
@@ -78,13 +76,13 @@ export default class Recipes extends React.Component {
     });
     return (
       <div>
-        {/* components are visible when their state boolean is true */}
-        {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> }
         <Navbar current_user={this.props.current_user} toggleCreateRecipe={this.toggleCreateRecipe} />
+        {/* components are visible when their state boolean is true */}
+        {this.state.cookingView && <FullScreenView toggleCookingView={this.toggleCookingView} /> }
         <div className="container">
           {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView}/>}
           {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
-          { this.state.recipeIndex && recipes }
+          {this.state.recipeIndex && recipes}
         </div>
       </div>
     );

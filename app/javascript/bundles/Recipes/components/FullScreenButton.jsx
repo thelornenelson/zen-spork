@@ -1,6 +1,6 @@
 import React from "react";
 import Fullscreen from "react-full-screen";
-import SingleRecipe from "./SingleRecipe.jsx";
+import FullScreenView from "./FullScreenView.jsx";
 
 export default class FullScreenButton extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class FullScreenButton extends React.Component {
         </button>
         <Fullscreen enabled={this.state.isFull} onChange={isFull => this.setState({ isFull })}>
           <div className="full-screenable-node">
-            {this.state.isFull && <SingleRecipe recipe={ this.props.recipe }/>}
+            {this.state.isFull && <FullScreenView recipe={ this.props.recipe }/>}
           </div>
         </Fullscreen>
       </div>

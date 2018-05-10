@@ -123,7 +123,6 @@ export default class CreateRecipe extends React.Component {
     }, function(error) {
       error.message; //=> String
     });
-
   }
 
   resetCreateRecipeForm(){
@@ -231,7 +230,6 @@ export default class CreateRecipe extends React.Component {
   render() {
     const title = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     return (
-
       <div className="new-recipe">
         <button type="button" className="close" aria-label="Close" onClick={this.props.returnToIndexView}>
           <span aria-hidden="true">&times;</span>
@@ -253,7 +251,6 @@ export default class CreateRecipe extends React.Component {
                 </div>
               </div>
             </div>
-
             <div className="row">
               <div className="col-lg">
                 <div className="form-group">
@@ -262,7 +259,6 @@ export default class CreateRecipe extends React.Component {
                 </div>
               </div>
             </div>
-
             <div className="row">
               <div className="col-lg">
                 <div className="form-group">
@@ -289,8 +285,7 @@ export default class CreateRecipe extends React.Component {
               deleteIngredient={this.deleteIngredient}
               steps={this.state.steps}
               changeInstructions={this.changeInstructions}
-              changeIngredient={this.changeIngredient}
-            />
+              changeIngredient={this.changeIngredient}/>
             <div className="row">
               <div className="col-lg">
                 <button className="btn btn-secondary" onClick={this.props.returnToIndexView}>Cancel</button>
