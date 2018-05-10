@@ -8,7 +8,7 @@ export default class CreateRecipe extends React.Component {
     super();
 
     this.state = {
-      statusEdit: true,
+      statusEdit: false,
       title: "",
       photo: "",
       description: "",
@@ -186,12 +186,173 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  editRecipe(recipe){
+  fillEditRecipeForm(recipe){
+    const recipeSteps = [];
+    recipe.content.steps.forEach((step) =>{
+      const ingredientsForStep = [];
+      step.ingredients.forEach((ingredient) => {
+        const currentIngredient = (ingredient.qty + "  " + ingredient.unit + "  " + ingredient.name);
+        ingredientsForStep.push(currentIngredient);
+      });
+      const currentStep = {
+        instructions: step.instructions,
+        ingredients: ingredientsForStep,
+      };
+      recipeSteps.push(currentStep);
+    });
+    this.setState({
+      title: recipe.title,
+      photo: recipe.photo_url,
+      description: recipe.content.intro,
+      // gear: "",
+      // warnings: "",
+      prepTime: recipe.content.prep_time,
+      cookTime: recipe.content.cook_time,
+      servings: recipe.content.servings,
+      steps: recipeSteps,
+    });
+  }
 
+  componentDidMount() {
+    const recipe = {
+      "id": 1,
+      "user_id": 1,
+      "title": "Scotch eggs",
+      "content": {
+        "intro": "Scotch eggs Try-hard cornhole drinking next level selfies mixtape tousled.",
+        "gear": [
+          "seitan",
+          "dolore",
+          "quam"
+        ],
+        "warnings": "Synth jean shorts waistcoat deep v roof schlitz.",
+        "prep_time": "26 minutes",
+        "cook_time": "40 minutes",
+        "servings": "serves 4",
+        "steps": [
+          {
+            "instructions": "Whatever plaid shabby chic put a bird on it crucifix.",
+            "ingredients": [
+              {
+                "qty": "1/2",
+                "unit": "teaspoon",
+                "name": "Lychees"
+              },
+              {
+                "qty": "1/2",
+                "unit": "quart",
+                "name": "Peaches"
+              },
+              {
+                "qty": "1",
+                "unit": "quart",
+                "name": "Peppercorns"
+              },
+              {
+                "qty": "1/2",
+                "unit": "tablespoon",
+                "name": "Wholegrain Bread"
+              },
+              {
+                "qty": "2",
+                "unit": "quart",
+                "name": "Raspberry"
+              },
+              {
+                "qty": "1/2",
+                "unit": "teaspoon",
+                "name": "Wattleseed"
+              }
+            ]
+          },
+          {
+            "instructions": "Portland yuccie craft beer hoodie slow-carb pinterest. Salvia selfies readymade shoreditch phlogiston street. Vinyl viral beard fixie.",
+            "ingredients": [
+              {
+                "qty": "2",
+                "unit": "quart",
+                "name": "Lemon"
+              },
+              {
+                "qty": "3",
+                "unit": "pint",
+                "name": "SoyFlour"
+              },
+              {
+                "qty": "1/3",
+                "unit": "cup",
+                "name": "Honeydew melon"
+              }
+            ]
+          },
+          {
+            "instructions": "Biodiesel drinking messenger bag chicharrones next level truffaut lomo. Meh thundercats fanny pack church-key humblebrag migas. Whatever retro mustache.",
+            "ingredients": [
+              {
+                "qty": "1",
+                "unit": "gallon",
+                "name": "Asian Greens"
+              },
+              {
+                "qty": "1/3",
+                "unit": "teaspoon",
+                "name": "Sultanas"
+              },
+              {
+                "qty": "1",
+                "unit": "teaspoon",
+                "name": "Spring Onions"
+              }
+            ]
+          },
+          {
+            "instructions": "Swag banh mi kogi typewriter chia selfies celiac. Tumblr iphone chillwave pour-over plaid echo.",
+            "ingredients": [
+              {
+                "qty": "1",
+                "unit": "tablespoon",
+                "name": "Passionfruit"
+              },
+              {
+                "qty": "1",
+                "unit": "gallon",
+                "name": "Monkfish"
+              },
+              {
+                "qty": "1/3",
+                "unit": "pint",
+                "name": "Soymilk"
+              },
+              {
+                "qty": "3",
+                "unit": "cup",
+                "name": "SwedeSweet Chilli Sauce"
+              },
+              {
+                "qty": "1/3",
+                "unit": "gallon",
+                "name": "Star Anise"
+              },
+              {
+                "qty": "1/4",
+                "unit": "tablespoon",
+                "name": "Kiwiberries"
+              }
+            ]
+          }
+        ]
+      },
+      "note": null,
+      "photo_url": "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&h=350",
+      "created_at": "2018-05-09T22:44:12.368Z",
+      "updated_at": "2018-05-09T22:44:12.368Z"
+    };
+
+    this.fillEditRecipeForm(recipe);
   }
 
   render() {
-    const title = (this.state.statusEdit === false) ? (<div className="create-title">Create A New Recipe</div>) : (<div className="create-title">Edit Recipe</div>);
+    const title = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     return (
 
       <div className="new-recipe">
