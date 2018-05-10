@@ -8,7 +8,8 @@ export default class CreateRecipe extends React.Component {
     super();
 
     this.state = {
-      statusEdit: true,
+      statusEdit: false,
+      editRecipe: {},
       title: "",
       photo: "",
       description: "",
@@ -93,7 +94,6 @@ export default class CreateRecipe extends React.Component {
   }
 
   onSubmit(e) {
-
     e.preventDefault();
     console.dir(this.state);
 
@@ -103,8 +103,8 @@ export default class CreateRecipe extends React.Component {
     // Also allows renaming the camel case keys to snake case, to match expectations on back end.
     const recipeData = { recipe: { title, photo_url: photo, content: { intro: description, prep_time: prepTime, cook_time: cookTime, servings, steps }}};
 
-    fetch("/recipes", {
-      method: "POST",
+    fetch((this.state.statusEdit)?("/recipes/" + this.props.currentEditRecipe.id):("/recipes"),{
+      method: ((this.state.statusEdit)?("PUT"):("POST")),
       body: JSON.stringify(recipeData),
       headers: {
         "Content-Type": "application/json"
@@ -186,12 +186,44 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  editRecipe(recipe){
+  fillEditRecipeForm(recipe){
+    const recipeSteps = [];
+    recipe.content.steps.forEach((step) =>{
+      const ingredientsForStep = [];
+      step.ingredients.forEach((ingredient) => {
+        const currentIngredient = (ingredient.qty + "  " + ingredient.unit + "  " + ingredient.name);
+        ingredientsForStep.push(currentIngredient);
+      });
+      const currentStep = {
+        instructions: step.instructions,
+        ingredients: ingredientsForStep,
+      };
+      recipeSteps.push(currentStep);
+    });
+    this.setState({
+      title: recipe.title,
+      photo: recipe.photo_url,
+      description: recipe.content.intro,
+      // gear: "",
+      // warnings: "",
+      prepTime: recipe.content.prep_time,
+      cookTime: recipe.content.cook_time,
+      servings: recipe.content.servings,
+      steps: recipeSteps,
+    });
+  }
 
+  componentDidMount() {
+    if(this.props.editRecipeView){
+      this.setState({
+        statusEdit: true
+      });
+      this.fillEditRecipeForm(this.props.currentEditRecipe);
+    }
   }
 
   render() {
-    const title = (this.state.statusEdit === false) ? (<div className="create-title">Create A New Recipe</div>) : (<div className="create-title">Edit Recipe</div>);
+    const title = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     return (
 
       <div className="new-recipe">
@@ -256,6 +288,7 @@ export default class CreateRecipe extends React.Component {
             <div className="row">
               <div className="col-lg">
                 <button className="btn btn-secondary">Cancel</button>
+                {this.state.statusEdit && <button className="btn btn-secondary">Reset</button>}
                 <button type="submit" className="btn btn-secondary">Save</button>
               </div>
             </div>
