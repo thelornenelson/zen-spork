@@ -10,6 +10,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe SporkHelper, type: :helper do
+RSpec.describe SporksHelper, type: :helper do
   pending "add some examples to (or delete) #{__FILE__}"
 end
