@@ -60,6 +60,15 @@ export default class Recipes extends React.Component {
     });
   }
 
+  returnToIndexView = (e) => {
+    if(e){
+      e.preventDefault();
+    }else{
+      this.getRecipes();
+    }
+    this.setState({ editRecipe: false, recipeIndex: true, createRecipe: false });
+  }
+
   render() {
     // maps recipe index cards
     const recipes = this.state.recipes.map((recipe) => {
@@ -71,10 +80,10 @@ export default class Recipes extends React.Component {
       <div>
         {/* components are visible when their state boolean is true */}
         {this.state.cookingView && <SingleRecipe toggleCookingView={this.toggleCookingView} /> }
-        <Navbar current_user={this.props.current_user} toggleCreateRecipe = {this.toggleCreateRecipe} />
+        <Navbar current_user={this.props.current_user} toggleCreateRecipe={this.toggleCreateRecipe} />
         <div className="container">
-          {this.state.createRecipe && <CreateRecipe />}
-          {this.state.editRecipe && <CreateRecipe currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
+          {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView}/>}
+          {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
           { this.state.recipeIndex && recipes }
         </div>
       </div>

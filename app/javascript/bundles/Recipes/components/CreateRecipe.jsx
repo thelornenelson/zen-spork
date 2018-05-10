@@ -43,6 +43,7 @@ export default class CreateRecipe extends React.Component {
     this.changeInstructions = this.changeInstructions.bind(this);
     this.changeIngredient = this.changeIngredient.bind(this);
     this.resetCreateRecipeForm = this.resetCreateRecipeForm.bind(this);
+    this.resetEditRecipeForm = this.resetEditRecipeForm.bind(this);
   }
 
   onTitleInput (e) {
@@ -115,8 +116,8 @@ export default class CreateRecipe extends React.Component {
       response.statusText; //=> String
       response.headers;    //=> Headers
       response.url;        //=> String
-      if(response.status === 201){
-        this.resetCreateRecipeForm();
+      if (response.status === 201 || response.status === 200 ){
+        this.props.returnToIndexView();
       }
       return response.text();
     }, function(error) {
@@ -213,6 +214,11 @@ export default class CreateRecipe extends React.Component {
     });
   }
 
+  resetEditRecipeForm(e){
+    e.preventDefault();
+    this.fillEditRecipeForm(this.props.currentEditRecipe);
+  }
+
   componentDidMount() {
     if(this.props.editRecipeView){
       this.setState({
@@ -227,7 +233,7 @@ export default class CreateRecipe extends React.Component {
     return (
 
       <div className="new-recipe">
-        <button type="button" className="close" aria-label="Close">
+        <button type="button" className="close" aria-label="Close" onClick={this.props.returnToIndexView}>
           <span aria-hidden="true">&times;</span>
         </button>
         {title}
@@ -287,8 +293,8 @@ export default class CreateRecipe extends React.Component {
             />
             <div className="row">
               <div className="col-lg">
-                <button className="btn btn-secondary">Cancel</button>
-                {this.state.statusEdit && <button className="btn btn-secondary">Reset</button>}
+                <button className="btn btn-secondary" onClick={this.props.returnToIndexView}>Cancel</button>
+                {this.state.statusEdit && <button className="btn btn-secondary" onClick={this.resetEditRecipeForm}>Reset</button>}
                 <button type="submit" className="btn btn-secondary">Save</button>
               </div>
             </div>
