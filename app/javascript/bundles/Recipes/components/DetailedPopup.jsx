@@ -8,7 +8,9 @@ export default class DetailedPopup extends React.Component {
     // declares our placeholder photo
     const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     const recipe = this.props.recipe;
-    const steps = recipe.content.steps.map((step) => {
+    
+    // maps recipe json to extract just the list of ingredients to render
+    const listIngredients = recipe.content.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
         return (
           <div key={ingredient.name}>
@@ -20,7 +22,16 @@ export default class DetailedPopup extends React.Component {
           {ingredients}
         </div>);
     });
-  
+
+    // maps out numbered directions for making the recipe
+    const listInstructions = recipe.content.steps.map((instruction, index) => {
+      return (
+        <div key={Math.random()}>
+          {index + 1}. {instruction.instructions}
+        </div>
+      );
+    });
+
     return (
       <article className="DPU-main-container">
         <div className="container">
@@ -36,11 +47,12 @@ export default class DetailedPopup extends React.Component {
                 <button type="button" className={"btn btn-secondary"} data-dismiss="modal">Spork</button>
               </div>      
             </div>
-            <div class="DPU-right col-7">
+            <div className="DPU-right col-7">
               <strong>Intro:</strong> {intro}<br/><br/>
               <strong>Gear:</strong> {gear}<br/><br/>
-              <strong>Ingredients:</strong> {steps}<br/>
-              Warnings: {warnings}
+              <strong>Ingredients:</strong> {listIngredients}<br/>
+              <strong>Instructions:</strong> {listInstructions}<br />
+              {/* Warnings: {warnings} */}
             </div>
           </div>
         </div>
