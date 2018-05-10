@@ -20,12 +20,6 @@ export default class Recipes extends React.Component {
       myRecipesView: false,
       recipes: []
     };
-<<<<<<< HEAD
-=======
-    this.toggleCreateRecipe = this.toggleCreateRecipe.bind(this);
-    this.toggleCookingView = this.toggleCookingView.bind(this);
-    this.toggleMyRecipesView = this.toggleMyRecipesView.bind(this);
->>>>>>> master
   }
 
   // calls get recipe after virtual DOM is loaded
