@@ -8,7 +8,7 @@ export default class DetailedPopup extends React.Component {
     // declares our placeholder photo
     const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     const recipe = this.props.recipe;
-    
+
     // maps recipe json to extract just the list of ingredients to render
     const listIngredients = recipe.content.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
@@ -62,7 +62,7 @@ export default class DetailedPopup extends React.Component {
               </table>
               <div className="modal-footer DPU-buttons">
                 <FullScreenButton recipe={this.props.recipe} />
-                <button type="button" className={"btn btn-secondary"} data-dismiss="modal">Spork</button>
+                <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose();}}>Spork</button>
                 <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}>Edit</button>
               </div>
             </div>
