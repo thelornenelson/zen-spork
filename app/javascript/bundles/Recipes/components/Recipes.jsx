@@ -73,6 +73,34 @@ export default class Recipes extends React.Component {
     this.setState({ editRecipe: false, recipeIndex: true, createRecipe: false });
   }
 
+  sporkRecipe = (currentRecipe, e) => {
+    e.preventDefault();
+
+    const recipeData = currentRecipe;
+
+    fetch(("/recipes/" + recipeData.id + "/sporks"), {
+      method: "POST",
+      body: JSON.stringify(recipeData),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
+    }).then((response) => {
+      response.status;     //=> number 100–599
+      response.statusText; //=> String
+      response.headers;    //=> Headers
+      response.url;        //=> String
+      if (response.status === 201 || response.status === 200) {
+        this.returnToIndexView();
+      }
+      return response.text();
+    }, function (error) {
+      error.message; //=> String
+    });
+
+
+  }
+
   render() {
     let recipes = [];
 
@@ -81,7 +109,7 @@ export default class Recipes extends React.Component {
       // maps recipe index cards
       recipes = this.state.recipes.map((recipe) => {
         return(
-          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} />
+          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe} sporkRecipe={this.sporkRecipe}/>
         );
       });
     } else {
