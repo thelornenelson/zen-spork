@@ -99,7 +99,7 @@ body {
 
   .recipe-card {
       // flex:      1;
-      max-width: 320px;
+      max-width: 300px;
       // so that footer within can be positioned absolutely
       position:  relative;
       border:        2px solid $border-color;
@@ -232,6 +232,10 @@ body {
 
 .DPU-left {
   float: left;
+  text-align: left;
+}
+
+.DPU-centered-title {
   text-align: center;
 }
 
@@ -240,8 +244,11 @@ body {
 }
 
 .DPU-image {
-  width: 90%;
-
+  max-width: 240px;
+  max-height: 160px;
+  min-width: 240px;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 .DPU-buttons {
@@ -256,10 +263,8 @@ body {
 .card-img-top {
   max-height: 200px;
   max-width: 300px;
-  min-height: 200px;
-  min-width: 300px;
-  width: 100%;
-  height: auto;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 // border for table on detailed recipe modal pop up
@@ -272,7 +277,12 @@ td, th {
   border: solid 1px black;
 }
 
-.col-centered {
-  float: none;
-  margin: 0 auto;
+// gives enough buffer for two line recipes
+.card-title {
+  min-height: 66px;
+}
+
+// rounding edges of detailed recipe view
+.styles_modal__gNwvD {
+  border-radius: 10px
 }
