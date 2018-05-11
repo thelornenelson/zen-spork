@@ -1,8 +1,8 @@
-# Spork
+# Spork [![Build Status](https://travis-ci.org/thelornenelson/zen-spork.svg?branch=master)](https://travis-ci.org/thelornenelson/zen-spork)
 
-A recipe website that gives you a handsfree recipe view when cooking and the easy ability to copy (we call it sporking) a recipe to save in your own recipe box.
+[Spork!](https://damp-cove-57304.herokuapp.com/)
 
-[Spork Deployed page](https://damp-cove-57304.herokuapp.com/)
+A recipe website that gives you a full screen, hands-free recipe view when cooking and the easy ability to copy a recipe (we call it sporking) and save it your own recipe box.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -10,8 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Install yarn by running the following command lines
 
 ```curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -```  
-```echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee```  
-```/etc/apt/sources.list.d/yarn.list```  
+```echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list```  
 ```sudo apt-get update && sudo apt-get install --no-install-recommends yarn```  
 
 ### Install Ruby, rails, and foreman by running the following command lines

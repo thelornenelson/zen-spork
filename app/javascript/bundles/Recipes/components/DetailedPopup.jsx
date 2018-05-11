@@ -49,7 +49,7 @@ export default class DetailedPopup extends React.Component {
     const listInstructions = recipe.content.steps.map((instruction, index) => {
       return (
         <div key={Math.random()}>
-          {index + 1}. {instruction.instructions}
+          <strong>{index + 1}.</strong> {instruction.instructions}
         </div>
       );
     });
@@ -64,19 +64,37 @@ export default class DetailedPopup extends React.Component {
             <div className="DPU-left col-5">
               <h1 className="DPU-title">{title}</h1><br />
               {/* either renders photo from db is it exists or placeholder photo */}
-              <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" />
-              Prep-time | Cook-Time | Servings <br />
-              {prep_time} | {cook_time} | {servings} <br />
+              <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
+              <strong>Ingredients:</strong><br />
+              <div className="DPU-ingredients">
+                {listIngredients}<br />
+              </div>
+              <table className="DPU-table">
+                <thead>
+                  <tr>
+                    <th>Prep-time  </th>
+                    <th>Cook-time  </th>
+                    <th>Servings  </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{prep_time}</td>
+                    <td>{cook_time}</td>
+                    <td>{servings}</td>
+                  </tr>
+                </tbody>
+              </table>
               <div className="modal-footer DPU-buttons">
                 <FullScreenButton recipe={this.props.recipe} />
-                <button type="button" className={"btn btn-secondary"} data-dismiss="modal">Spork</button>
+                <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose();}}>Spork</button>
                 <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}>Edit</button>
               </div>
             </div>
-            <div className="DPU-right col-7">
+            <div className="DPU-right col-7 col-centered">
               <strong>Intro:</strong> {intro}<br/><br/>
               <strong>Gear:</strong> {gear}<br/><br/>
-              <strong>Ingredients:</strong> {listIngredients}<br/>
+              
               <strong>Instructions:</strong> {listInstructions}<br />
               {/* Warnings: {warnings} */}
             </div>

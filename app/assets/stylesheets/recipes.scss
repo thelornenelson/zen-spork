@@ -217,10 +217,31 @@ body {
   justify-content: center;
 }
 
+.DPU-ingredients {
+  text-align: left;
+}
+
 // constrains large images to a max-height & width for visual appeal
 .card-img-top {
   max-height: 200px;
   max-width: 300px;
+  min-height: 200px;
+  min-width: 300px;
   width: 100%;
   height: auto;
+}
+
+// border for table on detailed recipe modal pop up
+.DPU-table {
+  border: 1px black solid;
+  border-collapse: collapse;
+}
+
+td, th {
+  border: solid 1px black;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
 }
