@@ -216,6 +216,7 @@ recipe2 = user1.recipes.create!(
 )
 
 
+
 def spork (original_recipe, user)
   puts 'Spork!'
   recipe_sporked = original_recipe.dup
@@ -235,6 +236,5 @@ spork user1.recipes[0], user2
 # spork user1.recipes[5], user3
 # spork user1.recipes[6], user3
 # spork user1.recipes[7], user3
-
 
 puts "DONE!"
