@@ -10,15 +10,12 @@ export default class Sessions extends React.Component {
 
         <Navbar current_user={this.props.current_user} />
 
-        <div className="login-box">
-
-          <h1>Please log in!</h1>
-
+        <div className="session-box">
+          <h1>Login</h1>
           <form method="post" action="/login">
             <div className="form-group">
               <label for="exampleInputEmail1">Email address</label>
               <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Password</label>
@@ -28,8 +25,8 @@ export default class Sessions extends React.Component {
           </form>
         </div>
 
-        <div className="register-link-box">
-          <h1>Or register here!</h1>
+        <div className="session-box">
+          <h1>Register</h1>
           <div>
             <a href="/signup" className="btn btn-primary"> Register </a>
           </div>

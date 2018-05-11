@@ -10,7 +10,7 @@ export default class Ingredient extends React.Component {
           <input type="text" className="form-control" id="InputIngredient" placeholder="Ingredient" name="ingredient" value={this.props.ingredientName} onChange={(event) => { this.props.changeIngredient(this.props.stepIndex, this.props.ingredientIndex, event.target.value); }} />
         </div>
         <div className="col-md-1">
-          <button className="btn btn-danger" onClick={(e) => this.props.deleteIngredient(this.props.stepIndex, this.props.ingredientIndex, e)}>Delete</button>
+          <button className="btn btn-danger" onClick={(e) => this.props.deleteIngredient(this.props.stepIndex, this.props.ingredientIndex, e)} name="Delete"><i className="fas fa-trash-alt"></i></button>
         </div>
       </div>
     );

@@ -10,9 +10,9 @@ export default class Sessions extends React.Component {
 
         <Navbar current_user={this.props.current_user} />
 
-        <div className="register-box">
+        <div className="session-box">
 
-          <h1> Please Register! </h1>
+          <h1>Register</h1>
 
           <form method="post" action="/users">
             <div className="form-group">

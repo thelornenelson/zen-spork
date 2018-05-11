@@ -20,15 +20,11 @@ export default class NewRecipeSteps extends React.Component {
     });
     return (
       <div className="steps-area">
-        <div className="row">
-          <div className="col">
-            <div className="create-title">Directions And Ingredients</div>
-          </div>
-        </div>
+        <div className="create-title">Directions And Ingredients</div>
         {steps}
         <div className="row">
           <div className="col">
-            <button className="btn btn-secondary btn-block add-step-button" onClick={this.props.addStep}>Add Step</button>
+            <button className="btn btn-primary btn-block add-step-button" onClick={this.props.addStep}>Add Step</button>
           </div>
         </div>
       </div>
