@@ -30,7 +30,30 @@ puts "Creating Users and Recipes..."
 user1 = User.create(first_name: "Craig", last_name: "Rice", email: "craig@craig.craig", password: "password")
 user2 = User.create(first_name: "Andrew", last_name: "Barclay", email: "andrew@andrew.andrew", password: "password")
 
-# user1 = FactoryBot.create(:user_with_recipes, recipes_count: 10)
+
+
+
+def spork (original_recipe, user)
+  puts 'Spork!'
+  recipe_sporked = original_recipe.dup
+  recipe_sporked.title = "Sporked #{recipe_sporked.title}"
+  recipe_sporked.content['intro'] = "Sporked #{recipe_sporked.content['intro']}"
+  recipe_sporked.content['steps'][0]['ingredients'][0] = { qty: 1, unit: 'gallon', name: 'sporks' }
+  recipe_sporked.user = user
+  recipe_sporked.save
+
+  spork = original_recipe.sporks.new(user: user, recipe: recipe_sporked)
+  spork.save
+end
+
+spork user1.recipes[0], user2
+spork user1.recipes[3], user2
+spork user1.recipes[5], user2
+spork user1.recipes[6], user2
+spork user1.recipes[5], user3
+spork user1.recipes[6], user3
+spork user1.recipes[7], user3
+
 
 puts "DONE!"
 
