@@ -1,6 +1,28 @@
 import React from "react";
 import FullScreenButton from "./FullScreenButton.jsx";
 
+var math = require('mathjs');
+
+function convertFractionToString(fraction) {
+  let output = "";
+  if (fraction.d === 1) {
+    output = output + fraction.n
+  } else {
+    output = output + fraction.n + "/" + fraction.d;
+  }
+
+  return output;
+}
+
+function adjustIngredientQuantity(quantity, multiplier) {
+  let output = "";
+  let fract = math.fraction(quantity);
+  fract = math.multiply(fract, multiplier);
+  output = convertFractionToString(fract);
+
+  return output;
+}
+
 export default class DetailedPopup extends React.Component {
 
   render() {
@@ -8,13 +30,13 @@ export default class DetailedPopup extends React.Component {
     // declares our placeholder photo
     const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     const recipe = this.props.recipe;
-    
+
     // maps recipe json to extract just the list of ingredients to render
     const listIngredients = recipe.content.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
         return (
           <div key={ingredient.name}>
-            {ingredient.qty} {ingredient.unit}: {ingredient.name}
+            {adjustIngredientQuantity(ingredient.qty, 4)} {ingredient.unit}: {ingredient.name}
           </div>);
       });
       return (
@@ -31,6 +53,9 @@ export default class DetailedPopup extends React.Component {
         </div>
       );
     });
+
+    //console.log("!!!!");
+    //console.log(recipe);
 
     return (
       <article className="DPU-main-container">
