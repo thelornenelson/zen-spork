@@ -3,18 +3,21 @@ import FullScreenButton from "./FullScreenButton.jsx";
 
 export default class DetailedPopup extends React.Component {
 
+
+
   render() {
     const { title, photo_url, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
     // declares our placeholder photo
     const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     const recipe = this.props.recipe;
-
-    // maps recipe json to extract just the list of ingredients to render
+    // maps recipe json to extract just the list of ingredients to render  
+    const gearArr = {gear}.gear;
     const listIngredients = recipe.content.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
         return (
           <div key={ingredient.name}>
-            {ingredient.qty} {ingredient.unit}: {ingredient.name}
+            {/* only renders : if there is there is a qty or a unit  */}
+            {ingredient.qty} {ingredient.unit}{ingredient.qty || ingredient.unit ? ":" : ""} {ingredient.name}
           </div>);
       });
       return (
@@ -70,9 +73,12 @@ export default class DetailedPopup extends React.Component {
             </div>
             <div className="DPU-right col-7 col-centered">
               <strong>Intro:</strong> {intro}<br/><br/>
-              <strong>Gear:</strong> {gear}<br/><br/>      
+              {/* only renders gear on detail page if there are some in the recipe and in a comma separated list */}
+              {gear ? <div><strong>Gear:</strong> {gearArr.join(", ")} <br /><br /></div> : ""}
+              {/* <strong>Gear:</strong> {gear}<br/><br/>       */}
               <strong>Instructions:</strong> {listInstructions}<br />
-              <strong>Warnings:</strong> {warnings}<br /><br />
+              {/* only renders warnings on detail page if there are some in the recipe */}
+              {warnings ? <div><strong>Warning:</strong> {warnings} <br /><br /></div> : ""}
               <strong><a target="_blank" href={reference_url}>Click here to get the whole story from the source</a></strong>        
             </div>
           </div>
