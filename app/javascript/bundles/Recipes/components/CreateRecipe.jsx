@@ -118,6 +118,7 @@ export default class CreateRecipe extends React.Component {
       response.url;        //=> String
       if (response.status === 201 || response.status === 200 ){
         this.props.returnToIndexView();
+        this.props.showNotification((this.state.statusEdit)?("Recipe Edited!"):("Recipe Created!"));
       }
       return response.text();
     }, function(error) {

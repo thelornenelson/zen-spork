@@ -18,7 +18,8 @@ export default class Recipes extends React.Component {
       currentEditRecipe: {},
       recipeIndex: true,
       myRecipesView: false,
-      recipes: []
+      recipes: [],
+      notification: "",
     };
   }
 
@@ -92,13 +93,23 @@ export default class Recipes extends React.Component {
       response.url;        //=> String
       if (response.status === 201 || response.status === 200) {
         this.returnToIndexView();
+        this.showNotification("Spork Created!");
       }
       return response.text();
     }, function (error) {
       error.message; //=> String
     });
+  }
 
-
+  showNotification = (notification) =>{
+    this.setState({
+      notification: notification,
+    });
+    setTimeout(() => {
+      this.setState({
+        notification: "",
+      });
+    }, 3000);
   }
 
   render() {
@@ -130,12 +141,17 @@ export default class Recipes extends React.Component {
 
     return (
       <div>
-        <Navbar current_user={this.props.current_user} toggleCreateRecipe={this.toggleCreateRecipe} toggleMyRecipesView={this.toggleMyRecipesView} isMyRecipesView={this.state.myRecipesView} />
+        <Navbar current_user={this.props.current_user}
+          toggleCreateRecipe={this.toggleCreateRecipe}
+          toggleMyRecipesView={this.toggleMyRecipesView}
+          isMyRecipesView={this.state.myRecipesView}
+          notification={this.state.notification}/>
         {/* components are visible when their state boolean is true */}
         {this.state.cookingView && <FullScreenView toggleCookingView={this.toggleCookingView} /> }
         <div className="container">
-          {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView}/>}
-          {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe}/>}
+
+          {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} showNotification={this.showNotification}/>}
+          {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe} showNotification={this.showNotification}/>}
           {this.state.recipeIndex && recipes}
         </div>
       </div>
