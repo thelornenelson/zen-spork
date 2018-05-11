@@ -40,12 +40,14 @@ export default class DetailedPopup extends React.Component {
         <div className="container">
           <div className="row">
             <div className="DPU-left col-5">
-              <h1 className="DPU-title">{title}</h1>
+              <div className="DPU-centered-title">
+                <h1 className="DPU-title">{title}</h1>
               Cooked x times<br />
               Sporked x times<br />
-              {/* either renders photo from db is it exists or placeholder photo */}
-              <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
-              <strong>Ingredients:</strong><br />
+                {/* either renders photo from db is it exists or placeholder photo */}
+                <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
+                <strong>Ingredients:</strong><br />
+              </div>
               <div className="DPU-ingredients">
                 {listIngredients}<br />
               </div>
@@ -71,7 +73,7 @@ export default class DetailedPopup extends React.Component {
                 <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}>Edit</button>
               </div>
             </div>
-            <div className="DPU-right col-7 col-centered">
+            <div className="DPU-right col-7 ">
               <strong>Intro:</strong> {intro}<br/><br/>
               {/* only renders gear on detail page if there are some in the recipe and in a comma separated list */}
               {gear ? <div><strong>Gear:</strong> {gearArr.join(", ")} <br /><br /></div> : ""}

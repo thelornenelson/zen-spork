@@ -201,6 +201,10 @@ body {
 
 .DPU-left {
   float: left;
+  text-align: left;
+}
+
+.DPU-centered-title {
   text-align: center;
 }
 
@@ -242,11 +246,12 @@ td, th {
   border: solid 1px black;
 }
 
-.col-centered {
-  float: none;
-  margin: 0 auto;
-}
-
+// gives enough buffer for two line recipes
 .card-title {
   min-height: 66px;
+}
+
+// rounding edges of detailed recipe view
+.styles_modal__gNwvD {
+  border-radius: 10px
 }
