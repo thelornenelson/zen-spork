@@ -12,8 +12,9 @@ class SporksController < ApplicationController
   def create
     # POST /recipes/:recipe_id/sporks
     # for now, we only have 1 user who creates all recipes. Eventually this will be changed to reflect the current user
+
     begin
-      @user = User.first
+      @user = current_user
       @original_recipe = Recipe.find(params[:recipe_id])
 
       @recipe = @original_recipe.dup
