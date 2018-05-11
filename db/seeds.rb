@@ -30,20 +30,19 @@ user3 = User.create(first_name: 'Elyott', last_name: 'Ryan', email: 'elyott@elyo
 user4 = User.create(first_name: 'Phil', last_name: 'LastName', email: 'phil@phil.phil', password: 'password')
 
 
-recipe1 = Recipe.create(
-  user_id: 1, 
-  title: 'Miso Ramen Soup', 
+recipe1 = user1.recipes.create!(
+  title: 'Miso Ramen Soup',
   content: {
-    intro: 'If you’re a ramen aficionado,  then you will have to give this quick and delicious homemade Miso Ramen recipe a try! Flavored with pork and chicken broth with a mix of toppings such as chashu, ramen egg, sweet corn kernels, nori sheet, this bowl of noodles is going to satisfy your craving.', 
-    gear: [ 
-      "Morter and Pestle", 
-      "Two large pots", 
-      "Strainer" 
-    ], 
-    warnings: 'Seriously tasty', 
-    prep_time: '10', 
-    cook_time: '15', 
-    servings: '2', 
+    intro: 'If you’re a ramen aficionado,  then you will have to give this quick and delicious homemade Miso Ramen recipe a try! Flavored with pork and chicken broth with a mix of toppings such as chashu, ramen egg, sweet corn kernels, nori sheet, this bowl of noodles is going to satisfy your craving.',
+    gear: [
+      "Morter and Pestle",
+      "Two large pots",
+      "Strainer"
+    ],
+    warnings: 'Seriously tasty',
+    prep_time: '10',
+    cook_time: '15',
+    servings: '2',
     steps: [
       {
         instructions: 'Mince the garlic, ginger, and shallot.',
@@ -164,23 +163,22 @@ recipe1 = Recipe.create(
       }
     ]
   },
-  note: 'This is the plain version with no topings for quicker cooking', 
+  note: 'This is the plain version with no topings for quicker cooking',
   photo_url: 'https://www.justonecookbook.com/wp-content/uploads/2014/09/Miso-Ramen-600x400.jpg',
   reference_url: 'https://www.justonecookbook.com/homemade-chashu-miso-ramen/'
 )
 
-recipe2 = Recipe.create(
-  user_id: 1, 
-  title: 'Perfect Whipped Cream Recipe', 
+recipe2 = user1.recipes.create!(
+  title: 'Perfect Whipped Cream Recipe',
   content: {
-    intro: 'Perfect whipped cream recipe is one of those essential recipes you need. This recipe gives all the steps you need to make perfect whipped cream every time.', 
-    gear: [ 
+    intro: 'Perfect whipped cream recipe is one of those essential recipes you need. This recipe gives all the steps you need to make perfect whipped cream every time.',
+    gear: [
       "Electric mixer"
-    ], 
-    warnings: '', 
-    prep_time: '22 min', 
-    cook_time: '2 min', 
-    servings: '2 cups', 
+    ],
+    warnings: '',
+    prep_time: '22 min',
+    cook_time: '2 min',
+    servings: '2 cups',
     steps: [
       {
         instructions: 'Place mixer bowl and whisk in freezer for at least 20 minutes to chill.',
@@ -212,7 +210,7 @@ recipe2 = Recipe.create(
       }
     ]
   },
-  note: '', 
+  note: '',
   photo_url: 'https://addapinch.com/wp-content/blogs.dir/3/files/2014/05/perfect-whipped-cream-recipe-DSC_3693.jpg',
   reference_url: 'https://addapinch.com/perfect-whipped-cream-recipe/'
 )
@@ -230,7 +228,6 @@ def spork (original_recipe, user)
   spork = original_recipe.sporks.new(user: user, recipe: recipe_sporked)
   spork.save
 end
-
 spork user1.recipes[0], user2
 # spork user1.recipes[3], user2
 # spork user1.recipes[5], user2
