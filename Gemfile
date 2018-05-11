@@ -41,6 +41,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'react_on_rails', '10.0.2'         # prefer exact gem version to match npm version
 
+# for checking differences between sporked recipes and ancestors
+gem 'json-diff'
+
 # adding these here so we can seed the production database.
 gem 'factory_bot_rails'
 gem 'faker'
