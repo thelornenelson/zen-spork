@@ -5,9 +5,24 @@
 
 $bg-color: #FBFBF7;
 $navbar-color: rgba(133, 199, 242, 0.8);
+$border-color: #4C4C4C;
 
 a{
   color: inherit;
+}
+
+.btn-primary {
+  float: right;
+  font-weight: 700;
+  font-size: 16px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  background: #3b92cc;
+  border-color: #3b92cc;
+}
+
+.btn-primary:hover {
+  background: #2f82b9;
 }
 
 body {
@@ -87,7 +102,7 @@ body {
       max-width: 320px;
       // so that footer within can be positioned absolutely
       position:  relative;
-      border:        2px solid #ccc;
+      border:        2px solid $border-color;
       border-radius: 5px;
       padding:       0px;
       padding-bottom: 20px;
@@ -117,25 +132,39 @@ body {
   position : relative;
   background: $bg-color;
   width: 85%;
-  border: 2px solid #ccc;
-  border-radius: 5px;
+  border : 2px solid #4C4C4C;
+  border-radius: 10px;
   padding: 15px;
+  padding-top: 55px;
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 5px;
+    padding-right: 10px;
+    color: black;
+  }
 
   .create-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background : rgb(133, 199, 242);
     text-align: center;
     font-weight: 700;
     font-size: 24px;
+    padding: 5px;
+
   }
 
   label {
     font-weight: 700;
     font-size: 16px;
-  }
-
-  .btn-secondary {
-    float: right;
-    margin-left: 15px;
-    margin-bottom: 10px;
   }
 
   .btn-danger {
@@ -156,9 +185,11 @@ body {
 }
 
 .steps-area {
-  border: 1px solid #AFAFAF;
-  border-radius: 5px;
+  position: relative;
+  border: 1px solid $border-color;
+  border-radius: 10px;
   padding: 15px;
+  padding-top: 55px;
   margin-bottom: 15px;
 }
 

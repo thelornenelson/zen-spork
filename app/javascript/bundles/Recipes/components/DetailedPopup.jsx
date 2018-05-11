@@ -44,8 +44,8 @@ export default class DetailedPopup extends React.Component {
               {prep_time} | {cook_time} | {servings} <br />
               <div className="modal-footer DPU-buttons">
                 <FullScreenButton recipe={this.props.recipe} />
-                <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose();}}>Spork</button>
-                <button type="button" className={"btn btn-secondary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}>Edit</button>
+                <button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>
+                <button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}><i className="fas fa-edit"></i> Edit</button>
               </div>
             </div>
             <div className="DPU-right col-7">
