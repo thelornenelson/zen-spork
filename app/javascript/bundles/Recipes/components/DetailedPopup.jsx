@@ -4,7 +4,7 @@ import FullScreenButton from "./FullScreenButton.jsx";
 export default class DetailedPopup extends React.Component {
 
   render() {
-    const { title, photo_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
+    const { title, photo_url, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
     // declares our placeholder photo
     const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     const recipe = this.props.recipe;
@@ -37,7 +37,9 @@ export default class DetailedPopup extends React.Component {
         <div className="container">
           <div className="row">
             <div className="DPU-left col-5">
-              <h1 className="DPU-title">{title}</h1><br />
+              <h1 className="DPU-title">{title}</h1>
+              Cooked x times<br />
+              Sporked x times<br />
               {/* either renders photo from db is it exists or placeholder photo */}
               <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
               <strong>Ingredients:</strong><br />
@@ -68,10 +70,10 @@ export default class DetailedPopup extends React.Component {
             </div>
             <div className="DPU-right col-7 col-centered">
               <strong>Intro:</strong> {intro}<br/><br/>
-              <strong>Gear:</strong> {gear}<br/><br/>
-              
+              <strong>Gear:</strong> {gear}<br/><br/>      
               <strong>Instructions:</strong> {listInstructions}<br />
-              {/* Warnings: {warnings} */}
+              <strong>Warnings:</strong> {warnings}<br /><br />
+              <strong><a target="_blank" href={reference_url}>Click here to get the whole story from the source</a></strong>        
             </div>
           </div>
         </div>
