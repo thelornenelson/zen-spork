@@ -44,6 +44,7 @@ RSpec.describe SporksController, type: :controller do
 
     before :each do
       @user = create(:user_with_recipes, recipes_count: 1)
+      request.session[:user_id]=@user.id
       @original_recipe = @user.recipes.first
     end
 
