@@ -218,7 +218,6 @@ recipe2 = Recipe.create(
 )
 
 
-
 def spork (original_recipe, user)
   puts 'Spork!'
   recipe_sporked = original_recipe.dup
