@@ -38,12 +38,17 @@ class RecipesController < ApplicationController
   end
 
   def update
+    @user = current_user
     @recipe = Recipe.find(params[:id])
-
-    if @recipe.update(recipe_params)
-      head :ok, location: recipe_path(@recipe, format: :json)
+    byebug
+    if @recipe.user == @user
+      if @recipe.update(recipe_params)
+        head :ok, location: recipe_path(@recipe, format: :json)
+      else
+        render plain: 'ERROR: FAILED TO SAVE', status: 400
+      end
     else
-      render plain: 'ERROR: FAILED TO SAVE', status: 400
+      render plain: 'ERROR: UNAUTHORIZED', status: 400
     end
   end
 
@@ -54,6 +59,7 @@ class RecipesController < ApplicationController
         :title,
         :note,
         :photo_url,
+        :reference_url,
         content: [
           :intro,
           { gear: [] },

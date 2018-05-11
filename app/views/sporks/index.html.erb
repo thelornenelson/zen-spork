@@ -1,0 +1,20 @@
+<% require 'pp' %>
+<% @recipe_diffs.each do |recipe_diff| %>
+
+<ul>
+  <% content = recipe_diff.marked_up %>
+  <li><%= content['intro'] %></li>
+  <ol>
+    <% content['steps'].each do |step| %>
+    <li><%= step['instructions'] %></li>
+    <li>
+      <ol>
+        <% step['ingredients'].each do |ingredient| %>
+          <li><%= ingredient %></li>
+        <% end %>
+      </ol>
+    </li>
+    <% end %>
+  </ol>
+</ul>
+<% end %>
