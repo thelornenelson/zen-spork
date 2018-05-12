@@ -82,9 +82,7 @@ class RecipesController < ApplicationController
     end
 
     def parse_ingredients_strings
-      puts "----------------------- RUNNING parse_ingredients_strings -----------------------"
       begin
-        puts "----------------------- in parse_ingredients_strings just before if -----------------------"
         # destructively map the steps and ingredients so these changes are saved to the original array
         params[:recipe][:content][:steps].map! do |recipe_step|
           recipe_step[:ingredients].map! do |ingredient|
@@ -97,8 +95,6 @@ class RecipesController < ApplicationController
             parsed_ingredient || ingredient
           end
           # instructions just get repeated unchanged,
-          puts "inside recipe_step:ingredients ingredient"
-          p "{ instructions: #{recipe_step[:instructions]}, ingredients: #{recipe_step[:ingredients]}}"
           { instructions: recipe_step[:instructions], ingredients: recipe_step[:ingredients]}
         end
       rescue => error
