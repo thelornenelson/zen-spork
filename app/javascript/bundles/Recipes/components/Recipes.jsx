@@ -20,12 +20,14 @@ export default class Recipes extends React.Component {
       myRecipesView: false,
       recipes: [],
       notification: "",
+      current_user_id: this.props.current_user_id,
     };
   }
 
   // calls get recipe after virtual DOM is loaded
   componentDidMount() {
     this.getRecipes();
+    console.log(this.state.current_user_id)
   }
 
   // gets recipes, sets to state and returns a console error on problem
@@ -120,7 +122,7 @@ export default class Recipes extends React.Component {
       // maps recipe index cards
       recipes = this.state.recipes.map((recipe) => {
         return(
-          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe} sporkRecipe={this.sporkRecipe}/>
+          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe} sporkRecipe={this.sporkRecipe} current_user_id={this.state.current_user_id}/>
         );
       });
     } else {
@@ -134,7 +136,7 @@ export default class Recipes extends React.Component {
       //maps recipe index cards for just the logged in users recipes
       recipes = myRecipesArray.map((recipe) => {
         return(
-          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} />
+          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe} current_user_id={this.state.current_user_id}/>
         );
       });
     }
@@ -149,7 +151,6 @@ export default class Recipes extends React.Component {
         {/* components are visible when their state boolean is true */}
         {this.state.cookingView && <FullScreenView toggleCookingView={this.toggleCookingView} /> }
         <div className="container">
-
           {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} showNotification={this.showNotification}/>}
           {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe} showNotification={this.showNotification}/>}
           {this.state.recipeIndex && recipes}
