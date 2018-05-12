@@ -15,19 +15,17 @@ export default class Recipes extends React.Component {
       cookingView: false,
       createRecipe: false,
       editRecipe: false,
-      currentEditRecipe: {},
       recipeIndex: true,
       myRecipesView: false,
+      currentEditRecipe: {},
       recipes: [],
       notification: "",
-      current_user_id: this.props.current_user_id,
     };
   }
 
   // calls get recipe after virtual DOM is loaded
   componentDidMount() {
     this.getRecipes();
-    console.log(this.state.current_user_id);
   }
 
   // gets recipes, sets to state and returns a console error on problem
@@ -78,9 +76,7 @@ export default class Recipes extends React.Component {
 
   sporkRecipe = (currentRecipe, e) => {
     e.preventDefault();
-
     const recipeData = currentRecipe;
-
     fetch(("/recipes/" + recipeData.id + "/sporks"), {
       method: "POST",
       body: JSON.stringify(recipeData),
@@ -89,23 +85,19 @@ export default class Recipes extends React.Component {
       },
       credentials: "same-origin"
     }).then((response) => {
-      response.status;     //=> number 100–599
-      response.statusText; //=> String
-      response.headers;    //=> Headers
-      response.url;        //=> String
       if (response.status === 201 || response.status === 200) {
         this.returnToIndexView();
         this.showNotification("Spork Created!");
       }
       return response.text();
     }, function (error) {
-      error.message; //=> String
+      console.log("Error:", error.message);
     });
   }
 
-  showNotification = (notification) =>{
+  showNotification = (newNotification) =>{
     this.setState({
-      notification: notification,
+      notification: newNotification,
     });
     setTimeout(() => {
       this.setState({
@@ -115,32 +107,12 @@ export default class Recipes extends React.Component {
   }
 
   render() {
-    let recipes = [];
-
-    if (this.state.myRecipesView === false) {
-
-      // maps recipe index cards
-      recipes = this.state.recipes.map((recipe) => {
-        return(
-          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe} sporkRecipe={this.sporkRecipe} current_user_id={this.state.current_user_id}/>
-        );
-      });
-    } else {
-      let myRecipesArray = [];
-      for (let i = 0; i < this.state.recipes.length; i++) {
-        if (this.state.recipes[i].user_id === this.props.current_user_id) {
-          myRecipesArray.push(this.state.recipes[i]);
-        }
-      }
-
-      //maps recipe index cards for just the logged in users recipes
-      recipes = myRecipesArray.map((recipe) => {
-        return(
-          <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe} current_user_id={this.state.current_user_id}/>
-        );
-      });
-    }
-
+    const recipes = this.state.recipes.map((recipe) => {
+      return ((this.state.myRecipesView)?
+        (this.props.current_user_id === recipe.user_id && <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>):
+        (<RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} editRecipe={this.editRecipe} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>)
+      );
+    });
     return (
       <div>
         <Navbar current_user={this.props.current_user}
