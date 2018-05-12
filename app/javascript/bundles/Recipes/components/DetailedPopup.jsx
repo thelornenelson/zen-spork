@@ -10,7 +10,7 @@ export default class DetailedPopup extends React.Component {
     // declares our placeholder photo
     const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     const recipe = this.props.recipe;
-    // maps recipe json to extract just the list of ingredients to render  
+    // maps recipe json to extract just the list of ingredients to render
     const gearArr = {gear}.gear;
     const listIngredients = recipe.content.steps.map((step) => {
       const ingredients = step.ingredients.map((ingredient) => {
@@ -34,6 +34,7 @@ export default class DetailedPopup extends React.Component {
         </div>
       );
     });
+
 
     return (
       <article className="DPU-main-container">
@@ -69,8 +70,8 @@ export default class DetailedPopup extends React.Component {
               </table>
               <div className="modal-footer DPU-buttons">
                 <FullScreenButton recipe={this.props.recipe} />
-                <button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>
-                <button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}><i className="fas fa-edit"></i> Edit</button>
+                {this.props.current_user_id !== recipe.user_id &&<button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
+                {this.props.current_user_id === recipe.user_id && <button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}><i className="fas fa-edit"></i> Edit</button>}
               </div>
             </div>
             <div className="DPU-right col-7 ">
@@ -81,7 +82,7 @@ export default class DetailedPopup extends React.Component {
               <strong>Instructions:</strong> {listInstructions}<br />
               {/* only renders warnings on detail page if there are some in the recipe */}
               {warnings ? <div><strong>Warning:</strong> {warnings} <br /><br /></div> : ""}
-              <strong><a target="_blank" href={reference_url}>Click here to get the whole story from the source</a></strong>        
+              <strong><a target="_blank" href={reference_url}>Click here to get the whole story from the source</a></strong>
             </div>
           </div>
         </div>
