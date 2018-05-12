@@ -27,7 +27,7 @@ export default class Recipes extends React.Component {
   // calls get recipe after virtual DOM is loaded
   componentDidMount() {
     this.getRecipes();
-    console.log(this.state.current_user_id)
+    console.log(this.state.current_user_id);
   }
 
   // gets recipes, sets to state and returns a console error on problem
