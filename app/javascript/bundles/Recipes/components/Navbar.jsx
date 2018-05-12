@@ -20,6 +20,7 @@ export default class Navbar extends React.Component {
           {myRecipesToggle}
           <button type="button" className="btn nav-button" onClick={this.props.toggleCreateRecipe}>New Recipe</button>
           {loginToggle}
+          <div className="notification">{this.props.notification}</div>
         </nav>
       );
     } else {
