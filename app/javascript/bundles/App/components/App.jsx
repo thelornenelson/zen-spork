@@ -6,7 +6,7 @@ import FullScreenView from "./FullScreenView";
 import RecipeIndex from "./RecipeIndex.jsx";
 import "whatwg-fetch";
 
-export default class Recipes extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     // Boolean state for hiding components on clicks
