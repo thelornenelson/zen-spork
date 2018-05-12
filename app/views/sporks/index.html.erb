@@ -1,5 +1,8 @@
-<% @recipe_diffs.each do |recipe_diff| %>
-
+<% @recipe_diffs.each_with_index do |recipe_diff, index| %>
+<h1><%= @sporks[index].recipe.title %></h1>
+<p>recipe id <%= @sporks[index].recipe.id %></p>
+<p>original_recipe id <%= @sporks[index].original_recipe.id %></p>
+<p>user id <%= @sporks[index].user.id %></p>
 <ul>
   <% content = recipe_diff.marked_up %>
   <li><%= content['intro'] %></li>
