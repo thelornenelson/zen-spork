@@ -228,7 +228,7 @@ export default class CreateRecipe extends React.Component {
             <div className="row">
               {/* required className and label for marking required fields */}
               <div className="col-lg required">
-                <label htmlFor="InputRecipeTitle">Required fields</label>
+                <label>Required fields</label>
                 <button className="btn btn-primary" onClick={this.props.returnToIndexView}>Cancel</button>
                 {this.state.statusEdit && <button className="btn btn-primary" onClick={this.resetEditRecipeForm}>Reset</button>}
                 {/* disables save button if required fields aren't true */}
