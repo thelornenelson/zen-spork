@@ -298,6 +298,11 @@ td, th {
 }
 
 // handles required field styling
-.error {
-  border: 1px solid red;
+// .error {
+//   border: 5px solid red
+// }
+
+// fades out save button when required fields aren't filled
+.btn.disabled, .btn:disabled {
+  opacity: 0.30;
 }
