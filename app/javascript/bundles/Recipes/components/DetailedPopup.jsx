@@ -82,7 +82,8 @@ export default class DetailedPopup extends React.Component {
               <strong>Instructions:</strong> {listInstructions}<br />
               {/* only renders warnings on detail page if there are some in the recipe */}
               {warnings ? <div><strong>Warning:</strong> {warnings} <br /><br /></div> : ""}
-              <strong><a target="_blank" href={reference_url}>Click here to get the whole story from the source</a></strong>
+              {/* only renders reference url if one exists */}
+              {reference_url ? <strong><a target="_blank" href={reference_url}>Click here to get the whole story from the source</a></strong> : ""}
             </div>
           </div>
         </div>
