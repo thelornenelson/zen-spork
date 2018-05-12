@@ -1,4 +1,5 @@
 class Recipe < ApplicationRecord
+
   belongs_to :user
   has_one :spork
   has_many :sporks, foreign_key: "original_recipe_id"
@@ -9,6 +10,10 @@ class Recipe < ApplicationRecord
   validate :content_is_acceptable
   validate :photo_url_resembles_a_url
   validate :reference_url_resembles_a_url
+
+  def sporks_count
+    self.sporks.count
+  end
 
   def content_is_acceptable
       begin
