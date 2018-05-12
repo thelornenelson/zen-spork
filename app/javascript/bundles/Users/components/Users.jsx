@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../Recipes/components/Navbar.jsx";
+import Navbar from "../../App/components/Navbar.jsx";
 
 export default class Sessions extends React.Component {
 
