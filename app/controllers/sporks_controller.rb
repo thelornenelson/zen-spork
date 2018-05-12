@@ -1,8 +1,21 @@
+require 'json-diff'
+
+
+# JsonDiff.diff(@orec.content, @rec.content, include_was: true, additions: true)
 class SporksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
     respond_to do |format|
+      format.html do
+        @sporks = Spork.all
+        @recipe_diffs = []
+
+        @sporks.each do |spork|
+          @recipe_diffs.push RecipeDiff.new(spork)
+        end
+        render :index
+      end
       format.json do
         render json: Recipe.find(params[:recipe_id]).sporks
       end
