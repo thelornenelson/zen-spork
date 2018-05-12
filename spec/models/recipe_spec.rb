@@ -22,7 +22,7 @@ RSpec.describe Recipe, type: :model do
     end
 
     it 'should not be valid with 0 steps' do
-      recipe.content = '{"steps":[]}'
+      recipe.content = {"steps":[]}
       expect(recipe).to_not be_valid
     end
 
