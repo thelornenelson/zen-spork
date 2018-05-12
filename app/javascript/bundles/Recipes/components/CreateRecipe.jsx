@@ -23,7 +23,11 @@ export default class CreateRecipe extends React.Component {
           instructions: "",
           ingredients: [""]
         }
-      ]
+      ],
+      errors: {
+        title: true,
+        steps: [{instructions:true}]
+      }
     };
 
     this.onTitleInput = this.onTitleInput.bind(this);
@@ -228,7 +232,22 @@ export default class CreateRecipe extends React.Component {
     }
   }
 
+  // function to validate that fields are okay
+  validateForm = (title) => {
+    // true means invalid, so our conditions got reversed
+    return {
+      title: title.length === 0,
+      // instruction: instruction.length === 0,
+    };
+  }
+
   render() {
+    // checks that required fields are true
+    const isEnabled =
+      this.state.title &&
+      this.state.steps[0].instructions;
+    // form validation checked on every update
+    const errors = this.validateForm(this.state.title);
     const title = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     return (
       <div className="new-recipe">
@@ -242,7 +261,7 @@ export default class CreateRecipe extends React.Component {
               <div className="col-lg">
                 <div className="form-group">
                   <label htmlFor="InputRecipeTitle">Title</label>
-                  <input type="text" className="form-control" id="InputRecipeTitle" placeholder="Enter Title" value={this.state.title} onInput={this.onTitleInput}/>
+                  <input type="text" className={errors.title ? "error form-control" : "form-control"} id="InputRecipeTitle" placeholder="Enter Title" value={this.state.title} onInput={this.onTitleInput}/>
                 </div>
               </div>
               <div className="col-lg">
@@ -291,7 +310,8 @@ export default class CreateRecipe extends React.Component {
               <div className="col-lg">
                 <button className="btn btn-primary" onClick={this.props.returnToIndexView}>Cancel</button>
                 {this.state.statusEdit && <button className="btn btn-primary" onClick={this.resetEditRecipeForm}>Reset</button>}
-                <button type="submit" className="btn btn-primary">Save</button>
+                {/* disables save button if required fields aren't true */}
+                <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Save</button>
               </div>
             </div>
           </div>

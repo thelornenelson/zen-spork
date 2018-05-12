@@ -295,5 +295,9 @@ td, th {
 // rounding edges of detailed recipe view
 .styles_modal__gNwvD {
   border-radius: 10px
+}
 
+// handles required field styling
+.error {
+  border: 1px solid red;
 }
