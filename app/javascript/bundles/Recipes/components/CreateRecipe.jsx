@@ -157,15 +157,6 @@ export default class CreateRecipe extends React.Component {
     }
   }
 
-  // function to validate that fields are okay
-  validateForm = (title, instruction) => {
-    // true means invalid, so our conditions got reversed
-    return {
-      title: title.length === 0,
-      instruction: instruction.length === 0,
-    };
-  }
-
   render() {
     // checks that required fields have some input to enable the save button
     const isEnabled = this.state.title && this.state.steps[0].instructions;
