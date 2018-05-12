@@ -19,7 +19,7 @@ export default class Sessions extends React.Component {
 
   render() {
     // checks that required fields have some input to enable the save button
-    const isEnabled = this.state.email && this.state.password;
+    const isEnabled = this.state.email && this.state.password.length > 2;
 
     return (
       <div>
