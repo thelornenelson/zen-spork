@@ -28,7 +28,7 @@ a{
 body {
   background: $bg-color;
   background-image: url('/bg_image.jpg');
-  background-position: top;
+
   background-size: cover;
   background-attachment: fixed;
   font-family: 'Roboto', sans-serif;
@@ -107,7 +107,7 @@ body {
       border-radius: 5px;
       padding:       0px;
       padding-bottom: 20px;
-      margin-top:    20px;
+      margin-top:    30px;
       // margin:        10px;
   }
 
@@ -130,6 +130,7 @@ body {
 }
 
 .new-recipe {
+  margin-top: 30px;
   position : relative;
   background: $bg-color;
   width: 85%;
