@@ -158,6 +158,9 @@ export default class CreateRecipe extends React.Component {
   }
 
   render() {
+    // checks that required fields have some input to enable the save button
+    const isEnabled = this.state.title && this.state.steps[0].instructions;
+    const title = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     const pageTitle = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     return (
       <div className="new-recipe">
@@ -226,7 +229,8 @@ export default class CreateRecipe extends React.Component {
               <div className="col-lg">
                 <button className="btn btn-primary" onClick={this.props.returnToIndexView}>Cancel</button>
                 {this.state.statusEdit && <button className="btn btn-primary" onClick={this.resetEditRecipeForm}>Reset</button>}
-                <button type="submit" className="btn btn-primary">Save</button>
+                {/* disables save button if required fields aren't true */}
+                <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Save</button>
               </div>
             </div>
           </div>

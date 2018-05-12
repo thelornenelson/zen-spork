@@ -296,5 +296,14 @@ td, th {
 // rounding edges of detailed recipe view
 .styles_modal__gNwvD {
   border-radius: 10px
+}
 
+// handles required field styling
+// .error {
+//   border: 5px solid red
+// }
+
+// fades out save button when required fields aren't filled
+.btn.disabled, .btn:disabled {
+  opacity: 0.30;
 }
