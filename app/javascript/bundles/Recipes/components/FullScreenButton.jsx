@@ -18,8 +18,8 @@ export default class FullScreenButton extends React.Component {
   render() {
     return (
       <div className="App">
-        <button type="button" className={"btn btn-secondary"} onClick={this.goFull}>
-            Cook Now
+        <button type="button" className={"btn btn-primary"} onClick={this.goFull}>
+          <i className="fas fa-expand-arrows-alt"></i> Cook Now
         </button>
         <Fullscreen enabled={this.state.isFull} onChange={isFull => this.setState({ isFull })}>
           <div className="full-screenable-node">

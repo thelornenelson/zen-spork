@@ -240,7 +240,7 @@ export default class CreateRecipe extends React.Component {
             <div className="row">
               <div className="col-lg">
                 <div className="form-group">
-                  <label htmlFor="InputRecipeTitle">Recipe Title</label>
+                  <label htmlFor="InputRecipeTitle">Title</label>
                   <input type="text" className="form-control" id="InputRecipeTitle" placeholder="Enter Title" value={this.state.title} onInput={this.onTitleInput}/>
                 </div>
               </div>
@@ -288,9 +288,9 @@ export default class CreateRecipe extends React.Component {
               changeIngredient={this.changeIngredient}/>
             <div className="row">
               <div className="col-lg">
-                <button className="btn btn-secondary" onClick={this.props.returnToIndexView}>Cancel</button>
-                {this.state.statusEdit && <button className="btn btn-secondary" onClick={this.resetEditRecipeForm}>Reset</button>}
-                <button type="submit" className="btn btn-secondary">Save</button>
+                <button className="btn btn-primary" onClick={this.props.returnToIndexView}>Cancel</button>
+                {this.state.statusEdit && <button className="btn btn-primary" onClick={this.resetEditRecipeForm}>Reset</button>}
+                <button type="submit" className="btn btn-primary">Save</button>
               </div>
             </div>
           </div>

@@ -5,14 +5,29 @@
 
 $bg-color: #FBFBF7;
 $navbar-color: rgba(133, 199, 242, 0.8);
+$border-color: #4C4C4C;
 
 a{
   color: inherit;
 }
 
+.btn-primary {
+  float: right;
+  font-weight: 700;
+  font-size: 16px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  background: #3b92cc;
+  border-color: #3b92cc;
+}
+
+.btn-primary:hover {
+  background: #2f82b9;
+}
+
 body {
   background: $bg-color;
-  background-image: url('https://drive.google.com/uc?export=view&id=196_2K6QhZPVZTBGOYmuMuSevv9XPrOYU');
+  background-image: url('/bg_image.jpg');
   background-position: top;
   background-size: cover;
   background-attachment: fixed;
@@ -84,10 +99,10 @@ body {
 
   .recipe-card {
       // flex:      1;
-      max-width: 320px;
+      max-width: 300px;
       // so that footer within can be positioned absolutely
       position:  relative;
-      border:        2px solid #ccc;
+      border:        2px solid $border-color;
       border-radius: 5px;
       padding:       0px;
       padding-bottom: 20px;
@@ -117,25 +132,39 @@ body {
   position : relative;
   background: $bg-color;
   width: 85%;
-  border: 2px solid #ccc;
-  border-radius: 5px;
+  border : 2px solid #4C4C4C;
+  border-radius: 10px;
   padding: 15px;
+  padding-top: 55px;
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 5px;
+    padding-right: 10px;
+    color: black;
+  }
 
   .create-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background : rgb(133, 199, 242);
     text-align: center;
     font-weight: 700;
     font-size: 24px;
+    padding: 5px;
+
   }
 
   label {
     font-weight: 700;
     font-size: 16px;
-  }
-
-  .btn-secondary {
-    float: right;
-    margin-left: 15px;
-    margin-bottom: 10px;
   }
 
   .btn-danger {
@@ -156,9 +185,11 @@ body {
 }
 
 .steps-area {
-  border: 1px solid #AFAFAF;
-  border-radius: 5px;
+  position: relative;
+  border: 1px solid $border-color;
+  border-radius: 10px;
   padding: 15px;
+  padding-top: 55px;
   margin-bottom: 15px;
 }
 
@@ -201,6 +232,10 @@ body {
 
 .DPU-left {
   float: left;
+  text-align: left;
+}
+
+.DPU-centered-title {
   text-align: center;
 }
 
@@ -209,8 +244,11 @@ body {
 }
 
 .DPU-image {
-  width: 90%;
-
+  max-width: 240px;
+  max-height: 160px;
+  min-width: 240px;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 .DPU-buttons {
@@ -225,10 +263,8 @@ body {
 .card-img-top {
   max-height: 200px;
   max-width: 300px;
-  min-height: 200px;
-  min-width: 300px;
-  width: 100%;
-  height: auto;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 // border for table on detailed recipe modal pop up
@@ -241,7 +277,12 @@ td, th {
   border: solid 1px black;
 }
 
-.col-centered {
-  float: none;
-  margin: 0 auto;
+// gives enough buffer for two line recipes
+.card-title {
+  min-height: 66px;
+}
+
+// rounding edges of detailed recipe view
+.styles_modal__gNwvD {
+  border-radius: 10px
 }

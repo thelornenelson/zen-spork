@@ -11,7 +11,7 @@ export default class RecipeIndex extends React.Component {
     const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     return (
       <article>
-        <div className="recipe-card card border-dark">
+        <div className="recipe-card card">
           {/* renders either photo_url, or if that is a blank string, the placeholder */}
           <img className="card-img-top" src={photo || photoPlaceholder} alt="food porn of cooked dish" />
           <div className="card-body">
