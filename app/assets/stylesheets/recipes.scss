@@ -33,7 +33,7 @@ body {
   background-attachment: fixed;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
-  margin: 85px 0px;
+  margin: 60px 0px;
 }
 
 
@@ -48,7 +48,7 @@ body {
   position: fixed;
   right: 0;
   top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 
 
   .navbar-brand {
@@ -89,9 +89,10 @@ body {
     padding: 0 10px;
   }
 }
+
 .container {
 
-  margin-top: 40;
+  margin-top: 0px;
   display: flex;
   flex-direction:  row;
   flex-wrap:       wrap;
@@ -277,6 +278,15 @@ td, th {
   border: solid 1px black;
 }
 
+.notification {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 60px;
+  padding: 0 20px;
+  color: #F14040;
+  text-align: right;
+}
+
 // gives enough buffer for two line recipes
 .card-title {
   min-height: 66px;
@@ -285,4 +295,5 @@ td, th {
 // rounding edges of detailed recipe view
 .styles_modal__gNwvD {
   border-radius: 10px
+
 }
