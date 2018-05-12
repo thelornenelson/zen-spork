@@ -52,22 +52,24 @@ export default class DetailedPopup extends React.Component {
               <div className="DPU-ingredients">
                 {listIngredients}<br />
               </div>
-              <table className="DPU-table">
-                <thead>
-                  <tr>
-                    <th>Prep-time  </th>
-                    <th>Cook-time  </th>
-                    <th>Servings  </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{prep_time}</td>
-                    <td>{cook_time}</td>
-                    <td>{servings}</td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* hides prep, cook, serving table if the inputs are blank */}
+              {(!prep_time && !cook_time && !servings) ? "" :
+                <table className="DPU-table">
+                  <thead>
+                    <tr>
+                      <th>Prep-time  </th>
+                      <th>Cook-time  </th>
+                      <th>Servings  </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{prep_time}</td>
+                      <td>{cook_time}</td>
+                      <td>{servings}</td>
+                    </tr>
+                  </tbody>
+                </table> }
               <div className="modal-footer DPU-buttons">
                 <FullScreenButton recipe={this.props.recipe} />
                 {this.props.current_user_id !== recipe.user_id &&<button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
