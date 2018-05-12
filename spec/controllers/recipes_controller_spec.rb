@@ -62,7 +62,7 @@ RSpec.describe RecipesController, type: :controller do
     before :each do
       user = create(:user)
       request.session[:user_id]=user.id
-      post :create, format: :json, params: {recipe: { title: "", content: '' } }
+      # post :create, format: :json, params: {recipe: { title: "", content: '' } }
     end
 
     it "should return 400 status when given invalid data" do
