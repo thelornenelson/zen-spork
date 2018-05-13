@@ -3,7 +3,7 @@ import React from "react";
 export default class Navbar extends React.Component {
   render() {
     const loginToggle = ((this.props.current_user)
-      ? (<div><a href='/logout' className="btn nav-button">Logout</a><div className="nav-user">{this.props.current_user}</div></div>)
+      ? (<div><a href='/logout' className="btn nav-button">Logout</a><div className="nav-user">{this.props.current_user_name}</div></div>)
       : (<div><a href='/login' className="btn nav-button">Login / Register</a></div>));
 
     // Makes the button display either My Recipes or All recipes depending on the state

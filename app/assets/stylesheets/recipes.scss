@@ -302,12 +302,13 @@ td, th {
   background: #FBFBF7;
 }
 
-// handles required field styling
-// .error {
-//   border: 5px solid red
-// }
-
 // fades out save button when required fields aren't filled
 .btn.disabled, .btn:disabled {
   opacity: 0.30;
+}
+
+// puts red star after required fields
+.required label:after {
+  content: " *";
+  color: red;
 }
