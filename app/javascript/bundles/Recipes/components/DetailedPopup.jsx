@@ -8,7 +8,7 @@ export default class DetailedPopup extends React.Component {
   render() {
     const { title, photo_url, sporks_count, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
     // declares our placeholder photo
-    const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
+    const photoPlaceholder = "https://drive.google.com/uc?id=1FuOo9zc5O50ZPjvA8xqh40VCN81nakeu";
     const recipe = this.props.recipe;
     // maps recipe json to extract just the list of ingredients to render
     const gearArr = {gear}.gear;
