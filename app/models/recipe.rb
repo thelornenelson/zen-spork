@@ -5,6 +5,7 @@ class Recipe < ApplicationRecord
   has_many :sporks, foreign_key: "original_recipe_id"
 
   validates :title, presence: true
+  validates_length_of :title, :maximum => 30
   validates :content, presence: true
 
   validate :content_is_acceptable

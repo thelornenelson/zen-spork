@@ -174,7 +174,7 @@ export default class CreateRecipe extends React.Component {
               <div className="col-lg">
                 <div className="form-group required">
                   <label htmlFor="InputRecipeTitle">Title</label>
-                  <input type="text" className="form-control" name="title" id="InputRecipeTitle" placeholder="Enter Title" value={this.state.title} onChange={this.handleChange}/>
+                  <input type="text" className="form-control" name="title" id="InputRecipeTitle" placeholder="Enter Title" maxLength="30" value={this.state.title} onChange={this.handleChange}/>
                 </div>
               </div>
               <div className="col-lg">
