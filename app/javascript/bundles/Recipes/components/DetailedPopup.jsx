@@ -6,7 +6,7 @@ export default class DetailedPopup extends React.Component {
 
 
   render() {
-    const { title, photo_url, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
+    const { title, photo_url, sporks_count, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
     // declares our placeholder photo
     const photoPlaceholder = "https://thumbs.dreamstime.com/b/black-plastic-spork-14551333.jpg";
     const recipe = this.props.recipe;
@@ -44,7 +44,7 @@ export default class DetailedPopup extends React.Component {
               <div className="DPU-centered-title">
                 <h1 className="DPU-title">{title}</h1>
               Cooked x times<br />
-              Sporked x times<br />
+              Sporked {sporks_count} time{sporks_count === 1 ? "" : "s"}<br />
                 {/* either renders photo from db is it exists or placeholder photo */}
                 <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
                 <strong>Ingredients:</strong><br />
@@ -72,7 +72,8 @@ export default class DetailedPopup extends React.Component {
                 </table> }
               <div className="modal-footer DPU-buttons">
                 <FullScreenButton recipe={this.props.recipe} />
-                {this.props.current_user_id !== recipe.user_id &&<button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
+                {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
+                {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
                 {this.props.current_user_id === recipe.user_id && <button type="button" className={"btn btn-primary"} data-dismiss="modal" onClick={(e) => { this.props.editRecipe(this.props.recipe, e); }}><i className="fas fa-edit"></i> Edit</button>}
               </div>
             </div>

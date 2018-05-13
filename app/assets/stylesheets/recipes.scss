@@ -11,6 +11,7 @@ a{
   color: inherit;
 }
 
+
 .btn-primary {
   float: right;
   font-weight: 700;
@@ -295,7 +296,8 @@ td, th {
 
 // rounding edges of detailed recipe view
 .styles_modal__gNwvD {
-  border-radius: 10px
+  border-radius: 10px;
+  max-width: 90%;
 }
 
 // handles required field styling
