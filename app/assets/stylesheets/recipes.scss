@@ -27,9 +27,7 @@ a{
 }
 
 body {
-  background: $bg-color;
-  background-image: url('/bg_image.jpg');
-
+  background-image: url('/newbg.jpg');
   background-size: cover;
   background-attachment: fixed;
   font-family: 'Roboto', sans-serif;
@@ -37,11 +35,10 @@ body {
   margin: 60px 0px;
 }
 
-
 .navbar {
   display: block;
   background-color: $navbar-color;
-  z-index: 2;
+  z-index: 4;
   height: 60px;
   left: 0;
   padding: 0;
@@ -95,7 +92,6 @@ body {
 }
 
 .container {
-
   margin-top: 0px;
   display: flex;
   flex-direction:  row;
@@ -145,9 +141,9 @@ body {
 
   .close {
     position: absolute;
+    z-index: 2;
     top: 0;
     right: 0;
-    z-index: 2;
     padding: 5px;
     padding-right: 10px;
     color: black;
