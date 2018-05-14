@@ -161,9 +161,7 @@ export default class CreateRecipe extends React.Component {
     const pageTitle = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     return (
       <div className="new-recipe">
-        <button type="button" className="close" aria-label="Close" onClick={this.props.returnToIndexView}>
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" name="recipeIndex" className="close" aria-label="Close" onClick={this.props.toggleViews}>&times;</button>
         {pageTitle}
         <form onSubmit={this.onSubmit}>
           <div className="container-fluid">
@@ -224,7 +222,7 @@ export default class CreateRecipe extends React.Component {
               changeIngredient={this.changeIngredient}/>
             <div className="row">
               <div className="col-lg">
-                <button className="btn btn-primary" onClick={this.props.returnToIndexView}>Cancel</button>
+                <button className="btn btn-primary" name="recipeIndex" onClick={this.props.toggleViews}>Cancel</button>
                 {this.state.statusEdit && <button className="btn btn-primary" onClick={this.resetEditRecipeForm}>Reset</button>}
                 <button type="submit" className="btn btn-primary">Save</button>
               </div>
