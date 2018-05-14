@@ -22,10 +22,11 @@ export default class Sessions extends React.Component {
     const isEnabled = this.state.email && this.state.password.length > 2;
 
     return (
-      <div>
+
+      <div className="container">
         <Navbar current_user={this.props.current_user} />
         <div className="session-box">
-          <h1>Login</h1>
+          <h1>Sign In</h1>
           <form method="post" action="/login">
             <div className="form-group required">
               <label htmlFor="exampleInputEmail1">Email address</label>
@@ -37,15 +38,10 @@ export default class Sessions extends React.Component {
             </div>
             <div className="required">
               <label>Required fields</label>
-              <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Submit</button>
+              <a href="/signup" className="btn btn-primary">Sign Up</a>
+              <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Sign In</button>
             </div>
           </form>
-        </div>
-        <div className="session-box">
-          <h1>Register</h1>
-          <div>
-            <a href="/signup" className="btn btn-primary"> Register </a>
-          </div>
         </div>
       </div>
     );

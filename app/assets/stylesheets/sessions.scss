@@ -6,10 +6,19 @@ $bg-color: #FBFBF7;
 
 .session-box {
   background: $bg-color;
-  width: 60%;
+  width: 80%;
   border-radius: 10px;
-  padding: 20px 40px 60px;
+  padding: 20px 40px 30px;
   margin: auto;
-  margin-bottom: 20px;
+  margin-top : 30px;
   border: 2px solid #4C4C4C;
+
+  input {
+    border-color: #AFAFAF;
+  }
+
+  label {
+    font-weight: 700;
+    font-size: 16px;
+  }
 }

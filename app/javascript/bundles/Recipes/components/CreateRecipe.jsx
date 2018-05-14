@@ -164,9 +164,7 @@ export default class CreateRecipe extends React.Component {
     const pageTitle = (this.state.statusEdit) ? (<div className="create-title">Edit Recipe</div>): (<div className="create-title">Create A New Recipe</div>);
     return (
       <div className="new-recipe">
-        <button type="button" className="close" aria-label="Close" onClick={this.props.returnToIndexView}>
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" name="recipeIndex" className="close" aria-label="Close" onClick={this.props.toggleViews}>&times;</button>
         {pageTitle}
         <form onSubmit={this.onSubmit}>
           <div className="container-fluid">
@@ -229,7 +227,7 @@ export default class CreateRecipe extends React.Component {
               {/* required className and label for marking required fields */}
               <div className="col-lg required">
                 <label>Required fields</label>
-                <button className="btn btn-primary" onClick={this.props.returnToIndexView}>Cancel</button>
+                <button className="btn btn-primary" name="recipeIndex" onClick={this.props.toggleViews}>Cancel</button>
                 {this.state.statusEdit && <button className="btn btn-primary" onClick={this.resetEditRecipeForm}>Reset</button>}
                 {/* disables save button if required fields aren't true */}
                 <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Save</button>
