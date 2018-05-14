@@ -5,14 +5,14 @@ export default class FullScreenView extends React.Component {
     super();
 
     this.state = {
-      fullscreenToggle: false,
+      layoutToggle: true,
     };
   }
 
-  toggleFullscreen = (e) => {
+  toggleLayout = (e) => {
     e.preventDefault();
     this.setState({
-      fullscreenToggle: !this.state.fullscreenToggle,
+      layoutToggle: !this.state.layoutToggle,
     });
   }
 
@@ -62,13 +62,13 @@ export default class FullScreenView extends React.Component {
         <div className="container-fluid steps-ingredients-container">
           <div className="row">
             <div className="col-xl text-center"><h4>{recipe.title}</h4></div>
-            <button type="button" className="btn btn-primary" onClick={this.toggleFullscreen} >Toggle</button>
+            <button type="button" className="btn switch-button" onClick={this.toggleLayout}><i className="fas fa-exchange-alt fa-md"></i> Switch Layout</button>
           </div>
           <div className="row step-row">
             <div className="col-xl-4 step-col" style={{paddingLeft: 50 }}><h4>Ingredients:</h4></div>
             <div className="col-xl-8" style={{paddingLeft: 40}}><h4>Steps:</h4></div>
           </div>
-          {(this.state.fullscreenToggle)?(allIngredientsAndStepsGrouped):(ingredientsAndStepsSeperated)}
+          {(this.state.layoutToggle)?(allIngredientsAndStepsGrouped):(ingredientsAndStepsSeperated)}
         </div>
       </div>
     );

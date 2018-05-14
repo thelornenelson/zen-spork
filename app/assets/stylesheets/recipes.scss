@@ -12,6 +12,7 @@ a{
 }
 
 
+
 .btn-primary {
   float: right;
   font-weight: 700;
@@ -195,20 +196,25 @@ body {
   margin-bottom: 15px;
 }
 
+.fullscreen.fullscreen-enabled {
+  background-color: #FBFBF7;
+}
+
 .cooking-view {
   background-color: #FBFBF7;
   z-index: 3;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
   font-size: 120%;
   font-weight: 700;
-  margin-top: 10px;
+  // margin-top: 10px;
   margin-bottom: 10px;
   max-height: 100vh;
+  // max-width: 100vh;
   overflow: scroll;
+  position: relative;
+
+  .row {
+    padding: 0.4em;
+  }
 
   h4 {
     font-size: 1.2em;
@@ -216,13 +222,30 @@ body {
   }
 
   .step-row {
-    padding: 10px;
+    // padding: 10px;
     border-bottom: 1px solid #AFAFAF;
   }
 
   .step-col {
     border-right: 1px solid #AFAFAF;
   }
+
+  .switch-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5em;
+    background-color: rgb(236, 235, 235);
+    // border: 1px solid $border-color;
+    border-radius: 0;
+    border-bottom-left-radius: 5px;
+  }
+
+  .switch-button:hover {
+    background-color: #AFAFAF;
+  }
+
+
 }
 
 .DPU-main-container {
