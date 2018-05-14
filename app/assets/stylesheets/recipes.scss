@@ -57,8 +57,7 @@ body {
     font-weight: 900;
     font-size: 42px;
     line-height: 60px;
-    padding: 0 10px;
-    text-decoration: none;
+    padding: 0px 0px 0px 15px;
     border: none;
     border-radius: 0;
   }
@@ -260,6 +259,7 @@ body {
   float: left;
   text-align: left;
   min-width: 280px;
+  max-width: 300px;
 }
 
 .DPU-centered-title {
@@ -268,6 +268,7 @@ body {
 
 .DPU-right {
   float: right;
+  position: relative;
 }
 
 .DPU-image {
@@ -289,6 +290,7 @@ body {
 // constrains large images to a max-height & width for visual appeal
 .card-img-top {
   max-height: 200px;
+  min-height: 200px;
   max-width: 300px;
   object-fit: cover;
   overflow: hidden;
@@ -298,6 +300,8 @@ body {
 .DPU-table {
   border: 1px black solid;
   border-collapse: collapse;
+  text-align: center;
+  margin: 0 0 0 40px;
 }
 
 td, th {
@@ -334,4 +338,14 @@ td, th {
 .required label:after {
   content: " *";
   color: red;
+}
+
+.verically-centered {
+  position: relative;
+  top: 45%;
+  transform: translateY(-50%);
+}
+
+.modal-footer {
+  border-top: none;
 }
