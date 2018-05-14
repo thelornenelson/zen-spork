@@ -8,7 +8,7 @@ export default class RecipeIndex extends React.Component {
     // declares the photo_url that is linked to recipe
     const photo = this.props.recipe.photo_url;
     // declares our placeholder photo
-    const photoPlaceholder = "https://drive.google.com/uc?id=1FuOo9zc5O50ZPjvA8xqh40VCN81nakeu";
+    const photoPlaceholder = "./no_spork_image.jpg";
     return (
       <article>
         <div className="recipe-card card">
