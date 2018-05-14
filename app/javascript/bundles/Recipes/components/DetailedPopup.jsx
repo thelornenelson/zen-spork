@@ -1,10 +1,10 @@
 import React from "react";
 import FullScreenButton from "./FullScreenButton.jsx";
-import {adjustIngredientQuantity} from "./../../../functions/adjustIngredientQuantity"
+import {adjustIngredientQuantity} from "./../../../functions/adjustIngredientQuantity";
 
 export default class DetailedPopup extends React.Component {
 
-   constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       servingMultiplier: 1
@@ -25,7 +25,7 @@ export default class DetailedPopup extends React.Component {
 
   adjustServingSize(e) {
     e.preventDefault();
-    let size = Number(e.target.value)
+    let size = Number(e.target.value);
     if (size === NaN) {
       this.setState({servingMultiplier: 1});
     }
@@ -108,12 +108,12 @@ export default class DetailedPopup extends React.Component {
                   <form>
                     <label>
                       Adjust Servings:
-                    <select value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
-                      <option value="0.5">Half</option>
-                      <option value="1">Original</option>
-                      <option value="2">Double</option>
-                      <option value="4">Quad</option>
-                    </select>
+                      <select value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
+                        <option value="0.5">Half</option>
+                        <option value="1">Original</option>
+                        <option value="2">Double</option>
+                        <option value="4">Quad</option>
+                      </select>
                     </label>
                   </form>
                 </div>

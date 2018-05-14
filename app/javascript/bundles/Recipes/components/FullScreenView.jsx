@@ -1,5 +1,5 @@
 import React from "react";
-import {adjustIngredientQuantity} from "./../../../functions/adjustIngredientQuantity"
+import {adjustIngredientQuantity} from "./../../../functions/adjustIngredientQuantity";
 
 export default class FullScreenView extends React.Component {
   constructor() {
