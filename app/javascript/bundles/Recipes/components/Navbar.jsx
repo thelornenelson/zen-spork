@@ -16,7 +16,7 @@ export default class Navbar extends React.Component {
 
       return (
         <nav className="navbar">
-          <a href="/" className="navbar-brand">SPORK</a>
+          <a href="/" className="navbar-brand"><img src="./spork_logo.png" alt="spork logo" /></a>
           {myRecipesToggle}
           <button type="button" className="btn nav-button" onClick={this.props.toggleCreateRecipe}>New Recipe</button>
           {loginToggle}
