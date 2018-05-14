@@ -116,6 +116,7 @@ export default class Recipes extends React.Component {
     return (
       <div>
         <Navbar current_user={this.props.current_user}
+          current_user_name={this.props.current_user_name}
           toggleCreateRecipe={this.toggleCreateRecipe}
           toggleMyRecipesView={this.toggleMyRecipesView}
           isMyRecipesView={this.state.myRecipesView}
