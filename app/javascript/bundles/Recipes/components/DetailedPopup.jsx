@@ -30,12 +30,15 @@ export default class DetailedPopup extends React.Component {
   }
 
   showVariation(input){
-    const directions = {
-      next: 1,
-      previous: -1
-    };
+    let newDisplayIndex
 
-    let newDisplayIndex = (this.state.displayIndex + directions[input]) || input;
+    if(input === "next") {
+      newDisplayIndex = this.state.displayIndex + 1;
+    } else if(input === "previous") {
+      newDisplayIndex = this.state.displayIndex - 1;
+    } else {
+      newDisplayIndex = input;
+    }
 
     if(newDisplayIndex < 0) {
       newDisplayIndex = this.state.recipeVariations.length + newDisplayIndex;
@@ -57,20 +60,84 @@ export default class DetailedPopup extends React.Component {
     const recipe = this.state.recipeVariations[this.state.displayIndex];
     // maps recipe json to extract just the list of ingredients to render
     const gearArr = {gear}.gear;
-    const listIngredients = recipe.content.steps.map((step) => {
-      const ingredients = step.ingredients.map((ingredient) => {
-        return (
-          <div key={ingredient.name}>
-            {/* only renders : if there is there is a qty or a unit  */}
-            {ingredient.qty} {ingredient.unit}{ingredient.qty || ingredient.unit ? ":" : ""} {ingredient.name}
-          </div>);
-      });
-      return (
-        <div key={Math.random()}>
-          {ingredients}
-        </div>);
+    let allIngredients = [];
+    recipe.content.steps.forEach((step) => {
+      if(step.ingredients.length > 0) {
+        allIngredients = allIngredients.concat(step.ingredients);
+      }
+    });
+    allIngredients = allIngredients.map((ingredient) => {
+      const ingredientElements = [];
+
+      const diff_operations = {
+        add: "spork-diff-added",
+        remove: "spork-diff-removed",
+        none: ""
+      };
+
+      let operation
+
+      const generateElement = (className, qty=ingredient.qty, unit=ingredient.unit, name=ingredient.name) => {
+        return (<li key={Math.random()} className={ className }>
+           {/* only renders : if there is there is a qty or a unit  */}
+           {qty} {unit}{qty || unit ? ":" : ""} {name}
+         </li>);
+      }
+
+      if("was" in ingredient){
+        // if was key exists then this ingredient has a diff associated with it
+        if(ingredient.was === null){
+          // ingredient was previously null, so it is a new ingredient
+          ingredientElements.push(generateElement(diff_operations["add"]));
+        } else if (!ingredient.qty && !ingredient.unit && !ingredient.name){
+          // ingredient has no values, only a was, so has been removed.
+          ingredientElements.push(generateElement(diff_operations["remove"], ingredient.was.qty, ingredient.was.unit, ingredient.was.name));
+        } else {
+          // otherwise ingredient has been modified, so add a "removed" ingredient and an "Added" ingredient
+          ingredientElements.push(generateElement(diff_operations["remove"], ingredient.was.qty, ingredient.was.unit, ingredient.was.name));
+          ingredientElements.push(generateElement(diff_operations["add"], ingredient.qty, ingredient.unit, ingredient.name));
+        }
+      } else {
+        ingredientElements.push(generateElement(diff_operations["none"]));
+      }
+
+      return ingredientElements;
     });
 
+    // due to the mapping and the way diffs are handled, some of the elements are arrays. This flattens them.
+    allIngredients = [].concat(allIngredients);
+
+    // const listIngredients = recipe.content.steps.map((step) => {
+    //   const ingredients = step.ingredients.map((ingredient) => {
+    //     const diff_operations = {
+    //       add: "spork-diff-added",
+    //       remove: "spork-diff-removed",
+    //       none: ""
+    //     };
+    //
+    //     let operation
+    //
+    //     if(ingredient.was){
+    //       // if was key exists then this ingredient has a diff associated with it
+    //       if(ingredient.was === null){
+    //         // ingredient was previously new, so it is a new ingredient
+    //         operation = "add";
+    //       } else {
+    //         operation = "remove";
+    //       }
+    //     }
+    //     return (
+    //       <div key={Math.random()} className={ diff_operations[operation] }>
+    //         {/* only renders : if there is there is a qty or a unit  */}
+    //         {diff_operations[operation]} {ingredient.qty} {ingredient.unit}{ingredient.qty || ingredient.unit ? ":" : ""} {ingredient.name}
+    //       </div>);
+    //   });
+    //   return (
+    //     <div key={Math.random()}>
+    //       {ingredients}
+    //     </div>);
+    // });
+    //
     // maps out numbered directions for making the recipe
     const listInstructions = recipe.content.steps.map((instruction, index) => {
       return (
@@ -94,9 +161,9 @@ export default class DetailedPopup extends React.Component {
                 <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
                 <strong>Ingredients:</strong><br />
               </div>
-              <div className="DPU-ingredients">
-                {listIngredients}<br />
-              </div>
+              <ul className="DPU-ingredients">
+                { allIngredients }
+              </ul>
               {/* hides prep, cook, serving table if the inputs are blank */}
               {(!prep_time && !cook_time && !servings) ? "" :
                 <table className="DPU-table">
