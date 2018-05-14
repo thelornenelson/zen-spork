@@ -54,11 +54,14 @@ body {
 
   .navbar-brand {
     display: block;
+    background-color: rgba(133, 199, 242, 0.0);
     float: left;
     font-weight: 900;
     font-size: 42px;
     line-height: 60px;
     padding: 0px 0px 0px 15px;
+    border: none;
+    border-radius: 0;
   }
 
   .nav-button {
@@ -267,6 +270,7 @@ body {
 // constrains large images to a max-height & width for visual appeal
 .card-img-top {
   max-height: 200px;
+  min-height: 200px;
   max-width: 300px;
   object-fit: cover;
   overflow: hidden;
