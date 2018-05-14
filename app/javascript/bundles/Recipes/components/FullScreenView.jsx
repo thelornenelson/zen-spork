@@ -1,4 +1,5 @@
 import React from "react";
+import {adjustIngredientQuantity} from "./../../../functions/adjustIngredientQuantity"
 
 export default class FullScreenView extends React.Component {
   render() {
@@ -7,7 +8,7 @@ export default class FullScreenView extends React.Component {
       const ingredients = step.ingredients.map((ingredient, ingredientIndex) => {
         return (
           <div key={ingredientIndex} className="row">
-            <div className="col-2">{ingredient.qty}</div>
+            <div className="col-2">{adjustIngredientQuantity(ingredient.qty, this.props.multi) }</div>
             <div className="col-4">{ingredient.unit}</div>
             <div className="col-6">{ingredient.name}</div>
           </div>);

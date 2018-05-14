@@ -23,7 +23,7 @@ export default class FullScreenButton extends React.Component {
         </button>
         <Fullscreen enabled={this.state.isFull} onChange={isFull => this.setState({ isFull })}>
           <div className="full-screenable-node">
-            {this.state.isFull && <FullScreenView recipe={ this.props.recipe }/>}
+            {this.state.isFull && <FullScreenView recipe={ this.props.recipe } multi={this.props.multi} />}
           </div>
         </Fullscreen>
       </div>
