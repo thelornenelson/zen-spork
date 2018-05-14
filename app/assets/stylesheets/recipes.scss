@@ -237,6 +237,7 @@ body {
   float: left;
   text-align: left;
   min-width: 280px;
+  max-width: 300px;
 }
 
 .DPU-centered-title {
@@ -245,6 +246,7 @@ body {
 
 .DPU-right {
   float: right;
+  position: relative;
 }
 
 .DPU-image {
@@ -275,6 +277,8 @@ body {
 .DPU-table {
   border: 1px black solid;
   border-collapse: collapse;
+  text-align: center;
+  margin: 0 0 0 40px;
 }
 
 td, th {
@@ -311,4 +315,14 @@ td, th {
 .required label:after {
   content: " *";
   color: red;
+}
+
+.verically-centered {
+  position: relative;
+  top: 45%;
+  transform: translateY(-50%);
+}
+
+.modal-footer {
+  border-top: none;
 }
