@@ -37,7 +37,7 @@ export default class DetailedPopup extends React.Component {
   render() {
     const { title, photo_url, sporks_count, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
     // declares our placeholder photo
-    const photoPlaceholder = "https://drive.google.com/uc?id=1FuOo9zc5O50ZPjvA8xqh40VCN81nakeu";
+    const photoPlaceholder = "./no_spork_image.jpg";
     const recipe = this.props.recipe;
     // maps recipe json to extract just the list of ingredients to render
     const gearArr = {gear}.gear;
@@ -54,7 +54,6 @@ export default class DetailedPopup extends React.Component {
           {ingredients}
         </div>);
     });
-
     // maps out numbered directions for making the recipe
     const listInstructions = recipe.content.steps.map((instruction, index) => {
       return (
@@ -64,20 +63,17 @@ export default class DetailedPopup extends React.Component {
       );
     });
 
-
     return (
       <article className="DPU-main-container">
+        <div className="DPU-centered-title">
+          <h1 className="DPU-title">{title}</h1>
+        </div>
         <div className="container">
           <div className="row">
             <div className="DPU-left col-5">
-              <div className="DPU-centered-title">
-                <h1 className="DPU-title">{title}</h1>
-              Cooked x times<br />
-              Sporked {sporks_count} time{sporks_count === 1 ? "" : "s"}<br />
-                {/* either renders photo from db is it exists or placeholder photo */}
-                <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
-                <strong>Ingredients:</strong><br />
-              </div>
+              {/* either renders photo from db is it exists or placeholder photo */}
+              <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
+              <strong>Ingredients:</strong><br />
               <div className="DPU-ingredients">
                 {listIngredients}<br />
               </div>
@@ -98,7 +94,10 @@ export default class DetailedPopup extends React.Component {
                       <td>{this.adjustTotalServings(servings)}</td>
                     </tr>
                   </tbody>
-                </table> }
+                </table> }<br />
+              <div className="DPU-centered-title">
+                Sporked {sporks_count} time{sporks_count === 1 ? "" : "s"}<br />
+              </div>
               <div className="modal-footer DPU-buttons">
                 <FullScreenButton recipe={this.props.recipe} multi={this.state.servingMultiplier} />
                 {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
@@ -119,15 +118,17 @@ export default class DetailedPopup extends React.Component {
               </div>
             </div>
             <div className="DPU-right col-7 ">
-              <strong>Intro:</strong> {intro}<br/><br/>
-              {/* only renders gear on detail page if there are some in the recipe and in a comma separated list */}
-              {gear ? <div><strong>Gear:</strong> {gearArr.join(", ")} <br /><br /></div> : ""}
-              {/* <strong>Gear:</strong> {gear}<br/><br/>       */}
-              <strong>Instructions:</strong> {listInstructions}<br />
-              {/* only renders warnings on detail page if there are some in the recipe */}
-              {warnings ? <div><strong>Warning:</strong> {warnings} <br /><br /></div> : ""}
-              {/* only renders reference url if one exists */}
-              {reference_url ? <strong><a target="_blank" href={reference_url}>Click here to get the whole story from the source</a></strong> : ""}
+              <div className="verically-centered">
+                <strong>Intro:</strong> {intro}<br/><br/>
+                {/* only renders gear on detail page if there are some in the recipe and in a comma separated list */}
+                {gear ? <div><strong>Gear:</strong> {gearArr.join(", ")} <br /><br /></div> : ""}
+                {/* <strong>Gear:</strong> {gear}<br/><br/>       */}
+                <strong>Instructions:</strong> {listInstructions}<br />
+                {/* only renders warnings on detail page if there are some in the recipe */}
+                {warnings ? <div><strong>Warning:</strong> {warnings} <br /><br /></div> : ""}
+                {/* only renders reference url if one exists */}
+                {reference_url ? <strong><a target="_blank" href={reference_url}>Click here to get the whole story from the source</a></strong> : ""}
+              </div>
             </div>
           </div>
         </div>
