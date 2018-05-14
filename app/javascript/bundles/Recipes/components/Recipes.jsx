@@ -102,20 +102,13 @@ export default class Recipes extends React.Component {
   render() {
     const recipes = this.state.recipes.map((recipe) => {
       return ((this.state.myRecipesView)?
-        (this.props.current_user_id === recipe.user_id && <RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} toggleViews={this.toggleViews} editRecipe={this.editRecipe} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>):
-        (<RecipeIndex key={recipe.id} recipe={recipe} toggleCookingView={this.toggleCookingView} toggleViews={this.toggleViews} editRecipe={this.editRecipe} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>)
+        (this.props.current_user_id === recipe.user_id && <RecipeIndex key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>):
+        (<RecipeIndex key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>)
       );
     });
     return (
       <div>
-        <Navbar current_user={this.props.current_user}
-          toggleCreateRecipe={this.toggleCreateRecipe}
-          toggleMyRecipesView={this.toggleMyRecipesView}
-          myRecipesView={this.state.myRecipesView}
-          notification={this.state.notification}
-          toggleViews={this.toggleViews}/>
-        {/* components are visible when their state boolean is true */}
-        {this.state.cookingView && <FullScreenView toggleCookingView={this.toggleCookingView} /> }
+        <Navbar current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>
         <div className="container">
           {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} toggleViews={this.toggleViews} showNotification={this.showNotification}/>}
           {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} toggleViews={this.toggleViews} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe} showNotification={this.showNotification}/>}
