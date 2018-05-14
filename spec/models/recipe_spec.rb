@@ -22,22 +22,7 @@ RSpec.describe Recipe, type: :model do
     end
 
     it 'should not be valid with 0 steps' do
-      recipe.content = '{"steps":[]}'
-      expect(recipe).to_not be_valid
-    end
-
-    it 'should not be valid if servings are missing' do
-      recipe.content = '{"prep_time":"5 minutes","cook_time":"5 minutes","steps":["step1", "step2"]}'
-      expect(recipe).to_not be_valid
-    end
-
-    it 'should not be valid if prep time is missing' do
-      recipe.content = '{"servings":"serves 5","cook_time":"5 minutes","steps":["step1", "step2"]}'
-      expect(recipe).to_not be_valid
-    end
-
-    it 'should not be valid if cook time is missing' do
-      recipe.content = '{"servings":"serves 5","prep_time":"5 minutes","steps":["step1", "step2"]}'
+      recipe.content = {"steps":[]}
       expect(recipe).to_not be_valid
     end
 

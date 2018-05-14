@@ -4,26 +4,21 @@
 
 $bg-color: #FBFBF7;
 
-.login-box {
+.session-box {
   background: $bg-color;
   width: 80%;
-  height: 310px;
-  border: 2px;
-  border-radius: 5px;
-  padding: 15px;
-  position: relative;
-  left: 115px;
-  top: 20px;
-}
+  border-radius: 10px;
+  padding: 20px 40px 30px;
+  margin: auto;
+  margin-top : 30px;
+  border: 2px solid #4C4C4C;
 
-.register-link-box {
-  background: $bg-color;
-  width: 80%;
-  height: 140px;
-  border: 2px;
-  border-radius: 5px;
-  padding: 15px;
-  position: relative;
-  left: 115px;
-  top: 50px;
+  input {
+    border-color: #AFAFAF;
+  }
+
+  label {
+    font-weight: 700;
+    font-size: 16px;
+  }
 }

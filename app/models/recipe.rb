@@ -1,22 +1,25 @@
 class Recipe < ApplicationRecord
+
   belongs_to :user
   has_one :spork
   has_many :sporks, foreign_key: "original_recipe_id"
 
   validates :title, presence: true
+  validates_length_of :title, :maximum => 30
   validates :content, presence: true
 
   validate :content_is_acceptable
   validate :photo_url_resembles_a_url
   validate :reference_url_resembles_a_url
 
+  def sporks_count
+    self.sporks.count
+  end
+
   def content_is_acceptable
       begin
         errors.add(:content, "steps cannot be blank") if content["steps"].blank?
         errors.add(:content, "must have at least one step") if content["steps"].length.zero?
-        errors.add(:content, "must include prep_time") if content["prep_time"].blank?
-        errors.add(:content, "must include cook_time") if content["cook_time"].blank?
-        errors.add(:content, "must include servings") if content["servings"].blank?
       rescue
         errors.add(:content, "must exist")
       end
