@@ -39,7 +39,7 @@ export default class FullScreenView extends React.Component {
       return step.ingredients.map((ingredient, ingredientIndex) => {
         return (
           <div key={ingredientIndex} className="row">
-            <div className="col-4">{ingredient.qty} {ingredient.unit}</div>
+            <div className="col-4">{adjustIngredientQuantity(ingredient.qty, this.props.multi)} {ingredient.unit}</div>
             <div className="col-8">{ingredient.name}</div>
           </div>);
       });
