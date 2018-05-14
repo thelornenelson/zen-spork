@@ -207,7 +207,8 @@ body {
   font-weight: 700;
   margin-top: 10px;
   margin-bottom: 10px;
-  max-height: 700px;
+  max-height: 100vh;
+  overflow: scroll;
 
   h4 {
     font-size: 1.2em;
