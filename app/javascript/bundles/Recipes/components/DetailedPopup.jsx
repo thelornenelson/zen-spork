@@ -60,12 +60,15 @@ export default class DetailedPopup extends React.Component {
     const recipe = this.state.recipeVariations[this.state.displayIndex];
     // maps recipe json to extract just the list of ingredients to render
     const gearArr = {gear}.gear;
+
     let allIngredients = [];
+    
     recipe.content.steps.forEach((step) => {
       if(step.ingredients.length > 0) {
         allIngredients = allIngredients.concat(step.ingredients);
       }
     });
+
     allIngredients = allIngredients.map((ingredient) => {
       const ingredientElements = [];
 
@@ -107,37 +110,6 @@ export default class DetailedPopup extends React.Component {
     // due to the mapping and the way diffs are handled, some of the elements are arrays. This flattens them.
     allIngredients = [].concat(allIngredients);
 
-    // const listIngredients = recipe.content.steps.map((step) => {
-    //   const ingredients = step.ingredients.map((ingredient) => {
-    //     const diff_operations = {
-    //       add: "spork-diff-added",
-    //       remove: "spork-diff-removed",
-    //       none: ""
-    //     };
-    //
-    //     let operation
-    //
-    //     if(ingredient.was){
-    //       // if was key exists then this ingredient has a diff associated with it
-    //       if(ingredient.was === null){
-    //         // ingredient was previously new, so it is a new ingredient
-    //         operation = "add";
-    //       } else {
-    //         operation = "remove";
-    //       }
-    //     }
-    //     return (
-    //       <div key={Math.random()} className={ diff_operations[operation] }>
-    //         {/* only renders : if there is there is a qty or a unit  */}
-    //         {diff_operations[operation]} {ingredient.qty} {ingredient.unit}{ingredient.qty || ingredient.unit ? ":" : ""} {ingredient.name}
-    //       </div>);
-    //   });
-    //   return (
-    //     <div key={Math.random()}>
-    //       {ingredients}
-    //     </div>);
-    // });
-    //
     // maps out numbered directions for making the recipe
     const listInstructions = recipe.content.steps.map((instruction, index) => {
       return (
