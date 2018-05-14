@@ -17,7 +17,7 @@ export default class Step extends React.Component {
         <div className="row">
           <div className="col">
             {/* puts required field star only on first step */}
-            <div className={this.props.stepIndex === 0 ? "form-group required" : "form-group"}> 
+            <div className={this.props.stepIndex === 0 ? "form-group required" : "form-group"}>
               <label htmlFor="InputStepInstructions">Step {this.props.stepIndex + 1}
                 {this.props.stepIndex > 0 && <button className="btn btn-danger" onClick={(e) => this.props.deleteStep(this.props.stepIndex, e)}><i className="fas fa-trash-alt"></i></button>}
               </label>
