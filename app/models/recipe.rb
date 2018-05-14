@@ -1,3 +1,5 @@
+require 'json-diff'
+
 class Recipe < ApplicationRecord
 
   belongs_to :user
@@ -14,6 +16,14 @@ class Recipe < ApplicationRecord
 
   def sporks_count
     self.sporks.count
+  end
+
+  def similarity
+    if self.spork.present?
+      JsonDiff.similarity(self.spork.original_recipe.content, self.content, similarity: nil)
+    else
+      0
+    end
   end
 
   def content_is_acceptable
