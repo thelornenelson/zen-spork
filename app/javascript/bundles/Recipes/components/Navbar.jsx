@@ -10,7 +10,7 @@ export default class Navbar extends React.Component {
     const loginToggle = ((this.props.current_user)
       ?(<div>{myRecipesToggleName}
         <button type="button" className="btn nav-button" name="createRecipe" onClick={this.props.toggleViews}>New Recipe</button>
-        <a href="/logout" className="btn nav-button">Logout</a>
+        <a href="/logout" className="btn nav-button">Sign Out</a>
         <div className="nav-user">{this.props.current_user}</div></div>)
       : (<div><a href="/signup" className="btn nav-button">Sign Up</a>
         <a href="/login" className="btn nav-button">Sign In</a></div>));

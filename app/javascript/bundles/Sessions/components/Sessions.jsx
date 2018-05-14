@@ -39,7 +39,7 @@ export default class Sessions extends React.Component {
             <div className="required">
               <label>Required fields</label>
               <a href="/signup" className="btn btn-primary">Sign Up</a>
-              <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Submit</button>
+              <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Sign In</button>
             </div>
           </form>
         </div>
