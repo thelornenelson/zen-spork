@@ -11,6 +11,7 @@ a{
   color: inherit;
 }
 
+
 .btn-primary {
   float: right;
   font-weight: 700;
@@ -238,6 +239,7 @@ body {
 .DPU-left {
   float: left;
   text-align: left;
+  min-width: 280px;
 }
 
 .DPU-centered-title {
@@ -298,6 +300,18 @@ td, th {
 
 // rounding edges of detailed recipe view
 .styles_modal__gNwvD {
-  border-radius: 10px
+  border-radius: 10px;
+  max-width: 90%;
+  background: #FBFBF7;
+}
 
+// fades out save button when required fields aren't filled
+.btn.disabled, .btn:disabled {
+  opacity: 0.30;
+}
+
+// puts red star after required fields
+.required label:after {
+  content: " *";
+  color: red;
 }

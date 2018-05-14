@@ -25,6 +25,9 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+
+# for serializing json responses
+gem 'active_model_serializers'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -40,6 +43,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'react_on_rails', '10.0.2'         # prefer exact gem version to match npm version
+
+# for checking differences between sporked recipes and ancestors
+gem 'json-diff'
 
 # adding these here so we can seed the production database.
 gem 'factory_bot_rails'
