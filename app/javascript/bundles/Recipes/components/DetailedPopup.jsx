@@ -1,15 +1,60 @@
 import React from "react";
 import FullScreenButton from "./FullScreenButton.jsx";
+import RecipeVariations from "./RecipeVariations.jsx";
 
 export default class DetailedPopup extends React.Component {
+  constructor(props) {
+    super(props);
 
+    // recipeVariations[0] is the original recipe, all other elements are sporked variations of the original
+    this.state = { recipeVariations: [this.props.recipe], displayIndex: 0 };
 
+    this.getSporks();
+
+    this.showVariation = this.showVariation.bind(this);
+
+  }
+
+  getSporks(){
+    fetch(`/recipes/${this.props.recipe.id}/sporks.json`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((sporks) => {
+        const newRecipeVariations = [this.props.recipe].concat(sporks.map((spork) => spork.recipe_diffs));
+        this.setState({ recipeVariations: newRecipeVariations });
+      })
+      .catch((ex) => {
+        console.log("parsing failed", ex);
+      });
+  }
+
+  showVariation(input){
+    const directions = {
+      next: 1,
+      previous: -1
+    };
+
+    let newDisplayIndex = (this.state.displayIndex + directions[input]) || input;
+
+    if(newDisplayIndex < 0) {
+      newDisplayIndex = this.state.recipeVariations.length + newDisplayIndex;
+    } else if(newDisplayIndex >= this.state.recipeVariations.length) {
+      newDisplayIndex = newDisplayIndex - this.state.recipeVariations.length;
+    }
+
+    this.setState({ displayIndex: newDisplayIndex });
+
+  }
 
   render() {
-    const { title, photo_url, sporks_count, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
+    const { title, photo_url, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.state.recipeVariations[this.state.displayIndex];
+
+    // not sure if we want this to display spork count of sporks, or only ever the original spork count, or what? Now will display spork count for the original recipe or 0 for any sporks.
+    const sporks_count = this.state.recipeVariations[this.state.displayIndex].sporks_count || 0;
     // declares our placeholder photo
     const photoPlaceholder = "https://drive.google.com/uc?id=1FuOo9zc5O50ZPjvA8xqh40VCN81nakeu";
-    const recipe = this.props.recipe;
+    const recipe = this.state.recipeVariations[this.state.displayIndex];
     // maps recipe json to extract just the list of ingredients to render
     const gearArr = {gear}.gear;
     const listIngredients = recipe.content.steps.map((step) => {
@@ -76,6 +121,11 @@ export default class DetailedPopup extends React.Component {
                 {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
                 {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.recipe);}}><i className="fas fa-edit"></i> Edit</button>}
               </div>
+              <RecipeVariations
+                showVariation={ this.showVariation }
+                variationsCount={ this.state.recipeVariations.length }
+                displayIndex={ this.state.displayIndex }
+                />
             </div>
             <div className="DPU-right col-7 ">
               <strong>Intro:</strong> {intro}<br/><br/>
