@@ -13,7 +13,7 @@ export default class RecipeIndex extends React.Component {
       <article>
         <div className="recipe-card card">
           {/* renders either photo_url, or if that is a blank string, the placeholder */}
-          <img className="card-img-top" src={photo || photoPlaceholder} alt="food porn of cooked dish" />
+          <img className="card-img-top" src={photo || photoPlaceholder} alt="prepared dish" />
           <div className="card-body">
             <p className={"card-title h3 text-center"}>{title}</p>
             <LearnMore recipe={this.props.recipe} toggleViews={this.props.toggleViews} sporkRecipe={this.props.sporkRecipe} current_user_id={this.props.current_user_id}/>
