@@ -20,7 +20,7 @@ export default class CreateRecipe extends React.Component {
       servings: "",
       steps: [{
         instructions: "",
-        ingredients: [""]
+        ingredients: "",
       }],
       reference_url: "",
     };
@@ -48,7 +48,10 @@ export default class CreateRecipe extends React.Component {
 
     // this seems a bit clumsy, but I want to avoid just posting this.state without whitelisting the keys.
     const { title, photo, description, prepTime, cookTime, servings, steps, reference_url } = this.state;
-
+    console.log("steps ", steps, " Ingredients: ", steps.ingredients);
+    steps.forEach((step)=> {
+      step.ingredients = step.ingredients.split("\n");
+    });
     // Also allows renaming the camel case keys to snake case, to match expectations on back end.
     const recipeData = { recipe: { title, photo_url: photo, content: { intro: description, prep_time: prepTime, cook_time: cookTime, servings, steps }, reference_url}};
 
@@ -110,9 +113,15 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  changeIngredient(stepIndex, ingredientIndex, newIngredient) {
+  // changeIngredient(stepIndex, ingredientIndex, newIngredient) {
+  //   const newSteps = this.state.steps.slice(0);
+  //   newSteps[stepIndex].ingredients[ingredientIndex] = newIngredient;
+  //   this.setState({ steps: newSteps });
+  // }
+
+  changeIngredient(stepIndex, stepIngredients) {
     const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].ingredients[ingredientIndex] = newIngredient;
+    newSteps[stepIndex].ingredients = stepIngredients;
     this.setState({ steps: newSteps });
   }
 
@@ -120,14 +129,13 @@ export default class CreateRecipe extends React.Component {
     let recipe = this.props.currentEditRecipe;
     const recipeSteps = [];
     recipe.content.steps.forEach((step) =>{
-      const ingredientsForStep = [];
+      let ingredientsForStep = "";
       step.ingredients.forEach((ingredient) => {
-        const currentIngredient = (ingredient.qty + "  " + ingredient.unit + "  " + ingredient.name);
-        ingredientsForStep.push(currentIngredient);
+        ingredientsForStep += (ingredient.qty + "  " + ingredient.unit + "  " + ingredient.name + "\n");
       });
       const currentStep = {
         instructions: step.instructions,
-        ingredients: ingredientsForStep,
+        ingredients: ingredientsForStep.slice(0, ingredientsForStep.length - 1),
       };
       recipeSteps.push(currentStep);
     });
