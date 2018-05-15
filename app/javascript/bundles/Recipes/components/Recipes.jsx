@@ -18,6 +18,8 @@ export default class Recipes extends React.Component {
       recipes: [],
       notification: "",
     };
+
+    this.getRecipeById = this.getRecipeById.bind(this);
   }
 
   // calls get recipe after virtual DOM is loaded
@@ -97,6 +99,12 @@ export default class Recipes extends React.Component {
     }, 3000);
   }
 
+  getRecipeById(id){
+    return this.state.recipes.find((recipe) => {
+      return recipe.id === id;
+    });
+  }
+
   render() {
 
     let filteredRecipes;
@@ -107,10 +115,10 @@ export default class Recipes extends React.Component {
       filteredRecipes = this.state.recipes.filter((recipe) => recipe.similarity !== 1 );
     }
     const recipes = filteredRecipes.map((recipe) => {
-      return (<RecipeIndex key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe}      current_user_id={this.props.current_user_id}/>
+      return (<RecipeIndex getRecipeById={this.getRecipeById} key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe}      current_user_id={this.props.current_user_id}/>
       );
     });
-    
+
     return (
       <div>
         <Navbar current_user_last_name={this.props.current_user_last_name} current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>
