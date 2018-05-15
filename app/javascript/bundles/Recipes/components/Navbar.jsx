@@ -1,4 +1,7 @@
 import React from "react";
+import Dropdown from "react-simple-dropdown";
+import DropdownTrigger from "../../../../../node_modules/react-simple-dropdown/lib/components/DropdownTrigger.js";
+import DropdownContent from "../../../../../node_modules/react-simple-dropdown/lib/components/DropdownContent.js";
 
 export default class Navbar extends React.Component {
   render() {
@@ -7,21 +10,42 @@ export default class Navbar extends React.Component {
     const userInitials = firstInitial + lastInitial;
     // Makes the button display either My Recipes or All recipes depending on the state
     const myRecipesToggleName = ((this.props.myRecipesView)
-      ? (<button type="button" className="btn btn-primary" name="myRecipesView" onClick={this.props.toggleViews}>All Recipes</button>)
-      : (<button type="button" className="btn btn-primary" name="myRecipesView" onClick={this.props.toggleViews}>My Recipes</button>));
+      ? (<button type="button" className="btn btn-primary" name="myRecipesView" onClick={this.props.toggleViews}>Viewing Your Recipes</button>)
+      : (<button type="button" className="btn btn-primary" name="myRecipesView" onClick={this.props.toggleViews}>Viewing All Recipes</button>));
 
     const loginToggle = ((this.props.current_user)
       ?(<div className="login-buttons">
-        <div className="nav-user">{userInitials}</div>
+        <div className="btn btn-primary nav-user"><Dropdown><DropdownTrigger>{userInitials}</DropdownTrigger>
+          <DropdownContent>
+            {this.props.current_user_name} {this.props.current_user_last_name}<br />
+            <a href="/logout">Sign out</a>
+          </DropdownContent>
+        </Dropdown></div>
+        <button type="button" className="btn btn-primary" name="createRecipe" onClick={this.props.toggleViews}>+</button>
         {myRecipesToggleName}
-        <button type="button" className="btn btn-primary" name="createRecipe" onClick={this.props.toggleViews}>New Recipe</button>
-        <a href="/logout" className="btn btn-primary">Sign Out</a>
       </div>)
       : (<div className="login-buttons"><a href="/login" className="btn btn-primary">Log In</a>
         <a href="/signup" className="btn btn-primary">Sign Up</a></div>));
 
     return (
       <nav className="navbar">
+        {/* <Dropdown>
+          <DropdownTrigger>Profile</DropdownTrigger>
+          <DropdownContent>
+            Username
+            <ul>
+              <li>
+                <a href="/profile">Profile</a>
+              </li>
+              <li>
+                <a href="/favorites">Favorites</a>
+              </li>
+              <li>
+                <a href="/logout">Log Out</a>
+              </li>
+            </ul>
+          </DropdownContent>
+        </Dropdown> */}
         <button type="button" className="btn navbar-brand" name="recipeIndex" onClick={this.props.toggleViews}><img src="./spork_logo.png" alt="spork logo" /></button>
         {loginToggle}
         <div className="notification">{this.props.notification}</div>
