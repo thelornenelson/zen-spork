@@ -10,6 +10,7 @@ class Spork < ApplicationRecord
   def recipe_diffs
     @recipe_diffs = self.recipe.dup
     @recipe_diffs.content = RecipeDiff.new(self).marked_up
+    @recipe_diffs.id = self.recipe.id
     @recipe_diffs
   end
 end
