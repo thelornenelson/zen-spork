@@ -27,7 +27,15 @@ export default class DetailedPopup extends React.Component {
         return response.json();
       })
       .then((sporks) => {
-        const newRecipeVariations = [this.props.recipe].concat(sporks.map((spork) => spork.recipe_diffs));
+        const newRecipeVariations = [this.props.recipe].concat(sporks.reduce((accumulator, spork) => {
+          if(spork.similarity !== 1 || spork.user_id === this.props.current_user_id){
+            // show sporks that aren't identical copies, unless the copy is owned by current user
+            return accumulator.concat(spork.recipe_diffs);
+          } else {
+            return accumulator;
+          }
+        }, []));
+
         this.setState({ recipeVariations: newRecipeVariations });
       })
       .catch((ex) => {
