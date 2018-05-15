@@ -26,7 +26,7 @@ export default class Sessions extends React.Component {
       <div className="container">
         <Navbar current_user={this.props.current_user} />
         <div className="session-box">
-          <h1>Sign In</h1>
+          <h1>Log In</h1>
           <form method="post" action="/login">
             <div className="form-group required">
               <label htmlFor="exampleInputEmail1">Email address</label>
@@ -39,7 +39,7 @@ export default class Sessions extends React.Component {
             <div className="required">
               <label>Required fields</label>
               <a href="/signup" className="btn btn-primary">Sign Up</a>
-              <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Sign In</button>
+              <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Log In</button>
             </div>
           </form>
         </div>
