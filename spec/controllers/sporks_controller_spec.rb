@@ -9,8 +9,8 @@ RSpec.describe SporksController, type: :controller do
     before :each do
       @user = create(:user_with_recipes, recipes_count: 1)
       @original_recipe = @user.recipes.first
-      user2 = create(:user, first_name: 'TestSecond', last_name: 'TestLast', email: 'test2@test.test', password: 'testing')
-      spork = create(:spork, original_recipe: @original_recipe, user: user2)
+      @user2 = create(:user, first_name: 'TestSecond', last_name: 'TestLast', email: 'test2@test.test', password: 'testing')
+      spork = create(:spork, original_recipe: @original_recipe, user: @user2)
     end
 
     it "should return http code 200 (ok)" do
@@ -31,8 +31,7 @@ RSpec.describe SporksController, type: :controller do
 
     it "should increase length of json array by 1 when a new spork is created" do
       original_count = @user.recipes.find(@original_recipe.id).sporks.count
-      user3 = create(:user, first_name: 'TestThird', last_name: 'TestLast', email: 'test3@test.test', password: 'testing')
-      spork = create(:spork, original_recipe: @original_recipe, user: user3)
+      spork = create(:spork, original_recipe: @original_recipe, user: @user2)
 
       get :index, format: :json, params: { recipe_id: @original_recipe.id }
       expect(json.length).to eq (original_count + 1)
