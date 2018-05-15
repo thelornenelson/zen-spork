@@ -98,6 +98,8 @@ export default class Recipes extends React.Component {
   }
 
   render() {
+    // makes a variable of all the recipes that match the logged in user
+    const userRecipes = this.state.recipes.filter(recipe => recipe.user_id === this.props.current_user_id);
     const recipes = this.state.recipes.map((recipe) => {
       return ((this.state.myRecipesView)?
         (this.props.current_user_id === recipe.user_id && <RecipeIndex key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>):
@@ -106,7 +108,7 @@ export default class Recipes extends React.Component {
     });
     return (
       <div>
-        <Navbar current_user_last_name={this.props.current_user_last_name} current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>
+        <Navbar user_recipes={userRecipes} current_user_last_name={this.props.current_user_last_name} current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>
         <div className="container">
           {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} toggleViews={this.toggleViews} showNotification={this.showNotification}/>}
           {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} toggleViews={this.toggleViews} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe} showNotification={this.showNotification}/>}
