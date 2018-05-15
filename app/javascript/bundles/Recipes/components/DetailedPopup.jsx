@@ -1,7 +1,38 @@
 import React from "react";
 import FullScreenButton from "./FullScreenButton.jsx";
+import {adjustIngredientQuantity} from "./../../../functions/adjustIngredientQuantity";
 
 export default class DetailedPopup extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      servingMultiplier: 1
+    };
+
+    this.adjustServingSize = this.adjustServingSize.bind(this);
+  }
+
+  adjustTotalServings(servings) {
+    let output = "";
+    let numericValue = parseInt(servings);
+    let newTotal = numericValue * this.state.servingMultiplier;
+
+    output = output + newTotal + servings.slice(numericValue.toString().length, servings.length);
+
+    return output;
+  }
+
+  adjustServingSize(e) {
+    e.preventDefault();
+    let size = Number(e.target.value);
+    if (size === NaN) {
+      this.setState({servingMultiplier: 1});
+    }
+    else {
+      this.setState({servingMultiplier: size});
+    }
+  }
 
   render() {
     const { title, photo_url, sporks_count, reference_url, content: { intro, gear, warnings, prep_time, cook_time, servings } } = this.props.recipe;
@@ -15,7 +46,7 @@ export default class DetailedPopup extends React.Component {
         return (
           <div key={ingredient.name}>
             {/* only renders : if there is there is a qty or a unit  */}
-            {ingredient.qty} {ingredient.unit}{ingredient.qty || ingredient.unit ? ":" : ""} {ingredient.name}
+            {adjustIngredientQuantity(ingredient.qty, this.state.servingMultiplier)} {ingredient.unit}{adjustIngredientQuantity(ingredient.qty, this.state.servingMultiplier) || ingredient.unit ? ":" : ""} {ingredient.name}
           </div>);
       });
       return (
@@ -39,10 +70,10 @@ export default class DetailedPopup extends React.Component {
         </div>
         <div className="container">
           <div className="row">
-            <div className="DPU-left col-5">     
+            <div className="DPU-left col-5">
               {/* either renders photo from db is it exists or placeholder photo */}
               <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
-              <strong>Ingredients:</strong><br />       
+              <strong>Ingredients:</strong><br />
               <div className="DPU-ingredients">
                 {listIngredients}<br />
               </div>
@@ -60,7 +91,7 @@ export default class DetailedPopup extends React.Component {
                     <tr>
                       <td>{prep_time}</td>
                       <td>{cook_time}</td>
-                      <td>{servings}</td>
+                      <td>{this.adjustTotalServings(servings)}</td>
                     </tr>
                   </tbody>
                 </table> }<br />
@@ -68,12 +99,26 @@ export default class DetailedPopup extends React.Component {
                 Sporked {sporks_count} time{sporks_count === 1 ? "" : "s"}<br />
               </div>
               <div className="modal-footer DPU-buttons">
-                <FullScreenButton recipe={this.props.recipe} />
+                <FullScreenButton recipe={this.props.recipe} multi={this.state.servingMultiplier} />
                 {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
                 {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
                 {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.recipe);}}><i className="fas fa-edit"></i> Edit</button>}
+                <br/>
+                <div className="servingAdjuster">
+                  <form>
+                    <label>
+                      Adjust Servings:
+                      <select value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
+                        <option value="0.5">Half</option>
+                        <option value="1">Original</option>
+                        <option value="2">Double</option>
+                        <option value="4">Quad</option>
+                      </select>
+                    </label>
+                  </form>
+                </div>
               </div>
-            </div>  
+            </div>
             <div className="DPU-right col-7 ">
               <div className="verically-centered">
                 <strong>Intro:</strong> {intro}<br/><br/>
