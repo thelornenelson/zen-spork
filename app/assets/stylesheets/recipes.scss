@@ -168,7 +168,16 @@ body {
     font-weight: 700;
     font-size: 24px;
     padding: 5px;
+  }
 
+  .step-title{
+    font-weight: 700;
+    font-size: 20px;
+    height: 42px;
+  }
+
+  .step-textarea {
+    height: 120px;
   }
 
   label {
@@ -271,7 +280,7 @@ body {
 .DPU-left {
   float: left;
   text-align: left;
-  min-width: 280px;
+  min-width: 300px;
   max-width: 300px;
 }
 
@@ -285,11 +294,13 @@ body {
 }
 
 .DPU-image {
+  margin: auto;
   max-width: 240px;
   max-height: 160px;
   min-width: 240px;
   object-fit: cover;
   overflow: hidden;
+
 }
 
 .DPU-buttons {
@@ -299,6 +310,30 @@ body {
 
 .DPU-ingredients {
   text-align: left;
+}
+
+#adjustServing {
+  display: inline-block;
+  height: 90%;
+  width: 100px;
+}
+
+.serving-size {
+  display: inline-block;
+  margin: 0;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  margin-left: 2px;
+  margin-right: 25px;
+  margin-bottom: 10px;
+  background: #3b92cc;
+  border-color: #3b92cc;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  line-height: 1.5;
+  border-radius: .25rem;
 }
 
 // constrains large images to a max-height & width for visual appeal
@@ -315,11 +350,12 @@ body {
   border: 1px black solid;
   border-collapse: collapse;
   text-align: center;
-  margin: 0 0 0 40px;
+  margin: auto;
 }
 
 td, th {
   border: solid 1px black;
+  padding: 5px;
 }
 
 // gives enough buffer for two line recipes
