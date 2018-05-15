@@ -340,6 +340,16 @@ td, th {
   color: red;
 }
 
+.spork-diff {
+  &-added {
+    color: green;
+  }
+
+  &-removed {
+    text-decoration: line-through;
+  }
+}
+
 .verically-centered {
   position: relative;
   top: 45%;
