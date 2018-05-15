@@ -204,11 +204,11 @@ export default class DetailedPopup extends React.Component {
               </div>
               {(this.state.recipeVariations.length > 1) &&
                 (
-                <RecipeVariations
-                  showVariation={ this.showVariation }
-                  variationsCount={ this.state.recipeVariations.length }
-                  displayIndex={ this.state.displayIndex }
-                />
+                  <RecipeVariations
+                    showVariation={ this.showVariation }
+                    variationsCount={ this.state.recipeVariations.length }
+                    displayIndex={ this.state.displayIndex }
+                  />
                 )
               }
             </div>
