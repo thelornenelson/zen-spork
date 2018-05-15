@@ -1,8 +1,6 @@
 import React from "react";
-// importing components to render
 import Navbar from "./Navbar.jsx";
 import CreateRecipe from "./CreateRecipe.jsx";
-import FullScreenView from "./FullScreenView";
 import RecipeIndex from "./RecipeIndex.jsx";
 import "whatwg-fetch";
 

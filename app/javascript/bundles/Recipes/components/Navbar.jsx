@@ -18,6 +18,7 @@ export default class Navbar extends React.Component {
         <div className="btn btn-primary nav-user"><Dropdown><DropdownTrigger>{userInitials}</DropdownTrigger>
           <DropdownContent>
             {this.props.current_user_name} {this.props.current_user_last_name}<br />
+            {this.props.current_user}<br /><br />
             <a href="/logout">Sign out</a>
           </DropdownContent>
         </Dropdown></div>
@@ -29,23 +30,6 @@ export default class Navbar extends React.Component {
 
     return (
       <nav className="navbar">
-        {/* <Dropdown>
-          <DropdownTrigger>Profile</DropdownTrigger>
-          <DropdownContent>
-            Username
-            <ul>
-              <li>
-                <a href="/profile">Profile</a>
-              </li>
-              <li>
-                <a href="/favorites">Favorites</a>
-              </li>
-              <li>
-                <a href="/logout">Log Out</a>
-              </li>
-            </ul>
-          </DropdownContent>
-        </Dropdown> */}
         <button type="button" className="btn navbar-brand" name="recipeIndex" onClick={this.props.toggleViews}><img src="./spork_logo.png" alt="spork logo" /></button>
         {loginToggle}
         <div className="notification">{this.props.notification}</div>
