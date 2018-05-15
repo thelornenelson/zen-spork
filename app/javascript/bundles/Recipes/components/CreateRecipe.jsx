@@ -30,6 +30,12 @@ export default class CreateRecipe extends React.Component {
     });
   }
 
+  changeStep = (stepIndex, isInstruction, inputText) => {
+    const newSteps = this.state.steps.slice(0);
+    newSteps[stepIndex][(isInstruction) ? ("instructions") : ("ingredients")] = inputText;
+    this.setState({ steps: newSteps });
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
     console.dir(this.state);
@@ -75,22 +81,6 @@ export default class CreateRecipe extends React.Component {
     newSteps.splice(stepIndex, 1);
     this.setState({ steps: newSteps });
   }
-
-  changeInstructions = (stepIndex, newInstructions, stepIngredients) => {
-    const newSteps = this.state.steps.slice(0);
-    if(newInstructions){
-      newSteps[stepIndex].instructions = newInstructions;
-    } else {
-      newSteps[stepIndex].ingredients = stepIngredients;
-    }
-    this.setState({ steps: newSteps });
-  }
-
-  // changeIngredient = (stepIndex, stepIngredients) => {
-  //   const newSteps = this.state.steps.slice(0);
-  //   newSteps[stepIndex].ingredients = stepIngredients;
-  //   this.setState({ steps: newSteps });
-  // }
 
   fillEditRecipeForm = (e) => {
     if(e){e.preventDefault();}
@@ -189,11 +179,8 @@ export default class CreateRecipe extends React.Component {
             </div>
             <NewRecipeSteps addStep={this.addStep}
               deleteStep={this.deleteStep}
-              addIngredient={this.addIngredient}
-              deleteIngredient={this.deleteIngredient}
               steps={this.state.steps}
-              changeInstructions={this.changeInstructions}
-              changeIngredient={this.changeIngredient}/>
+              changeStep={this.changeStep}/>
             <div className="row">
               {/* required className and label for marking required fields */}
               <div className="col-lg required">

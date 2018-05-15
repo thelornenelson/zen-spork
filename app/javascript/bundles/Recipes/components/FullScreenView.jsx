@@ -30,7 +30,7 @@ export default class FullScreenView extends React.Component {
       });
       return (
         <div className="row step-row" key={stepIndex}>
-          <div className="col-xl-4 step-col" style={{ paddingLeft: 40 }}>{ingredients}</div>
+          <div className="col-xl-4 step-col" style={{ paddingLeft: 50 }}>{ingredients}</div>
           <div className="col-xl-8" style={{ paddingLeft: 40 }}>{stepIndex + 1}. {step.instructions}</div>
         </div>);
     });
@@ -47,13 +47,13 @@ export default class FullScreenView extends React.Component {
     const allInstructions = recipe.content.steps.map((step, stepIndex) => {
       return (
         <div className="row" key={stepIndex}>
-          <div className="col" >{stepIndex + 1}. {step.instructions}</div>
+          <div className="col-xl-8" >{stepIndex + 1}. {step.instructions}</div>
         </div>);
     });
 
     const allIngredientsAndStepsGrouped = (
       <div className="row step-row">
-        <div className="col-xl-4 step-col" style={{ paddingLeft: 40 }}>{allIngredients}</div>
+        <div className="col-xl-4 step-col" style={{ paddingLeft: 50 }}>{allIngredients}</div>
         <div className="col-xl-8" style={{ paddingLeft: 40 }}>{allInstructions}</div>
       </div>
     );
@@ -66,7 +66,7 @@ export default class FullScreenView extends React.Component {
             <button type="button" className="btn switch-button" onClick={this.toggleLayout}><i className="fas fa-exchange-alt fa-md"></i> Switch Layout</button>
           </div>
           <div className="row step-row">
-            <div className="col-xl-4 step-col" style={{paddingLeft: 40 }}><h4>Ingredients:</h4></div>
+            <div className="col-xl-4 step-col" style={{paddingLeft: 50 }}><h4>Ingredients:</h4></div>
             <div className="col-xl-8" style={{paddingLeft: 40}}><h4>Steps:</h4></div>
           </div>
           {(this.state.layoutToggle)?(allIngredientsAndStepsGrouped):(ingredientsAndStepsSeperated)}
