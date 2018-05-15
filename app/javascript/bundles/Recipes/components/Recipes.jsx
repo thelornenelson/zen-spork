@@ -42,6 +42,7 @@ export default class Recipes extends React.Component {
   }
 
   toggleViews = (e, currentRecipe) => {
+    console.log(e.target.name);
     e.preventDefault();
     let newState = {
       createRecipe: false,
@@ -51,15 +52,19 @@ export default class Recipes extends React.Component {
     };
     if(this.state[e.target.name]){
       newState.recipeIndex = true;
+      console.log("first");
     } else if (e.target.name === "myRecipesView"){
       newState[e.target.name] = true;
       newState.recipeIndex = true;
+      console.log("second");
     } else if (currentRecipe){
+      console.log("third");
       this.setState({
         currentEditRecipe: currentRecipe
       });
       newState.editRecipe = true;
     } else {
+      console.log("forth");
       newState[e.target.name] = true;
     }
     this.setState(newState);
@@ -112,7 +117,7 @@ export default class Recipes extends React.Component {
       return (<RecipeIndex key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe}      current_user_id={this.props.current_user_id}/>
       );
     });
-    
+
     return (
       <div>
         <Navbar current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>
