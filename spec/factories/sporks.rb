@@ -9,6 +9,7 @@ FactoryBot.define do
       recipe = Recipe.find(original_recipe_id).dup
       recipe.user = user
       recipe.title = "Sporked #{recipe.title}"
+      recipe.save!
       recipe
     }
   end
