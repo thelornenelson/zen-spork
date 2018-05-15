@@ -24,25 +24,15 @@ export default class CreateRecipe extends React.Component {
       }],
       reference_url: "",
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.addStep = this.addStep.bind(this);
-    this.deleteStep = this.deleteStep.bind(this);
-    this.addIngredient = this.addIngredient.bind(this);
-    this.deleteIngredient = this.deleteIngredient.bind(this);
-    this.changeInstructions = this.changeInstructions.bind(this);
-    this.changeIngredient = this.changeIngredient.bind(this);
-    this.resetEditRecipeForm = this.resetEditRecipeForm.bind(this);
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     console.dir(this.state);
 
@@ -74,13 +64,13 @@ export default class CreateRecipe extends React.Component {
     });
   }
 
-  addStep(e) {
+  addStep = (e) => {
     e.preventDefault();
     const newSteps = this.state.steps.concat([{ instructions: "", ingredients: [""] }]);
     this.setState({ steps: newSteps });
   }
 
-  deleteStep(stepIndex, e) {
+  deleteStep = (stepIndex, e) => {
     e.preventDefault();
     //makes a copy of the steps array so we can change it
     const newSteps = this.state.steps.slice();
@@ -89,7 +79,7 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  addIngredient(stepIndex, e) {
+  addIngredient = (stepIndex, e) => {
     e.preventDefault();
     console.log(`stepIndex = ${stepIndex}`);
     const newSteps = this.state.steps.slice(0);
@@ -97,26 +87,26 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  deleteIngredient(stepIndex, ingredientIndex, e) {
+  deleteIngredient = (stepIndex, ingredientIndex, e) => {
     e.preventDefault();
     const newSteps = this.state.steps.slice(0);
     newSteps[stepIndex].ingredients.splice(ingredientIndex, 1);
     this.setState({ steps: newSteps });
   }
 
-  changeInstructions(stepIndex, newInstructions) {
+  changeInstructions = (stepIndex, newInstructions) => {
     const newSteps = this.state.steps.slice(0);
     newSteps[stepIndex].instructions = newInstructions;
     this.setState({ steps: newSteps });
   }
 
-  changeIngredient(stepIndex, ingredientIndex, newIngredient) {
+  changeIngredient = (stepIndex, ingredientIndex, newIngredient) => {
     const newSteps = this.state.steps.slice(0);
     newSteps[stepIndex].ingredients[ingredientIndex] = newIngredient;
     this.setState({ steps: newSteps });
   }
 
-  fillEditRecipeForm(e){
+  fillEditRecipeForm = (e) => {
     let recipe = this.props.currentEditRecipe;
     const recipeSteps = [];
     recipe.content.steps.forEach((step) =>{
@@ -143,12 +133,12 @@ export default class CreateRecipe extends React.Component {
     });
   }
 
-  resetEditRecipeForm(e){
+  resetEditRecipeForm = (e) => {
     e.preventDefault();
     this.fillEditRecipeForm();
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if(this.props.editRecipeView){
       this.setState({
         statusEdit: true
