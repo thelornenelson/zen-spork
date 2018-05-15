@@ -112,6 +112,11 @@ class RecipeDiff
         puts "Adding"
         pp bury_array
         @marked_up.bury([*bury_array, 'was'], nil)
+        unless bury_array.include? 'ingredients'
+          # if it doesn't include 'ingredient', it's a new step, so we need to make sure all new ingredients also get marked as additions
+          ingredients = @marked_up.dig(*bury_array)['ingredients']
+          ingredients.each { |ingredient| ingredient['was'] = nil }
+        end
       elsif diff['op'] == 'replace'
         puts "Replacing"
         if bury_array.include? 'ingredients'
