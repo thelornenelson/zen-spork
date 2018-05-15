@@ -89,8 +89,9 @@ class RecipesController < ApplicationController
             # Assume the input is in the format '1 cup extra pure water' where qty = '1', unit = 'cup', name = 'extra pure water'
             parsed_ingredient = nil
             if ingredient.is_a? String
-              qty, unit, *name = ingredient.split(' ')
-              parsed_ingredient = { qty: (qty || "") , unit: ( unit || "") , name: name.join(' ') }
+              ingredient_parser = /((?<qty>(^[[:digit:]]* ?[[:digit:]]+\/[[:digit:]]+)|(^[[:digit:]]+\.?[[:digit:]]*)) ?)?((?<unit>(?<!^)[[:alpha:]]+) )?(?<name>.+)?/
+              matches = ingredient_parser.match(ingredient)
+              parsed_ingredient = { qty: (matches[:qty] || "") , unit: ( matches[:unit] || "") , name: matches[:name] }
             end
             parsed_ingredient || ingredient
           end

@@ -37,7 +37,13 @@ class RecipeDiff
   attr_reader :marked_up
 
   def initialize(spork)
-
+    puts "Spork is:"
+    pp spork
+    puts "recipe is:"
+    pp spork.recipe
+    puts "original_recipe is:"
+    pp spork.original_recipe
+    
     diffs =  JsonDiff.diff(spork.original_recipe.content, spork.recipe.content, include_was: true, additions: true, moves: true)
     @marked_up = spork.recipe.content.dup
 
