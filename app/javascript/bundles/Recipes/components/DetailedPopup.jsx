@@ -7,12 +7,17 @@ export default class DetailedPopup extends React.Component {
   constructor(props) {
     super(props);
 
-    // recipeVariations[0] is the original recipe, all other elements are sporked variations of the original
-    this.state = { recipeVariations: [this.props.recipe], displayIndex: 0 };
+    // recipeVariations[0] is the original recipe, all other elements are sporked variations of the original with diffed data
+    this.state = {
+      recipeVariations: [this.props.recipe],
+      displayIndex: 0,
+      servingMultiplier: 1
+    };
 
     this.getSporks();
 
     this.showVariation = this.showVariation.bind(this);
+    this.adjustServingSize = this.adjustServingSize.bind(this);
 
   }
 
@@ -51,14 +56,6 @@ export default class DetailedPopup extends React.Component {
 
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      servingMultiplier: 1
-    };
-
-    this.adjustServingSize = this.adjustServingSize.bind(this);
-  }
 
   adjustTotalServings(servings) {
     let output = "";
@@ -116,7 +113,7 @@ export default class DetailedPopup extends React.Component {
       const generateElement = (className, qty=ingredient.qty, unit=ingredient.unit, name=ingredient.name) => {
         return (<li key={Math.random()} className={ className }>
            {/* only renders : if there is there is a qty or a unit  */}
-           {qty} {unit}{qty || unit ? ":" : ""} {name}
+           { adjustIngredientQuantity(qty, this.state.servingMultiplier) } {unit}{qty || unit ? ":" : ""} {name}
          </li>);
       }
 
