@@ -51,10 +51,6 @@ export default class CreateRecipe extends React.Component {
       },
       credentials: "same-origin"
     }).then((response) => {
-      response.status;     //=> number 100–599
-      response.statusText; //=> String
-      response.headers;    //=> Headers
-      response.url;        //=> String
       if (response.status === 201 || response.status === 200 ){
         this.props.returnToIndexView();
         this.props.showNotification((this.state.statusEdit)?("Recipe Edited!"):("Recipe Created!"));
@@ -67,7 +63,7 @@ export default class CreateRecipe extends React.Component {
 
   addStep = (e) => {
     e.preventDefault();
-    const newSteps = this.state.steps.concat([{ instructions: "", ingredients: [""] }]);
+    const newSteps = this.state.steps.concat([{ instructions: "", ingredients: "" }]);
     this.setState({ steps: newSteps });
   }
 
@@ -80,19 +76,24 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  changeInstructions = (stepIndex, newInstructions) => {
+  changeInstructions = (stepIndex, newInstructions, stepIngredients) => {
     const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].instructions = newInstructions;
+    if(newInstructions){
+      newSteps[stepIndex].instructions = newInstructions;
+    } else {
+      newSteps[stepIndex].ingredients = stepIngredients;
+    }
     this.setState({ steps: newSteps });
   }
 
-  changeIngredient = (stepIndex, stepIngredients) => {
-    const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].ingredients = stepIngredients;
-    this.setState({ steps: newSteps });
-  }
+  // changeIngredient = (stepIndex, stepIngredients) => {
+  //   const newSteps = this.state.steps.slice(0);
+  //   newSteps[stepIndex].ingredients = stepIngredients;
+  //   this.setState({ steps: newSteps });
+  // }
 
   fillEditRecipeForm = (e) => {
+    if(e){e.preventDefault();}
     let recipe = this.props.currentEditRecipe;
     const recipeSteps = [];
     recipe.content.steps.forEach((step) =>{
@@ -116,11 +117,6 @@ export default class CreateRecipe extends React.Component {
       steps: recipeSteps,
       reference_url: recipe.reference_url,
     });
-  }
-
-  resetEditRecipeForm = (e) =>{
-    e.preventDefault();
-    this.fillEditRecipeForm();
   }
 
   componentDidMount() {
@@ -203,7 +199,7 @@ export default class CreateRecipe extends React.Component {
               <div className="col-lg required">
                 <label>Required fields</label>
                 <button className="btn btn-primary" name="recipeIndex" onClick={this.props.toggleViews}>Cancel</button>
-                {this.state.statusEdit && <button className="btn btn-primary" onClick={this.resetEditRecipeForm}>Reset</button>}
+                {this.state.statusEdit && <button className="btn btn-primary" onClick={this.fillEditRecipeForm}>Reset</button>}
                 {/* disables save button if required fields aren't true */}
                 <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Save</button>
               </div>

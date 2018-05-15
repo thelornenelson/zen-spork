@@ -21,14 +21,14 @@ export default class Step extends React.Component {
               <label htmlFor="InputStepInstructions">Step {this.props.stepIndex + 1}
                 {this.props.stepIndex > 0 && <button className="btn btn-danger" onClick={(e) => this.props.deleteStep(this.props.stepIndex, e)}><i className="fas fa-trash-alt"></i></button>}
               </label>
-              <textarea type="text" className="form-control" id="InputStepInstructions" placeholder="Step Instructions" value={this.props.step.instructions} onChange={(event) => { this.props.changeInstructions(this.props.stepIndex, event.target.value); }} />
+              <textarea type="text" className="form-control" id="InputStepInstructions" placeholder="Step Instructions" value={this.props.step.instructions} onChange={(event) => { this.props.changeInstructions(this.props.stepIndex, event.target.value, false); }} />
             </div>
           </div>
         </div>
         <div className="form-group row">
           <label htmlFor="InputStepIngredients" className="col-sm-2 col-form-label">Ingredient</label>
           <div className="col-lg-9">
-            <textarea type="text" className="form-control" id="InputStepIngredients" placeholder="Ingredients" value={this.props.step.ingredients} onChange={(event) => { this.props.changeIngredient(this.props.stepIndex, event.target.value); }} />
+            <textarea type="text" className="form-control" id="InputStepIngredients" placeholder="Ingredients" value={this.props.step.ingredients} onChange={(event) => { this.props.changeInstructions(this.props.stepIndex, false, event.target.value); }} />
           </div>
         </div>
 
