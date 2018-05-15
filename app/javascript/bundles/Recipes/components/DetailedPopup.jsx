@@ -36,7 +36,7 @@ export default class DetailedPopup extends React.Component {
   }
 
   showVariation(input){
-    let newDisplayIndex
+    let newDisplayIndex;
 
     if(input === "next") {
       newDisplayIndex = this.state.displayIndex + 1;
@@ -108,14 +108,12 @@ export default class DetailedPopup extends React.Component {
         none: ""
       };
 
-      let operation
-
       const generateElement = (className, qty=ingredient.qty, unit=ingredient.unit, name=ingredient.name) => {
         return (<li key={Math.random()} className={ className }>
-           {/* only renders : if there is there is a qty or a unit  */}
-           { adjustIngredientQuantity(qty, this.state.servingMultiplier) } {unit}{qty || unit ? ":" : ""} {name}
-         </li>);
-      }
+          {/* only renders : if there is there is a qty or a unit  */}
+          { adjustIngredientQuantity(qty, this.state.servingMultiplier) } {unit}{qty || unit ? ":" : ""} {name}
+        </li>);
+      };
 
       if("was" in ingredient){
         // if was key exists then this ingredient has a diff associated with it
@@ -204,11 +202,15 @@ export default class DetailedPopup extends React.Component {
                   </form>
                 </div>
               </div>
-              <RecipeVariations
-                showVariation={ this.showVariation }
-                variationsCount={ this.state.recipeVariations.length }
-                displayIndex={ this.state.displayIndex }
+              {(this.state.recipeVariations.length > 1) &&
+                (
+                <RecipeVariations
+                  showVariation={ this.showVariation }
+                  variationsCount={ this.state.recipeVariations.length }
+                  displayIndex={ this.state.displayIndex }
                 />
+                )
+              }
             </div>
             <div className="DPU-right col-7 ">
               <div className="verically-centered">

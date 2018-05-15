@@ -14,11 +14,11 @@ export default class RecipeVariations extends Component {
       <nav aria-label="Recipe Variations">
         <ul className="pagination">
           <li key="prev" className="page-item">
-            <a className="page-link" href="#" onClick={(e) => { e.preventDefault(); this.props.showVariation('previous'); }}><i className="fas fa-arrow-alt-circle-left" /></a>
+            <a className="page-link" href="#" onClick={(e) => { e.preventDefault(); this.props.showVariation("previous"); }}><i className="fas fa-arrow-alt-circle-left" /></a>
           </li>
           { recipeVariations }
           <li key="next" className="page-item">
-            <a className="page-link" href="#" onClick={(e) => { e.preventDefault(); this.props.showVariation('next'); }}><i className="fas fa-arrow-alt-circle-right" /></a>
+            <a className="page-link" href="#" onClick={(e) => { e.preventDefault(); this.props.showVariation("next"); }}><i className="fas fa-arrow-alt-circle-right" /></a>
           </li>
         </ul>
       </nav>
