@@ -12,7 +12,7 @@ export function adjustIngredientQuantity(quantity, multiplier) {
   //If there are it just returns the original quantity string.
   let numBackSlahes = 0
   for (let i = 0; i < quantity.length; i++) {
-    if (quantity[i] !== "0" && quantity[i] !== "1" && quantity[i] !== "2" && quantity[i] !== "3" && quantity[i] !== "4" && quantity[i] !== "5" && quantity[i] !== "6" && quantity[i] !== "7" && quantity[i] !== "8" && quantity[i] !== "9" && quantity[i] !== "/") {
+    if (quantity[i] !== "0" && quantity[i] !== "1" && quantity[i] !== "2" && quantity[i] !== "3" && quantity[i] !== "4" && quantity[i] !== "5" && quantity[i] !== "6" && quantity[i] !== "7" && quantity[i] !== "8" && quantity[i] !== "9" && quantity[i] !== "/" && quantity[i] !== " ") {
       return quantity;
     }
     if (quantity[i] === "/"){

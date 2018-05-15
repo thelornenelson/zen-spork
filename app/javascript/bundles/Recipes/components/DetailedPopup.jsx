@@ -109,10 +109,14 @@ export default class DetailedPopup extends React.Component {
       };
 
       const generateElement = (className, qty=ingredient.qty, unit=ingredient.unit, name=ingredient.name) => {
-        return (<li key={Math.random()} className={ className }>
-          {/* only renders : if there is there is a qty or a unit  */}
-          { adjustIngredientQuantity(qty, this.state.servingMultiplier) } {unit}{qty || unit ? ":" : ""} {name}
-        </li>);
+        if(qty || unit || name){
+          return (<li key={Math.random()} className={ className }>
+            {/* only renders : if there is there is a qty or a unit  */}
+            { adjustIngredientQuantity(qty, this.state.servingMultiplier) } {unit} {name}
+          </li>);
+        } else {
+          return null;
+        }
       };
 
       if("was" in ingredient){
