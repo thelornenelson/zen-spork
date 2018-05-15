@@ -10,11 +10,8 @@ export default class NewRecipeSteps extends React.Component {
       return (<Step
         key={index}
         step={step}
-        addIngredient={this.props.addIngredient}
-        deleteIngredient={this.props.deleteIngredient}
         stepIndex={index}
         changeStep={this.props.changeStep}
-        changeIngredient={this.props.changeIngredient}
         deleteStep={this.props.deleteStep}
       />);
     });

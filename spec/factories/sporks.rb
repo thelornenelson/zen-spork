@@ -6,9 +6,9 @@ FactoryBot.define do
     user
     original_recipe_id { original_recipe.id }
     recipe {
-      recipe = Recipe.find(original_recipe_id).dup
+      recipe = original_recipe.dup
       recipe.user = user
-      recipe.title = "Sporked #{recipe.title}"
+      recipe.title = "Sporked #{recipe.title}"[0..29]
       recipe.save!
       recipe
     }

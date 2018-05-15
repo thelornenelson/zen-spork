@@ -186,26 +186,28 @@ export default class DetailedPopup extends React.Component {
               <div className="DPU-centered-title">
                 Sporked {sporks_count} time{sporks_count === 1 ? "" : "s"}<br />
               </div>
-              <div className="modal-footer DPU-buttons">
-                <FullScreenButton recipe={this.props.recipe} multi={this.state.servingMultiplier} />
-                {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
-                {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
-                {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.recipe);}}><i className="fas fa-edit"></i> Edit</button>}
-                <br/>
-                <div className="servingAdjuster">
+              <div className="container modal-footer DPU-buttons">
+                <div className="row">
+                  <FullScreenButton recipe={this.props.recipe} multi={this.state.servingMultiplier} />
+                  {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
+                  {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
+                  {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.recipe);}}><i className="fas fa-edit"></i> Edit</button>}
+                </div>
+                <div className="row">
                   <form>
-                    <label>
-                      Adjust Servings:
-                      <select value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
+                    <div className="serving-size">
+                      <span><i className="fas fa-arrows-alt-v"></i> Serving Size </span>
+                      <select className="form-control" id="adjustServing" value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
                         <option value="0.5">Half</option>
-                        <option value="1">Original</option>
+                        <option value="1">Normal</option>
                         <option value="2">Double</option>
-                        <option value="4">Quad</option>
+                        <option value="4">Quadruple</option>
                       </select>
-                    </label>
+                    </div>
                   </form>
                 </div>
               </div>
+
               {(this.state.recipeVariations.length > 1) &&
                 (
                   <RecipeVariations
