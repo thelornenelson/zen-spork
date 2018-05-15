@@ -94,7 +94,7 @@ class RecipesController < ApplicationController
             if ingredient.is_a? String
               ingredient_parser = /((?<qty>(^[[:digit:]]* ?[[:digit:]]+\/[[:digit:]]+)|(^[[:digit:]]+\.?[[:digit:]]*)) *)?((?<unit>(?<!^)[[:alpha:]]+) +)?(?<name>.+)?/
               matches = ingredient_parser.match(ingredient.strip)
-              parsed_ingredient = { qty: (matches[:qty] || "") , unit: ( matches[:unit] || "") , name: matches[:name] }
+              parsed_ingredient = { qty: (matches[:qty] || "") , unit: ( matches[:unit] || "") , name: matches[:name] || "" }
             end
             parsed_ingredient || ingredient
           end
