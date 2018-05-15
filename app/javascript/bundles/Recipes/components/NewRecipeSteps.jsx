@@ -13,7 +13,7 @@ export default class NewRecipeSteps extends React.Component {
         addIngredient={this.props.addIngredient}
         deleteIngredient={this.props.deleteIngredient}
         stepIndex={index}
-        changeInstructions={this.props.changeInstructions}
+        changeStep={this.props.changeStep}
         changeIngredient={this.props.changeIngredient}
         deleteStep={this.props.deleteStep}
       />);
