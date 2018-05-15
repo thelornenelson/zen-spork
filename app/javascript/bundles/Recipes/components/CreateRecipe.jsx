@@ -13,42 +13,39 @@ export default class CreateRecipe extends React.Component {
       title: "",
       photo: "",
       description: "",
-      // gear: "",
-      // warnings: "",
       prepTime: "",
       cookTime: "",
       servings: "",
       steps: [{
         instructions: "",
-        ingredients: [""]
+        ingredients: "",
       }],
       reference_url: "",
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.addStep = this.addStep.bind(this);
-    this.deleteStep = this.deleteStep.bind(this);
-    this.addIngredient = this.addIngredient.bind(this);
-    this.deleteIngredient = this.deleteIngredient.bind(this);
-    this.changeInstructions = this.changeInstructions.bind(this);
-    this.changeIngredient = this.changeIngredient.bind(this);
-    this.resetEditRecipeForm = this.resetEditRecipeForm.bind(this);
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  onSubmit(e) {
+  changeStep = (stepIndex, isInstruction, inputText) => {
+    const newSteps = this.state.steps.slice(0);
+    newSteps[stepIndex][(isInstruction) ? ("instructions") : ("ingredients")] = inputText;
+    this.setState({ steps: newSteps });
+  }
+
+  onSubmit = (e) => {
     e.preventDefault();
     console.dir(this.state);
 
     // this seems a bit clumsy, but I want to avoid just posting this.state without whitelisting the keys.
     const { title, photo, description, prepTime, cookTime, servings, steps, reference_url } = this.state;
-
+    console.log("steps ", steps, " Ingredients: ", steps.ingredients);
+    steps.forEach((step)=> {
+      step.ingredients = step.ingredients.trim().split("\n");
+    });
     // Also allows renaming the camel case keys to snake case, to match expectations on back end.
     const recipeData = { recipe: { title, photo_url: photo, content: { intro: description, prep_time: prepTime, cook_time: cookTime, servings, steps }, reference_url}};
 
@@ -60,10 +57,6 @@ export default class CreateRecipe extends React.Component {
       },
       credentials: "same-origin"
     }).then((response) => {
-      response.status;     //=> number 100–599
-      response.statusText; //=> String
-      response.headers;    //=> Headers
-      response.url;        //=> String
       if (response.status === 201 || response.status === 200 ){
         this.props.returnToIndexView();
         this.props.showNotification((this.state.statusEdit)?("Recipe Edited!"):("Recipe Created!"));
@@ -74,13 +67,13 @@ export default class CreateRecipe extends React.Component {
     });
   }
 
-  addStep(e) {
+  addStep = (e) => {
     e.preventDefault();
-    const newSteps = this.state.steps.concat([{ instructions: "", ingredients: [""] }]);
+    const newSteps = this.state.steps.concat([{ instructions: "", ingredients: "" }]);
     this.setState({ steps: newSteps });
   }
 
-  deleteStep(stepIndex, e) {
+  deleteStep = (stepIndex, e) => {
     e.preventDefault();
     //makes a copy of the steps array so we can change it
     const newSteps = this.state.steps.slice();
@@ -89,45 +82,19 @@ export default class CreateRecipe extends React.Component {
     this.setState({ steps: newSteps });
   }
 
-  addIngredient(stepIndex, e) {
-    e.preventDefault();
-    console.log(`stepIndex = ${stepIndex}`);
-    const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].ingredients.push("");
-    this.setState({ steps: newSteps });
-  }
-
-  deleteIngredient(stepIndex, ingredientIndex, e) {
-    e.preventDefault();
-    const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].ingredients.splice(ingredientIndex, 1);
-    this.setState({ steps: newSteps });
-  }
-
-  changeInstructions(stepIndex, newInstructions) {
-    const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].instructions = newInstructions;
-    this.setState({ steps: newSteps });
-  }
-
-  changeIngredient(stepIndex, ingredientIndex, newIngredient) {
-    const newSteps = this.state.steps.slice(0);
-    newSteps[stepIndex].ingredients[ingredientIndex] = newIngredient;
-    this.setState({ steps: newSteps });
-  }
-
-  fillEditRecipeForm(e){
+  fillEditRecipeForm = (e) => {
+    if(e){e.preventDefault();}
     let recipe = this.props.currentEditRecipe;
+    console.log(recipe);
     const recipeSteps = [];
     recipe.content.steps.forEach((step) =>{
-      const ingredientsForStep = [];
+      let ingredientsForStep = "";
       step.ingredients.forEach((ingredient) => {
-        const currentIngredient = (ingredient.qty + "  " + ingredient.unit + "  " + ingredient.name);
-        ingredientsForStep.push(currentIngredient);
+        ingredientsForStep += (ingredient.qty + " " + ingredient.unit + " " + ingredient.name + "\n");
       });
       const currentStep = {
         instructions: step.instructions,
-        ingredients: ingredientsForStep,
+        ingredients: ingredientsForStep.trim().slice(0, ingredientsForStep.length - 1),
       };
       recipeSteps.push(currentStep);
     });
@@ -141,11 +108,6 @@ export default class CreateRecipe extends React.Component {
       steps: recipeSteps,
       reference_url: recipe.reference_url,
     });
-  }
-
-  resetEditRecipeForm(e){
-    e.preventDefault();
-    this.fillEditRecipeForm();
   }
 
   componentDidMount() {
@@ -218,17 +180,14 @@ export default class CreateRecipe extends React.Component {
             </div>
             <NewRecipeSteps addStep={this.addStep}
               deleteStep={this.deleteStep}
-              addIngredient={this.addIngredient}
-              deleteIngredient={this.deleteIngredient}
               steps={this.state.steps}
-              changeInstructions={this.changeInstructions}
-              changeIngredient={this.changeIngredient}/>
+              changeStep={this.changeStep}/>
             <div className="row">
               {/* required className and label for marking required fields */}
               <div className="col-lg required">
                 <label>Required fields</label>
                 <button className="btn btn-primary" name="recipeIndex" onClick={this.props.toggleViews}>Cancel</button>
-                {this.state.statusEdit && <button className="btn btn-primary" onClick={this.resetEditRecipeForm}>Reset</button>}
+                {this.state.statusEdit && <button className="btn btn-primary" onClick={this.fillEditRecipeForm}>Reset</button>}
                 {/* disables save button if required fields aren't true */}
                 <button type="submit" className="btn btn-primary" disabled={!isEnabled}>Save</button>
               </div>
