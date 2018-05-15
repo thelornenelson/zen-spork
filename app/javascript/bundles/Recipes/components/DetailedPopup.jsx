@@ -1,6 +1,7 @@
 import React from "react";
 import FullScreenButton from "./FullScreenButton.jsx";
 import RecipeVariations from "./RecipeVariations.jsx";
+import {adjustIngredientQuantity} from "./../../../functions/adjustIngredientQuantity";
 
 export default class DetailedPopup extends React.Component {
   constructor(props) {
@@ -48,6 +49,36 @@ export default class DetailedPopup extends React.Component {
 
     this.setState({ displayIndex: newDisplayIndex });
 
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      servingMultiplier: 1
+    };
+
+    this.adjustServingSize = this.adjustServingSize.bind(this);
+  }
+
+  adjustTotalServings(servings) {
+    let output = "";
+    let numericValue = parseInt(servings);
+    let newTotal = numericValue * this.state.servingMultiplier;
+
+    output = output + newTotal + servings.slice(numericValue.toString().length, servings.length);
+
+    return output;
+  }
+
+  adjustServingSize(e) {
+    e.preventDefault();
+    let size = Number(e.target.value);
+    if (size === NaN) {
+      this.setState({servingMultiplier: 1});
+    }
+    else {
+      this.setState({servingMultiplier: size});
+    }
   }
 
   render() {
@@ -149,7 +180,7 @@ export default class DetailedPopup extends React.Component {
                     <tr>
                       <td>{prep_time}</td>
                       <td>{cook_time}</td>
-                      <td>{servings}</td>
+                      <td>{this.adjustTotalServings(servings)}</td>
                     </tr>
                   </tbody>
                 </table> }<br />
@@ -157,10 +188,24 @@ export default class DetailedPopup extends React.Component {
                 Sporked {sporks_count} time{sporks_count === 1 ? "" : "s"}<br />
               </div>
               <div className="modal-footer DPU-buttons">
-                <FullScreenButton recipe={this.props.recipe} />
+                <FullScreenButton recipe={this.props.recipe} multi={this.state.servingMultiplier} />
                 {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
                 {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
                 {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.recipe);}}><i className="fas fa-edit"></i> Edit</button>}
+                <br/>
+                <div className="servingAdjuster">
+                  <form>
+                    <label>
+                      Adjust Servings:
+                      <select value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
+                        <option value="0.5">Half</option>
+                        <option value="1">Original</option>
+                        <option value="2">Double</option>
+                        <option value="4">Quad</option>
+                      </select>
+                    </label>
+                  </form>
+                </div>
               </div>
               <RecipeVariations
                 showVariation={ this.showVariation }
