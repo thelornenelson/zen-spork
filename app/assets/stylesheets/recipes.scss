@@ -315,8 +315,12 @@ body {
 
 #adjustServing {
   display: inline-block;
-  height: 90%;
+  height: 100%;
   width: 100px;
+  background: #3b92cc;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .serving-size {
@@ -332,7 +336,8 @@ body {
   background: #3b92cc;
   border-color: #3b92cc;
   border: 1px solid transparent;
-  padding: .375rem .75rem;
+  height: 38px;
+  padding: .1rem .75rem .1rem .75rem;
   line-height: 1.5;
   border-radius: .25rem;
 }

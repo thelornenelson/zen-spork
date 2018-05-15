@@ -204,7 +204,7 @@ export default class DetailedPopup extends React.Component {
                 <div className="row">
                   <form>
                     <div className="serving-size">
-                      <span><i className="fas fa-arrows-alt-v"></i> Serving Size </span>
+                      <span>Serving Size </span>
                       <select className="form-control" id="adjustServing" value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
                         <option value="0.5">Half</option>
                         <option value="1">Normal</option>
