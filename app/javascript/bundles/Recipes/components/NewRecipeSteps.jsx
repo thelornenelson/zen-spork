@@ -19,8 +19,7 @@ export default class NewRecipeSteps extends React.Component {
       />);
     });
     return (
-      <div className="steps-area">
-        <div className="create-title">Directions And Ingredients</div>
+      <div>
         {steps}
         <div className="row">
           <div className="col">

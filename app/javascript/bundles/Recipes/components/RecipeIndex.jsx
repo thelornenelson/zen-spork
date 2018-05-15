@@ -8,12 +8,12 @@ export default class RecipeIndex extends React.Component {
     // declares the photo_url that is linked to recipe
     const photo = this.props.recipe.photo_url;
     // declares our placeholder photo
-    const photoPlaceholder = "https://drive.google.com/uc?id=1FuOo9zc5O50ZPjvA8xqh40VCN81nakeu";
+    const photoPlaceholder = "./no_spork_image.jpg";
     return (
       <article>
         <div className="recipe-card card">
           {/* renders either photo_url, or if that is a blank string, the placeholder */}
-          <img className="card-img-top" src={photo || photoPlaceholder} alt="food porn of cooked dish" />
+          <img className="card-img-top" src={photo || photoPlaceholder} alt="prepared dish" />
           <div className="card-body">
             <p className={"card-title h3 text-center"}>{title}</p>
             <LearnMore recipe={this.props.recipe} toggleViews={this.props.toggleViews} sporkRecipe={this.props.sporkRecipe} current_user_id={this.props.current_user_id}/>
