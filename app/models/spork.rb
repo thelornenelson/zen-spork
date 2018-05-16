@@ -132,11 +132,14 @@ class RecipeDiff
         end
       elsif diff['op'] == 'remove'
         puts "Removing"
-        old_array = @marked_up
-        bury_array[0..-2].each do |key|
-          old_array = old_array[key]
+        if bury_array.include? 'ingredients'
+          # ignore removed steps for now
+          old_array = @marked_up
+          bury_array[0..-2].each do |key|
+            old_array = old_array[key]
+          end
+          @marked_up.bury(bury_array[0..-2], old_array.insert(bury_array[-1], {'was' => diff['was']}))
         end
-        @marked_up.bury(bury_array[0..-2], old_array.insert(bury_array[-1], {'was' => diff['was']}))
       end
     end
   end

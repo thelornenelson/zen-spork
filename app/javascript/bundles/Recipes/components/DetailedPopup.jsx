@@ -99,13 +99,18 @@ export default class DetailedPopup extends React.Component {
     // maps recipe json to extract just the list of ingredients to render
     const gearArr = {gear}.gear;
 
-    let allIngredients = [];
-
-    recipe.content.steps.forEach((step) => {
-      if(step.ingredients.length > 0) {
-        allIngredients = allIngredients.concat(step.ingredients);
+    let allIngredients = recipe.content.steps.reduce((accumulator, step) => {
+      // this is ugly but handles some weird null values that appear when steps are deleted.
+      try {
+        if(step.ingredients && step.ingredients.length > 0) {
+          return accumulator.concat(step.ingredients);
+        } else {
+          return accumulator;
+        }
+      } catch (e) {
+        return accumulator;
       }
-    });
+    }, []);
 
     allIngredients = allIngredients.map((ingredient) => {
       const ingredientElements = [];
@@ -151,13 +156,23 @@ export default class DetailedPopup extends React.Component {
     allIngredients = [].concat(allIngredients);
 
     // maps out numbered directions for making the recipe
-    const listInstructions = recipe.content.steps.map((instruction, index) => {
-      return (
-        <div key={Math.random()}>
-          <li>{instruction.instructions}</li>
-        </div>
-      );
-    });
+    const listInstructions = recipe.content.steps.reduce((accumulator, step) => {
+      // this is ugly but handles some weird null values that appear when steps are deleted.
+      try {
+        if(step.instructions){
+          accumulator.push(
+            <div key={Math.random()}>
+              <li>{step.instructions}</li>
+            </div>
+          );
+          return accumulator;
+        } else {
+          return accumulator;
+        }
+      } catch (e) {
+        return accumulator;
+      }
+    }, []);
 
     return (
       <article className="DPU-main-container">

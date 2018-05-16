@@ -19,6 +19,7 @@ export default class Recipes extends React.Component {
       currentEditRecipe: {},
       recipes: [],
       notification: "",
+      mininimumSimilarity: 0.3
     };
 
     this.getRecipeById = this.getRecipeById.bind(this);
@@ -130,7 +131,7 @@ export default class Recipes extends React.Component {
     if(this.state.myRecipesView){
       filteredRecipes = this.state.recipes.filter((recipe) => recipe.user_id === this.props.current_user_id );
     } else {
-      filteredRecipes = this.state.recipes.filter((recipe) => recipe.similarity !== 1 );
+      filteredRecipes = this.state.recipes.filter((recipe) => recipe.similarity < this.state.mininimumSimilarity );
     }
     const recipes = filteredRecipes.map((recipe) => {
       return (<RecipeIndex getRecipeById={this.getRecipeById} key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe}      current_user_id={this.props.current_user_id}/>
