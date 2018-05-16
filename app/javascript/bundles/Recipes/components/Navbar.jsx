@@ -17,11 +17,8 @@ export default class Navbar extends React.Component {
       ?(<div className="login-buttons">
         <div className="btn btn-primary nav-user"><Dropdown><DropdownTrigger>{userInitials}</DropdownTrigger>
           <DropdownContent>
-            {this.props.current_user_name} {this.props.current_user_last_name}<br />
-            {this.props.current_user}<br /><br />
+            {this.props.current_user_name} {this.props.current_user_last_name}<br /><br />
             Your total recipes: {this.props.user_recipes.length}<br /><br />
-            {/* People Sporking you: <br /><br /> */}
-            {/* Your recipe total: {this.props.user_recipes}<br /> */}
             <a href="/logout">Sign out</a>
           </DropdownContent>
         </Dropdown></div>
