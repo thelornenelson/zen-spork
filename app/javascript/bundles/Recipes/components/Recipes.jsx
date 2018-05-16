@@ -132,7 +132,7 @@ export default class Recipes extends React.Component {
 
     return (
       <div>
-        {!this.state.splashPage && <Navbar current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>}
+        {!this.state.splashPage && <Navbar user_recipes={userRecipes} current_user_last_name={this.props.current_user_last_name} current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView} />}
         {this.state.splashPage && <SplashPage toggleViews={this.toggleViews}/>}
         <div className="container">
           {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} toggleViews={this.toggleViews} showNotification={this.showNotification}/>}

@@ -471,3 +471,27 @@ td, th {
   text-align: right;
   white-space : nowrap;
 }
+
+.page-link {
+  color: white;
+  background-color: #3b92cc;
+  border-color: #3b92cc;
+  border: 1px solid transparent;
+  height: 38px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.page-link:hover {
+  background-color: rgb(255, 255, 255);
+  color: #3b92cc;
+}
+
+.page-item.active .page-link {
+  z-index: 1;
+  color: white;
+  background-color: #32b4f0;
+  border-color: #32b4f0;
+}
+
