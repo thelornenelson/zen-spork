@@ -5,7 +5,7 @@ Deployed version of [Spork](https://damp-cove-57304.herokuapp.com/)
 The recipe website that gives you a full screen, hands-free recipe view when cooking. Organize all of your recipes in one place and quickly copy a recipe (we call it sporking) to save it to your recipes and edit it to suit your needs.
 
 ## Project Description
-Spork is a full stack single page app built with React on Rails. Spork has a focus on user friendly interface and design - something that is surprisingly lacking in most recipe web apps.
+Spork is a full stack single page app built with React on Rails. Spork has a focus on user friendly interface and design - something that is surprisingly lacking in most recipe web apps. This was our final project for the Lighthouse Labs web development bootcamp.
 
 ## Amazing user features
 
@@ -33,7 +33,7 @@ Spork is a full stack single page app built with React on Rails. Spork has a foc
 
 ## Wonderfulrisical teamwork
 
-* Award winning CD & CI pipeline was utilized throughout the project
+* Award winning CD & CI pipeline was utilized throughout the project (we won some socks for having the best setup for deployment...)
 * Deployed our scafold to Heroku on day 2 and all approved updated went live
 * Test driven backend development with 38 RSpec code tests and counting
 * Setup Travis to test any code before it could be pushed to master on Github
@@ -41,6 +41,7 @@ Spork is a full stack single page app built with React on Rails. Spork has a foc
 * Followed an agile workflow. Of course we called our scrums sizzles... because, you know... food.
 * Prioritized and coordinated work on a shared Trello board
 * style guide was setup and code was tested against style guide before it could be approved to merge to the master 
+
 
 
 ## Getting Started
@@ -88,6 +89,9 @@ Run all tests with this command
 * Rails 5.2.0
 * PostgreSQL 9.5
 * react-on-rails 11.0.3
+* Bootstrap
+* Sass
+* Math.js
 
 ## Logo Design
 
