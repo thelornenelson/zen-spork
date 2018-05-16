@@ -124,7 +124,7 @@ export default class Recipes extends React.Component {
 
     // makes a variable of all the recipes that match the logged in user
     const userRecipes = this.state.recipes.filter(recipe => recipe.user_id === this.props.current_user_id);
-  
+
     let filteredRecipes;
 
     if(this.state.myRecipesView){
