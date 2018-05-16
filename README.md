@@ -102,8 +102,8 @@ Run all tests with this command
 
 ## Screenshots of current version
 
-!["description"](#)
-!["description"](#)
+!["Home page view"](#)
+!["Detailed recipe view"](#)
 
 ## License
 

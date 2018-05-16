@@ -22,6 +22,7 @@ export default class Recipes extends React.Component {
     };
 
     this.getRecipeById = this.getRecipeById.bind(this);
+    this.getRecipes = this.getRecipes.bind(this);
   }
 
   // calls get recipe after virtual DOM is loaded
@@ -30,13 +31,16 @@ export default class Recipes extends React.Component {
   }
 
   // gets recipes, sets to state and returns a console error on problem
-  getRecipes() {
+  getRecipes(cb) {
     fetch("/recipes.json")
       .then((response) => {
         return response.json();
       })
       .then((recipes) => {
         this.setState({ recipes: recipes });
+        if(cb){
+          cb();
+        }
       })
       .catch((ex) => {
         console.log("parsing failed", ex);
@@ -44,8 +48,9 @@ export default class Recipes extends React.Component {
   }
 
   toggleViews = (e, currentRecipe) => {
-    console.log(e.target.name);
-    e.preventDefault();
+    if(e){
+      e.preventDefault();
+    }
     let newState = {
       splashPage: false,
       createRecipe: false,
@@ -53,22 +58,20 @@ export default class Recipes extends React.Component {
       recipeIndex: false,
       myRecipesView: false,
     };
-    if(this.state[e.target.name]){
-      newState.recipeIndex = true;
-      console.log("first");
-    } else if (e.target.name === "myRecipesView"){
-      newState[e.target.name] = true;
-      newState.recipeIndex = true;
-      console.log("second");
-    } else if (currentRecipe){
-      console.log("third");
+    if (currentRecipe){
       this.setState({
         currentEditRecipe: currentRecipe
       });
       newState.editRecipe = true;
     } else {
-      console.log("forth");
-      newState[e.target.name] = true;
+      if(this.state[e.target.name]){
+        newState.recipeIndex = true;
+      } else if (e.target.name === "myRecipesView"){
+        newState[e.target.name] = true;
+        newState.recipeIndex = true;
+      } else {
+        newState[e.target.name] = true;
+      }
     }
     this.setState(newState);
     this.getRecipes();
@@ -91,8 +94,12 @@ export default class Recipes extends React.Component {
       credentials: "same-origin"
     }).then((response) => {
       if (response.status === 201 || response.status === 200) {
-        this.returnToIndexView();
-        this.showNotification("Spork Created!");
+        const recipeId = Number(response.headers.get("Recipe-Id"));
+        // this.returnToIndexView();
+        this.getRecipes(() => {
+          this.toggleViews(null, this.getRecipeById(recipeId));
+          this.showNotification("Spork Created!");
+        });
       }
       return response.text();
     }, function (error) {
@@ -132,7 +139,7 @@ export default class Recipes extends React.Component {
 
     return (
       <div>
-        {!this.state.splashPage && <Navbar user_recipes={userRecipes} current_user_last_name={this.props.current_user_last_name} current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView} />}
+        {!this.state.splashPage && <Navbar user_recipes={userRecipes} current_user_last_name={this.props.current_user_last_name} current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>}
         {this.state.splashPage && <SplashPage toggleViews={this.toggleViews}/>}
         <div className="container">
           {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} toggleViews={this.toggleViews} showNotification={this.showNotification}/>}
