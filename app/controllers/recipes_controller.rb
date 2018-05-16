@@ -92,7 +92,7 @@ class RecipesController < ApplicationController
             # 'salt and pepper to taste' will be interpreted as name = 'salt and pepper to taste'
             parsed_ingredient = nil
             if ingredient.is_a? String
-              ingredient_parser = /((?<qty>(^[[:digit:]]* ?[[:digit:]]+\/[[:digit:]]+)|(^[[:digit:]]+\.?[[:digit:]]*)) *)?((?<unit>(?<!^)[[:alpha:]]+) +)?(?<name>.+)?/
+              ingredient_parser = /((?<qty>(^[[:digit:]]* ?[[:digit:]]+ ?[\/-] ?[[:digit:]]+)|(^[[:digit:]]+\.?[[:digit:]]*)) *)?((?<unit>(?<!^)[[:alpha:]]+) +)?(?<name>.+)?/
               matches = ingredient_parser.match(ingredient.strip)
               parsed_ingredient = { qty: (matches[:qty] || "") , unit: ( matches[:unit] || "") , name: matches[:name] || "" }
             end
