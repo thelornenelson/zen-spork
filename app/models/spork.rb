@@ -13,6 +13,10 @@ class Spork < ApplicationRecord
     @recipe_diffs.id = self.recipe.id
     @recipe_diffs
   end
+
+  def similarity
+    self.recipe.similarity
+  end
 end
 
 # inserts a value into a hash, adding hash objects with new keys if required.

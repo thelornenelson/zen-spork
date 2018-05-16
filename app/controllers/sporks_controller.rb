@@ -39,6 +39,7 @@ class SporksController < ApplicationController
 
       if @recipe.save
         if @spork.save
+          response.headers["Recipe-Id"] = @recipe.id
           head :created, location: recipe_path(@recipe, format: :json)
         else
           @recipe.destroy
