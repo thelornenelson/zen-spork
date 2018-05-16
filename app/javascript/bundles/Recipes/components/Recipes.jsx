@@ -11,10 +11,10 @@ export default class Recipes extends React.Component {
     // Boolean state for hiding components on clicks
     // And recipes array from database
     this.state = {
-      splashPage: false,
+      splashPage: true,
       createRecipe: false,
       editRecipe: false,
-      recipeIndex: true,
+      recipeIndex: false,
       myRecipesView: false,
       currentEditRecipe: {},
       recipes: [],
