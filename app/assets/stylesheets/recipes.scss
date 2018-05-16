@@ -457,7 +457,8 @@ td, th {
   }
 }
 
-.verically-centered {
+.vertically-centered {
+  padding-top: 30px;
   position: relative;
   top: 45%;
   transform: translateY(-50%);

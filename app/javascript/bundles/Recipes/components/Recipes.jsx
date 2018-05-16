@@ -11,10 +11,10 @@ export default class Recipes extends React.Component {
     // Boolean state for hiding components on clicks
     // And recipes array from database
     this.state = {
-      splashPage: false,
+      splashPage: true,
       createRecipe: false,
       editRecipe: false,
-      recipeIndex: true,
+      recipeIndex: false,
       myRecipesView: false,
       currentEditRecipe: {},
       recipes: [],
@@ -57,7 +57,7 @@ export default class Recipes extends React.Component {
       createRecipe: false,
       editRecipe: false,
       recipeIndex: false,
-      myRecipesView: false,
+      myRecipesView: this.state.myRecipesView,
     };
     if (currentRecipe){
       this.setState({
@@ -65,10 +65,10 @@ export default class Recipes extends React.Component {
       });
       newState.editRecipe = true;
     } else {
-      if(this.state[e.target.name]){
+      if(this.state[e.target.name] && (e.target.name !== "myRecipesView")){
         newState.recipeIndex = true;
       } else if (e.target.name === "myRecipesView"){
-        newState[e.target.name] = true;
+        newState.myRecipesView = !this.state.myRecipesView;
         newState.recipeIndex = true;
       } else {
         newState[e.target.name] = true;
@@ -80,7 +80,7 @@ export default class Recipes extends React.Component {
 
   returnToIndexView = () => {
     this.getRecipes();
-    this.setState({createRecipe: false, editRecipe: false, recipeIndex: true, myRecipesView: false,});
+    this.setState({createRecipe: false, editRecipe: false, recipeIndex: true, myRecipesView: this.state.myRecipesView});
   }
 
   sporkRecipe = (currentRecipe, e) => {
