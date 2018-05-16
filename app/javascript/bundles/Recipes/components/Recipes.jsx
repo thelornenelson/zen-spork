@@ -93,7 +93,7 @@ export default class Recipes extends React.Component {
       credentials: "same-origin"
     }).then((response) => {
       if (response.status === 201 || response.status === 200) {
-        const recipeId = Number(response.headers.get('Recipe-Id'));
+        const recipeId = Number(response.headers.get("Recipe-Id"));
         // this.returnToIndexView();
         this.getRecipes(() => {
           this.toggleViews(null, this.getRecipeById(recipeId));
