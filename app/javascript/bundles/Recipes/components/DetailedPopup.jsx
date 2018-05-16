@@ -184,7 +184,7 @@ export default class DetailedPopup extends React.Component {
           <h1 className="DPU-title">{title}</h1>
         </div>
         <div className="container">
-          <div className="row">
+          <div className="row popup-row">
             <div className="DPU-left col-5">
               {/* either renders photo from db is it exists or placeholder photo */}
               <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
@@ -195,7 +195,7 @@ export default class DetailedPopup extends React.Component {
                   {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.getRecipeById(recipe.id), e);}}><i className="fas fa-clone"></i> Spork</button>}
                   {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.getRecipeById(recipe.id));}}><i className="fas fa-edit"></i> Edit</button>}
                 </div>
-                <div className="row justify-content-center">
+                <div className="row popup-row justify-content-center">
                   <form>
                     <div className="serving-size">
                       <span>Serving Size </span>
@@ -208,7 +208,7 @@ export default class DetailedPopup extends React.Component {
                     </div>
                   </form>
                 </div>
-                <div className="row justify-content-center">
+                <div className="row popup-row justify-content-center">
                   {(this.state.recipeVariations.length > 1) &&
                     (<RecipeVariations
                       showVariation={this.showVariation}
@@ -242,10 +242,6 @@ export default class DetailedPopup extends React.Component {
                     </tr>
                   </tbody>
                 </table> }<br />
-
-
-
-
             </div>
             <div className="DPU-right col-7 ">
               <div className="verically-centered">
