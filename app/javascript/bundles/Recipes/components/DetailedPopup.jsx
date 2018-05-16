@@ -67,16 +67,43 @@ export default class DetailedPopup extends React.Component {
 
   adjustTotalServings(servings) {
     let output = "";
-    let numericValue = parseInt(servings);
 
-    if (isNaN(numericValue)) {
-      return servings;
+    let numDashes = 0;
+    for (let i = 0; i < servings.length; i++) {
+      if (servings[i] === "-") {
+        numDashes++;
+        if (numDashes > 1) {
+          return servings;
+        }
+      }
     }
 
-    let newTotal = numericValue * this.state.servingMultiplier;
-    output = output + newTotal + servings.slice(numericValue.toString().length, servings.length);
+    if (numDashes === 1) {
+      for (let i = 0; i < servings.length; i++) {
+        if (servings[i] === "-") {
+          let firstNum = parseInt(servings.slice(0, i));
+          let secondNum = parseInt(servings.slice(i+1, servings.length));
+          let lengthOfNums = firstNum.toString().length + secondNum.toString().length + 1;
+          if (isNaN(firstNum)) return servings;
+          if (isNaN(secondNum)) return servings;
+          firstNum = firstNum * this.state.servingMultiplier;
+          secondNum = secondNum * this.state.servingMultiplier;
+          output = output + firstNum + "-" + secondNum + servings.slice(lengthOfNums, servings.length);
+          return output;
+        }
+      }
 
-    return output;
+    } else {
+
+      let numericValue = parseInt(servings);
+      if (isNaN(numericValue)) {
+        return servings;
+      }
+
+      let newTotal = numericValue * this.state.servingMultiplier;
+      output = output + newTotal + servings.slice(numericValue.toString().length, servings.length);
+      return output;
+    }
   }
 
   adjustServingSize(e) {
