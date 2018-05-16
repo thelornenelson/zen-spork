@@ -52,13 +52,16 @@ export default class Recipes extends React.Component {
     if(e){
       e.preventDefault();
     }
-    let newState = {
-      splashPage: false,
-      createRecipe: false,
-      editRecipe: false,
-      recipeIndex: false,
-      myRecipesView: this.state.myRecipesView,
-    };
+    let newState = {};
+    if(e.target.name) {
+      newState = {
+        splashPage: false,
+        createRecipe: false,
+        editRecipe: false,
+        recipeIndex: false,
+        myRecipesView: this.state.myRecipesView,
+      };
+    }
     if (currentRecipe){
       this.setState({
         currentEditRecipe: currentRecipe
