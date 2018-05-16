@@ -162,7 +162,7 @@ export default class DetailedPopup extends React.Component {
         if(step.instructions){
           accumulator.push(
             <div key={Math.random()}>
-            <li>{step.instructions}</li>
+              <li>{step.instructions}</li>
             </div>
           );
           return accumulator;
