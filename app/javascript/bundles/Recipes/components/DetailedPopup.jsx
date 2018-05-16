@@ -169,14 +169,14 @@ export default class DetailedPopup extends React.Component {
             <div className="DPU-left col-5">
               {/* either renders photo from db is it exists or placeholder photo */}
               <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
-              <div className="container modal-footer DPU-buttons">
-                <div className="row">
+              <div className="popup-buttons">
+                <div className="row justify-content-center">
                   <FullScreenButton recipe={this.props.getRecipeById(recipe.id)} multi={this.state.servingMultiplier} />
                   {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
                   {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.getRecipeById(recipe.id), e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
                   {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => { this.props.toggleViews(e, this.props.getRecipeById(recipe.id)); }}><i className="fas fa-edit"></i> Edit</button>}
                 </div>
-                <div className="row">
+                <div className="row justify-content-center">
                   <form>
                     <div className="serving-size">
                       <span>Serving Size </span>
@@ -189,17 +189,16 @@ export default class DetailedPopup extends React.Component {
                     </div>
                   </form>
                 </div>
+                <div className="row justify-content-center">
+                  {(this.state.recipeVariations.length > 1) &&
+                    (<RecipeVariations
+                      showVariation={this.showVariation}
+                      variationsCount={this.state.recipeVariations.length}
+                      displayIndex={this.state.displayIndex}
+                    />)
+                  }
+                </div>
               </div>
-
-              {(this.state.recipeVariations.length > 1) &&
-                (
-                  <RecipeVariations
-                    showVariation={this.showVariation}
-                    variationsCount={this.state.recipeVariations.length}
-                    displayIndex={this.state.displayIndex}
-                  />
-                )
-              }
               <div className="DPU-centered-title">
                 <strong>Ingredients:</strong><br />
               </div>
@@ -224,10 +223,10 @@ export default class DetailedPopup extends React.Component {
                     </tr>
                   </tbody>
                 </table> }<br />
-              
-                
-              
-              
+
+
+
+
             </div>
             <div className="DPU-right col-7 ">
               <div className="verically-centered">
