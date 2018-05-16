@@ -68,8 +68,12 @@ export default class DetailedPopup extends React.Component {
   adjustTotalServings(servings) {
     let output = "";
     let numericValue = parseInt(servings);
-    let newTotal = numericValue * this.state.servingMultiplier;
 
+    if (isNaN(numericValue)) {
+      return servings;
+    }
+
+    let newTotal = numericValue * this.state.servingMultiplier;
     output = output + newTotal + servings.slice(numericValue.toString().length, servings.length);
 
     return output;
