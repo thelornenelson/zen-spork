@@ -11,6 +11,45 @@ a{
   color: inherit;
 }
 
+*:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
+.logo{
+  width: 100vw;
+  display: block;
+
+  .spork-logo-full {
+    display: block;
+    margin: auto;
+    width: 60vw;
+  }
+
+  .catchphrase{
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    margin: auto;
+    font-weight: 700;
+  }
+
+  .begin-button{
+    margin-top: 40px;
+    background-color: inherit;
+    border: none;
+    font-size: 3em;
+    font-weight: 700;
+    text-shadow: 2px 2px 2px rgb(151, 151, 151);
+  }
+  .begin-button:hover{
+    color: rgb(56, 56, 56);
+  }
+  .begin-button:focus {
+    outline: none;
+    box-shadow: none !important;
+  }
+}
 .notification {
   font-weight: 700;
   font-size: 24px;
