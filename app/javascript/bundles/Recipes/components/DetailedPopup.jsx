@@ -248,7 +248,7 @@ export default class DetailedPopup extends React.Component {
 
             </div>
             <div className="DPU-right col-7 ">
-              <div className="verically-centered">
+              <div className="vertically-centered">
                 <strong>Intro:</strong> {intro}<br/><br/>
                 {/* only renders gear on detail page if there are some in the recipe and in a comma separated list */}
                 {gear ? <div><strong>Gear:</strong> {gearArr.join(", ")} <br /><br /></div> : ""}
