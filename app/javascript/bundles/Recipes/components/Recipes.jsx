@@ -1,5 +1,4 @@
 import React from "react";
-// importing components to render
 import Navbar from "./Navbar.jsx";
 import CreateRecipe from "./CreateRecipe.jsx";
 import SplashPage from "./SplashPage";
@@ -21,6 +20,8 @@ export default class Recipes extends React.Component {
       recipes: [],
       notification: "",
     };
+
+    this.getRecipeById = this.getRecipeById.bind(this);
   }
 
   // calls get recipe after virtual DOM is loaded
@@ -106,7 +107,16 @@ export default class Recipes extends React.Component {
     }, 3000);
   }
 
+  getRecipeById(id){
+    return this.state.recipes.find((recipe) => {
+      return recipe.id === id;
+    });
+  }
+
   render() {
+
+    // makes a variable of all the recipes that match the logged in user
+    const userRecipes = this.state.recipes.filter(recipe => recipe.user_id === this.props.current_user_id);
 
     let filteredRecipes;
 
@@ -116,7 +126,7 @@ export default class Recipes extends React.Component {
       filteredRecipes = this.state.recipes.filter((recipe) => recipe.similarity !== 1 );
     }
     const recipes = filteredRecipes.map((recipe) => {
-      return (<RecipeIndex key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe}      current_user_id={this.props.current_user_id}/>
+      return (<RecipeIndex getRecipeById={this.getRecipeById} key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe}      current_user_id={this.props.current_user_id}/>
       );
     });
 
