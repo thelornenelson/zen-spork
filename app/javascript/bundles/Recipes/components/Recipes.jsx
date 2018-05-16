@@ -51,17 +51,19 @@ export default class Recipes extends React.Component {
   toggleViews = (e, currentRecipe) => {
     if(e){
       e.preventDefault();
+      if(!e.target.name){
+        return null;
+      }
     }
-    let newState = {};
-    if(e.target.name) {
-      newState = {
-        splashPage: false,
-        createRecipe: false,
-        editRecipe: false,
-        recipeIndex: false,
-        myRecipesView: this.state.myRecipesView,
-      };
-    }
+    
+    let newState = {
+      splashPage: false,
+      createRecipe: false,
+      editRecipe: false,
+      recipeIndex: false,
+      myRecipesView: this.state.myRecipesView
+    };
+
     if (currentRecipe){
       this.setState({
         currentEditRecipe: currentRecipe
