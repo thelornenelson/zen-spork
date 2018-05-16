@@ -24,13 +24,13 @@ export default class FullScreenView extends React.Component {
       const ingredients = step.ingredients.map((ingredient, ingredientIndex) => {
         return (
           <div key={ingredientIndex} className="row">
-            <div className="col-4">{adjustIngredientQuantity(ingredient.qty, this.props.multi)} {ingredient.unit}</div>
-            <div className="col-8">{ingredient.name}</div>
+            <div className="col-5">{adjustIngredientQuantity(ingredient.qty, this.props.multi)} {ingredient.unit}</div>
+            <div className="col-7">{ingredient.name}</div>
           </div>);
       });
       return (
         <div className="row step-row" key={stepIndex}>
-          <div className="col-xl-4 step-col" style={{ paddingLeft: 50 }}>{ingredients}</div>
+          <div className="col-xl-4 step-col" style={{ paddingLeft: 40 }}>{ingredients}</div>
           <div className="col-xl-8" style={{ paddingLeft: 40 }}>{stepIndex + 1}. {step.instructions}</div>
         </div>);
     });
@@ -39,8 +39,8 @@ export default class FullScreenView extends React.Component {
       return step.ingredients.map((ingredient, ingredientIndex) => {
         return (
           <div key={ingredientIndex} className="row">
-            <div className="col-4">{adjustIngredientQuantity(ingredient.qty, this.props.multi)} {ingredient.unit}</div>
-            <div className="col-8">{ingredient.name}</div>
+            <div className="col-5">{adjustIngredientQuantity(ingredient.qty, this.props.multi)} {ingredient.unit}</div>
+            <div className="col-7">{ingredient.name}</div>
           </div>);
       });
     });
@@ -53,7 +53,7 @@ export default class FullScreenView extends React.Component {
 
     const allIngredientsAndStepsGrouped = (
       <div className="row step-row">
-        <div className="col-xl-4 step-col" style={{ paddingLeft: 50 }}>{allIngredients}</div>
+        <div className="col-xl-4 step-col" style={{ paddingLeft: 40 }}>{allIngredients}</div>
         <div className="col-xl-8" style={{ paddingLeft: 40 }}>{allInstructions}</div>
       </div>
     );
@@ -66,7 +66,7 @@ export default class FullScreenView extends React.Component {
             <button type="button" className="btn switch-button" onClick={this.toggleLayout}><i className="fas fa-exchange-alt fa-md"></i> Switch Layout</button>
           </div>
           <div className="row step-row">
-            <div className="col-xl-4 step-col" style={{paddingLeft: 50 }}><h4>Ingredients:</h4></div>
+            <div className="col-xl-4 step-col" style={{paddingLeft: 40 }}><h4>Ingredients:</h4></div>
             <div className="col-xl-8" style={{paddingLeft: 40}}><h4>Steps:</h4></div>
           </div>
           {(this.state.layoutToggle)?(allIngredientsAndStepsGrouped):(ingredientsAndStepsSeperated)}
