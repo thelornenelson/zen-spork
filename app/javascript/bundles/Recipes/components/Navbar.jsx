@@ -10,7 +10,7 @@ export default class Navbar extends React.Component {
     const userInitials = firstInitial + lastInitial;
     // Makes the button display either My Recipes or All recipes depending on the state
     const myRecipesToggleName = ((this.props.myRecipesView)
-      ? (<button type="button" className="btn btn-primary" name="myRecipesView" onClick={this.props.toggleViews}>Viewing Your Recipes  <i className="fas fa-toggle-on" name="pickle" id="pickle"></i></button>)
+      ? (<button type="button" className="btn btn-primary" name="myRecipesView" onClick={this.props.toggleViews}>Viewing Your Recipes  <i className="fas fa-toggle-on"></i></button>)
       : (<button type="button" className="btn btn-primary" name="myRecipesView" onClick={this.props.toggleViews}>Viewing All Recipes  <i className="fas fa-toggle-off"></i></button>));
 
     const loginToggle = ((this.props.current_user)
