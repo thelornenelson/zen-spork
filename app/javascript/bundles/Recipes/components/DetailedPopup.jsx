@@ -27,7 +27,15 @@ export default class DetailedPopup extends React.Component {
         return response.json();
       })
       .then((sporks) => {
-        const newRecipeVariations = [this.props.recipe].concat(sporks.map((spork) => spork.recipe_diffs));
+        const newRecipeVariations = [this.props.recipe].concat(sporks.reduce((accumulator, spork) => {
+          if(spork.similarity !== 1 || spork.user_id === this.props.current_user_id){
+            // show sporks that aren't identical copies, unless the copy is owned by current user
+            return accumulator.concat(spork.recipe_diffs);
+          } else {
+            return accumulator;
+          }
+        }, []));
+
         this.setState({ recipeVariations: newRecipeVariations });
       })
       .catch((ex) => {
@@ -95,13 +103,18 @@ export default class DetailedPopup extends React.Component {
     // maps recipe json to extract just the list of ingredients to render
     const gearArr = {gear}.gear;
 
-    let allIngredients = [];
-
-    recipe.content.steps.forEach((step) => {
-      if(step.ingredients.length > 0) {
-        allIngredients = allIngredients.concat(step.ingredients);
+    let allIngredients = recipe.content.steps.reduce((accumulator, step) => {
+      // this is ugly but handles some weird null values that appear when steps are deleted.
+      try {
+        if(step.ingredients && step.ingredients.length > 0) {
+          return accumulator.concat(step.ingredients);
+        } else {
+          return accumulator;
+        }
+      } catch (e) {
+        return accumulator;
       }
-    });
+    }, []);
 
     allIngredients = allIngredients.map((ingredient) => {
       const ingredientElements = [];
@@ -147,13 +160,23 @@ export default class DetailedPopup extends React.Component {
     allIngredients = [].concat(allIngredients);
 
     // maps out numbered directions for making the recipe
-    const listInstructions = recipe.content.steps.map((instruction, index) => {
-      return (
-        <div key={Math.random()}>
-          <strong>{index + 1}.</strong> {instruction.instructions}
-        </div>
-      );
-    });
+    const listInstructions = recipe.content.steps.reduce((accumulator, step) => {
+      // this is ugly but handles some weird null values that appear when steps are deleted.
+      try {
+        if(step.instructions){
+          accumulator.push(
+            <div key={Math.random()}>
+              <li>{step.instructions}</li>
+            </div>
+          );
+          return accumulator;
+        } else {
+          return accumulator;
+        }
+      } catch (e) {
+        return accumulator;
+      }
+    }, []);
 
     return (
       <article className="DPU-main-container">
@@ -165,7 +188,39 @@ export default class DetailedPopup extends React.Component {
             <div className="DPU-left col-5">
               {/* either renders photo from db is it exists or placeholder photo */}
               <img className="DPU-image" src={photo_url || photoPlaceholder} alt="Delicious Food" /><br />
-              <strong>Ingredients:</strong><br />
+              <div className="popup-buttons">
+                <div className="row justify-content-center">
+                  <FullScreenButton recipe={this.props.getRecipeById(recipe.id)} multi={this.state.servingMultiplier} />
+                  {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
+                  {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.getRecipeById(recipe.id), e);}}><i className="fas fa-clone"></i> Spork</button>}
+                  {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.getRecipeById(recipe.id));}}><i className="fas fa-edit"></i> Edit</button>}
+                </div>
+                <div className="row justify-content-center">
+                  <form>
+                    <div className="serving-size">
+                      <span>Serving Size </span>
+                      <select className="form-control" id="adjustServing" value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
+                        <option value="0.5">Half</option>
+                        <option value="1">Normal</option>
+                        <option value="2">Double</option>
+                        <option value="4">Quadruple</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div className="row justify-content-center">
+                  {(this.state.recipeVariations.length > 1) &&
+                    (<RecipeVariations
+                      showVariation={this.showVariation}
+                      variationsCount={this.state.recipeVariations.length}
+                      displayIndex={this.state.displayIndex}
+                    />)
+                  }
+                </div>
+              </div>
+              <div className="DPU-centered-title">
+                <strong>Ingredients:</strong><br />
+              </div>
               <div className="DPU-ingredients">
                 { allIngredients }<br />
               </div>
@@ -187,38 +242,10 @@ export default class DetailedPopup extends React.Component {
                     </tr>
                   </tbody>
                 </table> }<br />
-              <div className="DPU-centered-title">
-                Sporked {sporks_count} time{sporks_count === 1 ? "" : "s"}<br />
-              </div>
-              <div className="modal-footer DPU-buttons">
-                <FullScreenButton recipe={this.props.recipe} multi={this.state.servingMultiplier} />
-                {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
-                {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.recipe, e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
-                {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.recipe);}}><i className="fas fa-edit"></i> Edit</button>}
-                <br/>
-                <div className="servingAdjuster">
-                  <form>
-                    <label>
-                      Adjust Servings:
-                      <select value={this.state.servingMultiplier} onChange={this.adjustServingSize}>
-                        <option value="0.5">Half</option>
-                        <option value="1">Original</option>
-                        <option value="2">Double</option>
-                        <option value="4">Quad</option>
-                      </select>
-                    </label>
-                  </form>
-                </div>
-              </div>
-              {(this.state.recipeVariations.length > 1) &&
-                (
-                  <RecipeVariations
-                    showVariation={ this.showVariation }
-                    variationsCount={ this.state.recipeVariations.length }
-                    displayIndex={ this.state.displayIndex }
-                  />
-                )
-              }
+
+
+
+
             </div>
             <div className="DPU-right col-7 ">
               <div className="verically-centered">
@@ -226,7 +253,7 @@ export default class DetailedPopup extends React.Component {
                 {/* only renders gear on detail page if there are some in the recipe and in a comma separated list */}
                 {gear ? <div><strong>Gear:</strong> {gearArr.join(", ")} <br /><br /></div> : ""}
                 {/* <strong>Gear:</strong> {gear}<br/><br/>       */}
-                <strong>Instructions:</strong> {listInstructions}<br />
+                <strong>Instructions:</strong> <ol>{listInstructions}</ol><br />
                 {/* only renders warnings on detail page if there are some in the recipe */}
                 {warnings ? <div><strong>Warning:</strong> {warnings} <br /><br /></div> : ""}
                 {/* only renders reference url if one exists */}

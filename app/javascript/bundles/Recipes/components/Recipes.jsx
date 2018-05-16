@@ -1,8 +1,7 @@
 import React from "react";
-// importing components to render
 import Navbar from "./Navbar.jsx";
 import CreateRecipe from "./CreateRecipe.jsx";
-import FullScreenView from "./FullScreenView";
+import SplashPage from "./SplashPage";
 import RecipeIndex from "./RecipeIndex.jsx";
 import "whatwg-fetch";
 
@@ -12,6 +11,7 @@ export default class Recipes extends React.Component {
     // Boolean state for hiding components on clicks
     // And recipes array from database
     this.state = {
+      splashPage: false,
       createRecipe: false,
       editRecipe: false,
       recipeIndex: true,
@@ -19,7 +19,11 @@ export default class Recipes extends React.Component {
       currentEditRecipe: {},
       recipes: [],
       notification: "",
+      mininimumSimilarity: 0.3
     };
+
+    this.getRecipeById = this.getRecipeById.bind(this);
+    this.getRecipes = this.getRecipes.bind(this);
   }
 
   // calls get recipe after virtual DOM is loaded
@@ -28,13 +32,16 @@ export default class Recipes extends React.Component {
   }
 
   // gets recipes, sets to state and returns a console error on problem
-  getRecipes() {
+  getRecipes(cb) {
     fetch("/recipes.json")
       .then((response) => {
         return response.json();
       })
       .then((recipes) => {
         this.setState({ recipes: recipes });
+        if(cb){
+          cb();
+        }
       })
       .catch((ex) => {
         console.log("parsing failed", ex);
@@ -42,25 +49,30 @@ export default class Recipes extends React.Component {
   }
 
   toggleViews = (e, currentRecipe) => {
-    e.preventDefault();
+    if(e){
+      e.preventDefault();
+    }
     let newState = {
+      splashPage: false,
       createRecipe: false,
       editRecipe: false,
       recipeIndex: false,
       myRecipesView: false,
     };
-    if(this.state[e.target.name]){
-      newState.recipeIndex = true;
-    } else if (e.target.name === "myRecipesView"){
-      newState[e.target.name] = true;
-      newState.recipeIndex = true;
-    } else if (currentRecipe){
+    if (currentRecipe){
       this.setState({
         currentEditRecipe: currentRecipe
       });
       newState.editRecipe = true;
     } else {
-      newState[e.target.name] = true;
+      if(this.state[e.target.name]){
+        newState.recipeIndex = true;
+      } else if (e.target.name === "myRecipesView"){
+        newState[e.target.name] = true;
+        newState.recipeIndex = true;
+      } else {
+        newState[e.target.name] = true;
+      }
     }
     this.setState(newState);
     this.getRecipes();
@@ -83,8 +95,12 @@ export default class Recipes extends React.Component {
       credentials: "same-origin"
     }).then((response) => {
       if (response.status === 201 || response.status === 200) {
-        this.returnToIndexView();
-        this.showNotification("Spork Created!");
+        const recipeId = Number(response.headers.get("Recipe-Id"));
+        // this.returnToIndexView();
+        this.getRecipes(() => {
+          this.toggleViews(null, this.getRecipeById(recipeId));
+          this.showNotification("Spork Created!");
+        });
       }
       return response.text();
     }, function (error) {
@@ -99,16 +115,33 @@ export default class Recipes extends React.Component {
     }, 3000);
   }
 
+  getRecipeById(id){
+    return this.state.recipes.find((recipe) => {
+      return recipe.id === id;
+    });
+  }
+
   render() {
-    const recipes = this.state.recipes.map((recipe) => {
-      return ((this.state.myRecipesView)?
-        (this.props.current_user_id === recipe.user_id && <RecipeIndex key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>):
-        (<RecipeIndex key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe} current_user_id={this.props.current_user_id}/>)
+
+    // makes a variable of all the recipes that match the logged in user
+    const userRecipes = this.state.recipes.filter(recipe => recipe.user_id === this.props.current_user_id);
+
+    let filteredRecipes;
+
+    if(this.state.myRecipesView){
+      filteredRecipes = this.state.recipes.filter((recipe) => recipe.user_id === this.props.current_user_id );
+    } else {
+      filteredRecipes = this.state.recipes.filter((recipe) => recipe.similarity < this.state.mininimumSimilarity );
+    }
+    const recipes = filteredRecipes.map((recipe) => {
+      return (<RecipeIndex getRecipeById={this.getRecipeById} key={recipe.id} recipe={recipe} toggleViews={this.toggleViews} sporkRecipe={this.sporkRecipe}      current_user_id={this.props.current_user_id}/>
       );
     });
+
     return (
       <div>
-        <Navbar current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>
+        {!this.state.splashPage && <Navbar user_recipes={userRecipes} current_user_last_name={this.props.current_user_last_name} current_user_name={this.props.current_user_name} current_user={this.props.current_user} notification={this.state.notification} toggleViews={this.toggleViews} myRecipesView={this.state.myRecipesView}/>}
+        {this.state.splashPage && <SplashPage toggleViews={this.toggleViews}/>}
         <div className="container">
           {this.state.createRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} toggleViews={this.toggleViews} showNotification={this.showNotification}/>}
           {this.state.editRecipe && <CreateRecipe returnToIndexView={this.returnToIndexView} toggleViews={this.toggleViews} currentEditRecipe={this.state.currentEditRecipe} editRecipeView={this.state.editRecipe} showNotification={this.showNotification}/>}

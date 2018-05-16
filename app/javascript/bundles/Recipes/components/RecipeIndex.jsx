@@ -16,7 +16,7 @@ export default class RecipeIndex extends React.Component {
           <img className="card-img-top" src={photo || photoPlaceholder} alt="prepared dish" />
           <div className="card-body">
             <p className={"card-title h3 text-center"}>{title}</p>
-            <LearnMore recipe={this.props.recipe} toggleViews={this.props.toggleViews} sporkRecipe={this.props.sporkRecipe} current_user_id={this.props.current_user_id}/>
+            <LearnMore getRecipeById={ this.props.getRecipeById } recipe={this.props.recipe} toggleViews={this.props.toggleViews} sporkRecipe={this.props.sporkRecipe} current_user_id={this.props.current_user_id}/>
           </div>
         </div>
       </article>

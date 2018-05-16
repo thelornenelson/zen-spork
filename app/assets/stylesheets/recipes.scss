@@ -11,6 +11,45 @@ a{
   color: inherit;
 }
 
+*:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
+.logo{
+  width: 100vw;
+  display: block;
+
+  .spork-logo-full {
+    display: block;
+    margin: auto;
+    width: 60vw;
+  }
+
+  .catchphrase{
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    margin: auto;
+    font-weight: 700;
+  }
+
+  .begin-button{
+    margin-top: 40px;
+    background-color: inherit;
+    border: none;
+    font-size: 3em;
+    font-weight: 700;
+    text-shadow: 2px 2px 2px rgb(151, 151, 151);
+  }
+  .begin-button:hover{
+    color: rgb(56, 56, 56);
+  }
+  .begin-button:focus {
+    outline: none;
+    box-shadow: none !important;
+  }
+}
 .notification {
   font-weight: 700;
   font-size: 24px;
@@ -89,12 +128,13 @@ body {
   }
 
   .nav-user {
-    background-color: rgba(133, 199, 242, 0.0);
     float: right;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 60px;
-    padding: 0 10px;
+    font-size: 17px;
+    padding: 6px;
+    margin-left: 10px;
+    margin-top: 0px;
+    border-radius: 100px;
   }
 }
 
@@ -168,7 +208,16 @@ body {
     font-weight: 700;
     font-size: 24px;
     padding: 5px;
+  }
 
+  .step-title{
+    font-weight: 700;
+    font-size: 20px;
+    height: 42px;
+  }
+
+  .step-textarea {
+    height: 120px;
   }
 
   label {
@@ -271,7 +320,7 @@ body {
 .DPU-left {
   float: left;
   text-align: left;
-  min-width: 280px;
+  min-width: 300px;
   max-width: 300px;
 }
 
@@ -285,21 +334,80 @@ body {
 }
 
 .DPU-image {
+  margin: auto;
   max-width: 240px;
   max-height: 160px;
   min-width: 240px;
   object-fit: cover;
   overflow: hidden;
+  margin-bottom: 10px;
+  margin-left: 13px;
 }
 
-.DPU-buttons {
-  justify-content: center;
-  padding: 0;
+.popup-buttons {
+  .btn-primary{
+    margin: 0 5px;
+  }
+  .row{
+    margin: 10px;
+    padding: 0;
+  }
+
+  #adjustServing {
+    display: inline-block;
+    height: 100%;
+    width: 100px;
+    background: #3b92cc;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .serving-size {
+    display: inline-block;
+    margin: 0;
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    background: #3b92cc;
+    border-color: #3b92cc;
+    border: 1px solid transparent;
+    height: 38px;
+    padding: .1rem .75rem .1rem .75rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+  }
+
+  .page-link {
+    color: white;
+    background-color: #3b92cc;
+    border-color: #3b92cc;
+    border: 1px solid transparent;
+    height: 38px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .page-link:hover {
+    background-color: #2f82b9;
+    color: white;
+  }
+
+  .page-item.active .page-link {
+    z-index: 1;
+    color: white;
+    background-color: #32b4f0;
+    border-color: #32b4f0;
+  }
 }
 
 .DPU-ingredients {
   text-align: left;
 }
+
+
 
 // constrains large images to a max-height & width for visual appeal
 .card-img-top {
@@ -315,11 +423,12 @@ body {
   border: 1px black solid;
   border-collapse: collapse;
   text-align: center;
-  margin: 0 0 0 40px;
+  margin: auto;
 }
 
 td, th {
   border: solid 1px black;
+  padding: 5px;
 }
 
 // gives enough buffer for two line recipes
@@ -362,3 +471,32 @@ td, th {
   position: relative;
   bottom: 14px;
 }
+
+.login-buttons {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+// styles for dropdown user menu
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown__content {
+  display: none;
+  position: absolute;
+}
+
+.dropdown--active .dropdown__content {
+  display: block;
+  margin-top: 18px;
+  background-color: $navbar-color;
+  right: -16px;
+  padding: 15px;
+  color: white;
+  width: auto;
+  text-align: right;
+  white-space : nowrap;
+}
+
+

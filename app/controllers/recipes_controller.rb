@@ -87,11 +87,14 @@ class RecipesController < ApplicationController
         params[:recipe][:content][:steps].map! do |recipe_step|
           recipe_step[:ingredients].map! do |ingredient|
             # Assume the input is in the format '1 cup extra pure water' where qty = '1', unit = 'cup', name = 'extra pure water'
+            # Will handle mixed fractions such as 1 1/2 cup flour. Additional spaces between qty, unit, and name will be ignored but there must be 1 space between the number and the fraction (1    1/2 will get interpreted incorrectly).
+            # 1 avocado will get interpreted as qty = '1', name = 'avocado'
+            # 'salt and pepper to taste' will be interpreted as name = 'salt and pepper to taste'
             parsed_ingredient = nil
             if ingredient.is_a? String
-              ingredient_parser = /((?<qty>(^[[:digit:]]* ?[[:digit:]]+\/[[:digit:]]+)|(^[[:digit:]]+\.?[[:digit:]]*)) ?)?((?<unit>(?<!^)[[:alpha:]]+) )?(?<name>.+)?/
-              matches = ingredient_parser.match(ingredient)
-              parsed_ingredient = { qty: (matches[:qty] || "") , unit: ( matches[:unit] || "") , name: matches[:name] }
+              ingredient_parser = /((?<qty>(^[[:digit:]]* ?[[:digit:]]+\/[[:digit:]]+)|(^[[:digit:]]+\.?[[:digit:]]*)) *)?((?<unit>(?<!^)[[:alpha:]]+) +)?(?<name>.+)?/
+              matches = ingredient_parser.match(ingredient.strip)
+              parsed_ingredient = { qty: (matches[:qty] || "") , unit: ( matches[:unit] || "") , name: matches[:name] || "" }
             end
             parsed_ingredient || ingredient
           end
