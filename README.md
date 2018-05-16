@@ -102,8 +102,8 @@ Run all tests with this command
 
 ## Screenshots of current version
 
-!["Home page view"](#)
-!["Detailed recipe view"](#)
+!["Home page view"](https://github.com/thelornenelson/zen-spork/blob/master/docs/home_page.png)
+!["Detailed recipe view"](https://github.com/thelornenelson/zen-spork/blob/master/docs/detail_view.png)
 
 ## License
 
