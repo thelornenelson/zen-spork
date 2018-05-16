@@ -89,12 +89,13 @@ body {
   }
 
   .nav-user {
-    background-color: rgba(133, 199, 242, 0.0);
     float: right;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 60px;
-    padding: 0 10px;
+    font-size: 17px;
+    padding: 6px;
+    margin-left: 10px;
+    margin-top: 0px;
+    border-radius: 100px;
   }
 }
 
@@ -300,7 +301,8 @@ body {
   min-width: 240px;
   object-fit: cover;
   overflow: hidden;
-
+  margin-bottom: 10px;
+  margin-left: 13px;
 }
 
 .DPU-buttons {
@@ -314,8 +316,12 @@ body {
 
 #adjustServing {
   display: inline-block;
-  height: 90%;
+  height: 100%;
   width: 100px;
+  background: #3b92cc;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .serving-size {
@@ -331,7 +337,8 @@ body {
   background: #3b92cc;
   border-color: #3b92cc;
   border: 1px solid transparent;
-  padding: .375rem .75rem;
+  height: 38px;
+  padding: .1rem .75rem .1rem .75rem;
   line-height: 1.5;
   border-radius: .25rem;
 }
@@ -397,4 +404,31 @@ td, th {
 .servingAdjuster {
   position: relative;
   bottom: 14px;
+}
+
+.login-buttons {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+// styles for dropdown user menu
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown__content {
+  display: none;
+  position: absolute;
+}
+
+.dropdown--active .dropdown__content {
+  display: block;
+  margin-top: 18px;
+  background-color: $navbar-color;
+  right: -16px;
+  padding: 15px;
+  color: white;
+  width: auto;
+  text-align: right;
+  white-space : nowrap;
 }
