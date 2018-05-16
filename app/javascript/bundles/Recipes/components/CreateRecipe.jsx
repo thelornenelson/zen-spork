@@ -85,15 +85,16 @@ export default class CreateRecipe extends React.Component {
   fillEditRecipeForm = (e) => {
     if(e){e.preventDefault();}
     let recipe = this.props.currentEditRecipe;
+    console.log(recipe);
     const recipeSteps = [];
     recipe.content.steps.forEach((step) =>{
       let ingredientsForStep = "";
       step.ingredients.forEach((ingredient) => {
-        ingredientsForStep += (ingredient.qty + "  " + ingredient.unit + "  " + ingredient.name + "\n");
+        ingredientsForStep += (ingredient.qty + " " + ingredient.unit + " " + ingredient.name + "\n");
       });
       const currentStep = {
         instructions: step.instructions,
-        ingredients: ingredientsForStep.slice(0, ingredientsForStep.length - 1),
+        ingredients: ingredientsForStep.trim().slice(0, ingredientsForStep.length - 1),
       };
       recipeSteps.push(currentStep);
     });
