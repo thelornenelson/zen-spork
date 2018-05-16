@@ -17,7 +17,7 @@ export default class Recipes extends React.Component {
       currentEditRecipe: {},
       recipes: [],
       notification: "",
-      mininimumSimilarity: 0.75
+      mininimumSimilarity: 0.3
     };
 
     this.getRecipeById = this.getRecipeById.bind(this);
