@@ -9,7 +9,7 @@ export default class RecipeIndex extends React.Component {
       <div className="logo">
         <img className="spork-logo-full" src="./spork_full.png" alt="Spork"/>
         <div className="catchphrase">
-          <button className="begin-button" name="splashPage" onClick={this.props.toggleViews}>Your Culinary Destiny Starts Here <i className="fas fa-angle-right fa-lg"></i></button>
+          <button className="begin-button" name="splashPage" onClick={this.props.toggleViews}>Your Culinary Destiny Awaits <i className="fas fa-angle-right fa-lg"></i></button>
         </div>
       </div>
     );
