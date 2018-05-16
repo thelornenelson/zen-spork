@@ -20,6 +20,7 @@ export default class Recipes extends React.Component {
     };
 
     this.getRecipeById = this.getRecipeById.bind(this);
+    this.getRecipes = this.getRecipes.bind(this);
   }
 
   // calls get recipe after virtual DOM is loaded
@@ -28,13 +29,16 @@ export default class Recipes extends React.Component {
   }
 
   // gets recipes, sets to state and returns a console error on problem
-  getRecipes() {
+  getRecipes(cb) {
     fetch("/recipes.json")
       .then((response) => {
         return response.json();
       })
       .then((recipes) => {
         this.setState({ recipes: recipes });
+        if(cb){
+          cb();
+        }
       })
       .catch((ex) => {
         console.log("parsing failed", ex);
@@ -42,25 +46,29 @@ export default class Recipes extends React.Component {
   }
 
   toggleViews = (e, currentRecipe) => {
-    e.preventDefault();
+    if(e){
+      e.preventDefault();
+    }
     let newState = {
       createRecipe: false,
       editRecipe: false,
       recipeIndex: false,
       myRecipesView: false,
     };
-    if(this.state[e.target.name]){
-      newState.recipeIndex = true;
-    } else if (e.target.name === "myRecipesView"){
-      newState[e.target.name] = true;
-      newState.recipeIndex = true;
-    } else if (currentRecipe){
+    if (currentRecipe){
       this.setState({
         currentEditRecipe: currentRecipe
       });
       newState.editRecipe = true;
     } else {
-      newState[e.target.name] = true;
+      if(this.state[e.target.name]){
+        newState.recipeIndex = true;
+      } else if (e.target.name === "myRecipesView"){
+        newState[e.target.name] = true;
+        newState.recipeIndex = true;
+      } else {
+        newState[e.target.name] = true;
+      }
     }
     this.setState(newState);
     this.getRecipes();
@@ -83,8 +91,12 @@ export default class Recipes extends React.Component {
       credentials: "same-origin"
     }).then((response) => {
       if (response.status === 201 || response.status === 200) {
-        this.returnToIndexView();
-        this.showNotification("Spork Created!");
+        const recipeId = Number(response.headers.get("Recipe-Id"));
+        // this.returnToIndexView();
+        this.getRecipes(() => {
+          this.toggleViews(null, this.getRecipeById(recipeId));
+          this.showNotification("Spork Created!");
+        });
       }
       return response.text();
     }, function (error) {

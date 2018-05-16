@@ -173,8 +173,8 @@ export default class DetailedPopup extends React.Component {
                 <div className="row">
                   <FullScreenButton recipe={this.props.getRecipeById(recipe.id)} multi={this.state.servingMultiplier} />
                   {/* Hide spork button if not logged in, or it's your recipe you're viewing */}
-                  {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.getRecipeById(recipe.id), e); this.props.onClose(); }}><i className="fas fa-clone"></i> Spork</button>}
-                  {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => { this.props.toggleViews(e, this.props.getRecipeById(recipe.id)); }}><i className="fas fa-edit"></i> Edit</button>}
+                  {this.props.current_user_id !== recipe.user_id && this.props.current_user_id && <button type="button" className={"btn btn-primary"} onClick={(e) => { this.props.sporkRecipe(this.props.getRecipeById(recipe.id), e);}}><i className="fas fa-clone"></i> Spork</button>}
+                  {this.props.current_user_id === recipe.user_id && <button type="button" name="editRecipe" className={"btn btn-primary"} onClick={(e) => {this.props.toggleViews(e, this.props.getRecipeById(recipe.id));}}><i className="fas fa-edit"></i> Edit</button>}
                 </div>
                 <div className="row">
                   <form>
