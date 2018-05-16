@@ -85,7 +85,7 @@ export default class DetailedPopup extends React.Component {
           let secondNum = parseInt(servings.slice(i+1, servings.length));
           let lengthOfNums = firstNum.toString().length + secondNum.toString().length + 1;
           if (isNaN(firstNum)) return servings;
-          if (isNaN(secondNum)) return sevings;
+          if (isNaN(secondNum)) return servings;
           firstNum = firstNum * this.state.servingMultiplier;
           secondNum = secondNum * this.state.servingMultiplier;
           output = output + firstNum + "-" + secondNum + servings.slice(lengthOfNums, servings.length);
