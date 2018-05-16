@@ -47,7 +47,7 @@ export default class FullScreenView extends React.Component {
     const allInstructions = recipe.content.steps.map((step, stepIndex) => {
       return (
         <div className="row" key={stepIndex}>
-          <div className="col-xl-8" >{stepIndex + 1}. {step.instructions}</div>
+          <div className="col-xl-12" >{stepIndex + 1}. {step.instructions}</div>
         </div>);
     });
 
